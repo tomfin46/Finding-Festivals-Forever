@@ -3,7 +3,7 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
-    <link href="../css/css.css" rel="stylesheet" type="text/css">
+    <link href="../../css/css.css" rel="stylesheet" type="text/css"/>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome to Spring Web MVC project</title>
