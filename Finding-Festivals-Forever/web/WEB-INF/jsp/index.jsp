@@ -3,7 +3,6 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
-    <link href="../css/css.css" rel="stylesheet" type="text/css">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome to Spring Web MVC project</title>
@@ -16,6 +15,6 @@
                 the redirection in</i> <tt>redirect.jsp</tt> <i>to point to the new
                 welcome page and also update the welcome-file setting in</i>
             <tt>web.xml</tt>.</p>
-        <a href="login.jsp">Login Page</a>
+        <a href="../../login.jsp">Login Page</a>
     </body>
 </html>
