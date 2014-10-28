@@ -17,6 +17,11 @@
                 the redirection in</i> <tt>redirect.jsp</tt> <i>to point to the new
                 welcome page and also update the welcome-file setting in</i>
             <tt>web.xml</tt>.</p>
-        <a href="login.htm">Login Page DOES NOT EXIST HA!</a>
+        <div class="navBar">${apikey}</div>
+        <div class="festivalFinder">
+            <div class="mapsComponent"></div>
+        </div>
+        <div class="allFestivals"></div>
+        <div class="social"></div>
     </body>
 </html>

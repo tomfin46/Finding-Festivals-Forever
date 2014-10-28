@@ -11,15 +11,15 @@ package festivals.model;
  */
 public class User {
     
-    private String Username;
+    private String username;
     
     public User(String username)
     {
-        this.Username = username;
+        this.username = username;
     }
     
     public String GetUsername()
     {
-        return Username;
+        return username;
     }
 }
