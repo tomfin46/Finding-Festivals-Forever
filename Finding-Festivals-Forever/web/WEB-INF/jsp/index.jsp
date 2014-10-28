@@ -17,11 +17,16 @@
                 the redirection in</i> <tt>redirect.jsp</tt> <i>to point to the new
                 welcome page and also update the welcome-file setting in</i>
             <tt>web.xml</tt>.</p>
-        <div class="navBar">${apikey}</div>
+        <div class="navBar"></div>
         <div class="festivalFinder">
             <div class="mapsComponent"></div>
         </div>
         <div class="allFestivals"></div>
         <div class="social"></div>
+        <form method="POST" action="/Finding-Festivals-Forever/login">
+            Username: <input type="text" name="username" />
+            Password: <input type="password" name="password" />
+            <input type="submit" value="Submit" />
+        </form>
     </body>
 </html>

@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package festivals.model.performer;
+package festivals.model.user;
 
 /**
  *
- * @author Tom Finlayson
+ * @author Tom
  */
-public class BasePerformer {
-    
-    private String name;
+public enum LoginResult {
+    SUCCESS, USER_DOES_NOT_EXIST, PASSWORD_INCORRECT, FATAL_ERROR
 }

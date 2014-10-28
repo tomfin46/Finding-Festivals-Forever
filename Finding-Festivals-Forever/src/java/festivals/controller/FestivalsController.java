@@ -5,7 +5,7 @@
  */
 package festivals.controller;
 
-import festivals.service.utils.ConfigReader;
+import festivals.service.utils.DatabaseConnection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,20 +17,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Tom Finlayson
  */
 @Controller
-@RequestMapping("/festivals")
+@RequestMapping("/")
 public class FestivalsController {
-    
+
     @Autowired
-    private ConfigReader configReader;
-    
+    private DatabaseConnection dbConnection;
+
     @RequestMapping(method = RequestMethod.GET)
-    public String loadConfig(ModelMap model) {
-        configReader = new ConfigReader();
-        
-        String apikey = configReader.getPropertyValue("mapsapi");
-        
-        model.addAttribute("apikey", apikey);
-        
+    public String initWebsite(ModelMap model) {
+        dbConnection = DatabaseConnection.getInstance();
+
         return "index";
     }
 }
