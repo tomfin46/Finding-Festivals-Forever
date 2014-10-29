@@ -6,11 +6,10 @@
 package festivals.controller;
 
 import festivals.model.user.LoginResult;
+import festivals.model.user.RegisterResult;
 import festivals.model.user.User;
 import festivals.service.utils.DatabaseConnection;
 import festivals.service.utils.Utilities;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -39,6 +38,27 @@ public class LoginController {
         LoginResult loginResult = tryLogin(user);
 
         model.addAttribute("result", loginResult);
+
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("hashedpassword", Utilities.hashString(user.getPassword()));
+
+        return "result";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String register(@ModelAttribute User user, ModelMap model) {
+        dbConnection = DatabaseConnection.getInstance();
+
+        RegisterResult registerResult = RegisterResult.GENERAL_ERROR;
+                
+        if (validateUser(user)) {
+            registerResult = tryRegister(user);
+        }
+        else {
+            registerResult = RegisterResult.VALIDATION_ERROR;
+        }
+        
+        model.addAttribute("result", registerResult);
 
         model.addAttribute("username", user.getUsername());
         model.addAttribute("hashedpassword", Utilities.hashString(user.getPassword()));
@@ -75,5 +95,38 @@ public class LoginController {
         }
 
         return loginResult;
+    }
+
+    private RegisterResult tryRegister(User user) {
+        RegisterResult registerResult = RegisterResult.FATAL_ERROR;
+
+        LoginResult loginResult = tryLogin(user);
+
+        if (loginResult != LoginResult.USER_DOES_NOT_EXIST) {
+            registerResult = RegisterResult.USER_ALREADY_EXISTS;
+        } else {
+            String hashedPassword = Utilities.hashString(user.getPassword());
+            String insertUser = "INSERT INTO users (username, password, name, email, country, postcode) "
+                    + "VALUES ('" + user.getUsername() + "','" + hashedPassword + "','" + user.getName() + "','" + user.getEmail() + "','" + user.getCountry() + "','" + user.getPostcode() + "');";
+
+            try {
+                boolean success = dbConnection.executeSQL(insertUser);
+
+                if (success) {
+                    registerResult = RegisterResult.SUCCESS;
+                }
+                else {
+                    registerResult = RegisterResult.GENERAL_ERROR;
+                }
+            } catch (NullPointerException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "NullPointer from DB connection still not properly initialised", ex);
+            }
+        }
+
+        return registerResult;
+    }
+
+    private boolean validateUser(User user) {
+        return true;
     }
 }

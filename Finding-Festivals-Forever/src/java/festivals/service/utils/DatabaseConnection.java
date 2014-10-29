@@ -49,16 +49,18 @@ public class DatabaseConnection {
         }
     }
 
-    public void executeSQL(String sqlToExecute) {
+    public boolean executeSQL(String sqlToExecute) {
         try {
             if (conn == null) {
                 initConnectionToDb();
             }
             Statement st = conn.createStatement();
             st.execute(sqlToExecute);
+            return true;
             
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, "Error executing sql statement", ex);
+            return false;
         }
     }
 
