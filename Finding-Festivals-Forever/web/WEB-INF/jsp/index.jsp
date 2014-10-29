@@ -28,13 +28,13 @@
         </div>
         <div class="allFestivals"></div>
         <div class="social"></div>
-        Login: <form method="POST" action="/Finding-Festivals-Forever/login">
+        <h1>Login:</h1> <form method="POST" action="/Finding-Festivals-Forever/login">
             Username: <input type="text" name="username" />
             Password: <input type="password" name="password" />
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Login" />
         </form>
         
-        Register: <form method="POST" action="/Finding-Festivals-Forever/register">
+        <h1>Register:</h1> <form method="POST" action="/Finding-Festivals-Forever/register">
             Username: <input type="text" name="username" />
             Password: <input type="password" name="password" />
             Confirm Password: <input type="password" name="confirmedPassword" />
@@ -42,7 +42,7 @@
             Email: <input type="email" name="email" />
             Postcode: <input type="text" name="postcode" />
             Country: 
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Register" />
         </form>
     </body>
 </html>
