@@ -3,9 +3,14 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
-    <link href="../../css/css.css" rel="stylesheet" type="text/css"/>
+  <!--  <link href="../../css/css.css" rel="stylesheet" type="text/css"/> 
+  <link href="${pageContext.request.contextPath}/resources/css/css.css" rel="stylesheet" >
+-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Welcome to Spring Web MVC project</title>
     </head>
 
