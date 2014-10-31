@@ -5,11 +5,11 @@
 <html>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/Carousel.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-
+    
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Welcome to Spring Web MVC project</title>
+        <title>Festival Finder Forever!</title>
     </head>
 
     <body>
@@ -26,30 +26,19 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="#">Festival Finder </a>
+                            <a class="navbar-brand" href="#">Festival Finder Forever! </a>
                         </div>
                         <div id="navbar" class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="#">Home</a></li>
+<!--                                <li class="active"><a href="#">Home</a></li>-->
                                 <li><a href="#about">About</a></li>
-                                <li><a href="#contact">Contact</a></li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="#">Action</a></li>
-                                        <li><a href="#">Another action</a></li>
-                                        <li><a href="#">Something else here</a></li>
-                                        <li class="divider"></li>
-                                        <li class="dropdown-header">Nav header</li>
-                                        <li><a href="#">Separated link</a></li>
-                                        <li><a href="#">One more separated link</a></li>
-                                    </ul>
-                                </li>
+                                <li><a href="#favorites">Favorites</a></li>
+                                <li><a href="#register">Register</a></li>
+                                <li><a href="#login">Login</a></li>
                             </ul>
                         </div>
                     </div>
                 </nav>
-
             </div>
         </div>
 
@@ -68,9 +57,9 @@
                     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
                     <div class="container">
                         <div class="carousel-caption">
-                            <h1>Festival Finder Forever.</h1>
-                            <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
-                            <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+                            <h1>Festival Finder Forever!</h1>
+                            <p>Looking for festivals around you? Looking for specific dates? Looking for specific performers? You are in the right place! </p>
+                            <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse Festivals</a></p>
                         </div>
                     </div>
                 </div>
@@ -78,8 +67,8 @@
                     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAGZmZgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide">
                     <div class="container">
                         <div class="carousel-caption">
-                            <h1>Another example headline.</h1>
-                            <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+                            <h1> Check the weather</h1>
+                            <p><a class="btn btn-lg btn-primary" href="#" role="button"> Get the latest forecast for the festival! </a></p>
                         </div>
                     </div>
                 </div>
@@ -87,9 +76,9 @@
                     <img src="data:image/gif;base64,R0lGODlhAQABAIAAAFVVVQAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide">
                     <div class="container">
                         <div class="carousel-caption">
-                            <h1>One more for good measure.</h1>
-                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                            <p><a class="btn btn-lg btn-primary" href="#" role="button">Browse gallery</a></p>
+                            <h1>Share Festivals</h1>
+                            <p> Going to this Festival? Share it with friends! </p>
+                            <p><a class="btn btn-lg btn-primary" href="#" role="button"> Share this festival</a></p>
                         </div>
                     </div>
                 </div>
@@ -104,12 +93,51 @@
             </a>
         </div><!-- /.carousel -->
 
-        <p>Hello! This is the default welcome page for a Spring Web MVC project.</p>
-        <p><i>To display a different welcome page for this project, modify</i>
-            <tt>index.jsp</tt> <i>, or create your own welcome page then change
-                the redirection in</i> <tt>redirect.jsp</tt> <i>to point to the new
-                welcome page and also update the welcome-file setting in</i>
-            <tt>web.xml</tt>.</p>
+        
+        <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Festivals <span class="text-muted">Browse Festivals.</span></h2>
+          <p class="lead">Looking for festivals around you? Looking for specific dates? Looking for specific performers? You are in the right place! </p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" data-src="find.jpg/200x200/auto" alt="find">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" data-src="weather.jpg/200x200/auto" alt="weather">
+        </div>
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Check the weather 
+          <p class="lead"> Get the latest forecast for the festival! </p>
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading"> Share Festivals 
+          <p class="lead">Going to this Festival? Share it with friends!</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" data-src="share.jpg/200x200/auto" alt="share">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <!-- /END THE FEATURETTES -->
+        
+        <p>Hello! </p>
+        <p>Looking forward to the next festival season? You're in the right place! Find festivals around you,choose performers and dates. Load up your tent and coolers and get ready to be part of the biggest festivals.   </p>
 
         <div class="festivalFinder">
             <div class="mapsComponent"></div>
@@ -117,22 +145,24 @@
         <div class="allFestivals"></div>
         <div class="social"></div>
         <h1>Login:</h1> <form method="POST" action="/Finding-Festivals-Forever/login">
-            Username: <input type="text" name="username" />
-            Password: <input type="password" name="password" />
-            <input type="submit" value="Login" />
+           <p>Username: <input type="text" name="username" </p>
+           <p>Password: <input type="password" name="password" </p>
+            <p><input type="submit" value="Login" </p>
         </form>
 
 
 
         <h1>Register:</h1> <form method="POST" action="/Finding-Festivals-Forever/register">
-            Username: <input type="text" name="username" />
-            Password: <input type="password" name="password" />
-            Confirm Password: <input type="password" name="confirmedPassword" />
-            Name: <input type="text" name="name" />
-            Email: <input type="email" name="email" />
-            Postcode: <input type="text" name="postcode" />
-            Country: 
-            <input type="submit" value="Register" />
+            <p> Username: <input type="text" name="username" </p>
+            <p>Password: <input type="password" name="password" </p>
+            <p>Confirm Password: <input type="password" name="confirmedPassword" </p>
+            <p>Name: <input type="text" name="name" </p>
+            <p>Email: <input type="email" name="email" </p>
+            <p>Postcode: <input type="text" name="postcode" </p>
+            <p>Country: 
+            <p><input type="submit" value="Register" </p>
         </form>
     </body>
 </html>
+
+​

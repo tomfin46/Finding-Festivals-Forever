@@ -25,5 +25,10 @@
     <mvc:annotation-driven/>
     <mvc:resources mapping="/css/**"  location="/WEB-INF/resources/css/" />
     
+<!--    image resources-->
+    <mvc:resources mapping="/images/find.jpg"  location="/WEB-INF/resources/images/find.jpg" />
+    <mvc:resources mapping="/images/weather.jpg"  location="/WEB-INF/resources/images/weather.jpg" />
+    <mvc:resources mapping="/images/share.jpg"  location="/WEB-INF/resources/images/share.jpg" />
+
        
 </beans>
