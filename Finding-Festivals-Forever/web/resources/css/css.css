@@ -12,11 +12,14 @@ and open the template in the editor.
 body  {
     font: 100% Verdana, Arial, Helvetica, sans-serif;
     background: #666666;
-    margin: 0; 
+    width: 900px; 
+    margin: 0px auto 0px auto; 
     padding: 0;
     text-align: center; 
     color: #000000;
 }
+
+
 .thrColLiqHdr #container { 
     width: 80%; 
     background: #FFFFFF;

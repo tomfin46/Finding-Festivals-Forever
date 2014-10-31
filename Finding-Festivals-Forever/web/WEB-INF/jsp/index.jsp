@@ -5,7 +5,7 @@
 <html>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/Carousel.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-    
+
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -13,7 +13,6 @@
     </head>
 
     <body>
-
         <div class="navbar-wrapper">
             <div class="container">
 
@@ -30,7 +29,7 @@
                         </div>
                         <div id="navbar" class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-<!--                                <li class="active"><a href="#">Home</a></li>-->
+                                <!--                                <li class="active"><a href="#">Home</a></li>-->
                                 <li><a href="#about">About</a></li>
                                 <li><a href="#favorites">Favorites</a></li>
                                 <li><a href="#register">Register</a></li>
@@ -93,60 +92,62 @@
             </a>
         </div><!-- /.carousel -->
 
-        
+
         <!-- START THE FEATURETTES -->
 
-      <hr class="featurette-divider">
+        <hr class="featurette-divider">
 
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading">Festivals <span class="text-muted">Browse Festivals.</span></h2>
-          <p class="lead">Looking for festivals around you? Looking for specific dates? Looking for specific performers? You are in the right place! </p>
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Festivals <span class="text-muted">Browse Festivals.</span></h2>
+                <p class="lead">Looking for festivals around you? Looking for specific dates? Looking for specific performers? You are in the right place! </p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-responsive" data-src="find.jpg/200x200/auto" alt="find">
+            </div>
         </div>
-        <div class="col-md-5">
-          <img class="featurette-image img-responsive" data-src="find.jpg/200x200/auto" alt="find">
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+            <div class="col-md-5">
+                <img class="featurette-image img-responsive" data-src="weather.jpg/200x200/auto" alt="weather">
+            </div>
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Check the weather 
+                    <p class="lead"> Get the latest forecast for the festival! </p>
+            </div>
         </div>
-      </div>
 
-      <hr class="featurette-divider">
+        <hr class="featurette-divider">
 
-      <div class="row featurette">
-        <div class="col-md-5">
-          <img class="featurette-image img-responsive" data-src="weather.jpg/200x200/auto" alt="weather">
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading"> Share Festivals 
+                    <p class="lead">Going to this Festival? Share it with friends!</p>
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-responsive" data-src="share.jpg/200x200/auto" alt="share">
+            </div>
         </div>
-        <div class="col-md-7">
-          <h2 class="featurette-heading">Check the weather 
-          <p class="lead"> Get the latest forecast for the festival! </p>
-        </div>
-      </div>
 
-      <hr class="featurette-divider">
+        <hr class="featurette-divider">
 
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading"> Share Festivals 
-          <p class="lead">Going to this Festival? Share it with friends!</p>
-        </div>
-        <div class="col-md-5">
-          <img class="featurette-image img-responsive" data-src="share.jpg/200x200/auto" alt="share">
-        </div>
-      </div>
+        <!-- /END THE FEATURETTES source: view-source:http://getbootstrap.com/examples/carousel/  -->
 
-      <hr class="featurette-divider">
-
-      <!-- /END THE FEATURETTES -->
-        
         <p>Hello! </p>
         <p>Looking forward to the next festival season? You're in the right place! Find festivals around you,choose performers and dates. Load up your tent and coolers and get ready to be part of the biggest festivals.   </p>
 
         <div class="festivalFinder">
             <div class="mapsComponent"></div>
         </div>
+        
         <div class="allFestivals"></div>
+        
         <div class="social"></div>
         <h1>Login:</h1> <form method="POST" action="/Finding-Festivals-Forever/login">
-           <p>Username: <input type="text" name="username" </p>
-           <p>Password: <input type="password" name="password" </p>
+            <p>Username: <input type="text" name="username" </p>
+            <p>Password: <input type="password" name="password" </p>
             <p><input type="submit" value="Login" </p>
         </form>
 
