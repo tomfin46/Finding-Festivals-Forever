@@ -194,6 +194,7 @@
     <div class="allFestivals"></div>
 
     <div class="social"></div>
+        
     <h1>Login:</h1> 
     <form method="POST" action="/Finding-Festivals-Forever/login">
         <p>Username: <input type="text" name="username"  placeholder="Enter username"</p>
@@ -206,8 +207,54 @@
 
 
 
-    <h1>Register:</h1> <form method="POST" action="/Finding-Festivals-Forever/register">
-        <p> Username: <input type="text" name="username" placeholder="Enter username"</p>
+    <h1>Register:</h1> 
+    
+    <form method="POST" action="/Finding-Festivals-Forever/register">
+        
+<!--        COMMENT FOR THE TEAM: validation for name. Unsure if this piece of code should be added in a source package instead.-->
+
+        <script>
+function validate(){
+  var elems = document.getElementsByClassName( 'dynamicAddedItems' );
+  var allgood = true;
+
+  //Loop through all elements with this class
+  for( var i = 0; i < elems.length; i++ ) {
+    if( !elems[i].value || !elems[i].value.length ) {
+      elems[i].className += " error";
+      allgood = false;
+    } else {
+      elems[i].className = "item_text_area item_name dynamicAddedItems";
+    }
+  }
+
+  //If any element did not meet the requirements, prevent it from being submitted and display an alert
+  if( !allgood ) {
+    alert( "Please fill in all the required fields." );
+    return false;
+  }
+
+  //Otherwise submit the form
+  return true;
+}
+</script>
+        
+<!--        COMMENT FOR THE TEAM: validation for email. Unsure if this piece of code should be added in a source package instead.-->
+            <script>
+function validateForm() {
+    var x = document.forms["register"]["email"].value;
+    var atpos = x.indexOf("@");
+    var dotpos = x.lastIndexOf(".");
+    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+        alert("Not a valid e-mail address");
+        return false;
+    }
+}
+</script>
+        
+
+
+        <p>Username: <input type="text" name="username" placeholder="Enter username"</p>
         <p>Password: <input type="password" name="password" placeholder="Enter password"</p>
         <p>Confirm Password: <input type="password" name="confirmedPassword" placeholder="Confirm password" </p>
         <p>Name: <input type="text" name="name" placeholder="Enter name" </p>
