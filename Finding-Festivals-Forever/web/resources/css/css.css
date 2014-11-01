@@ -12,10 +12,10 @@ and open the template in the editor.
 body  {
     font: 100% Verdana, Arial, Helvetica, sans-serif;
     background: #666666;
-    width: 900px; 
+    width: auto; 
     margin: 0px auto 0px auto; 
-    padding: 0;
-    text-align: center; 
+    padding: 100;
+/*    text-align: center; */
     color: #000000;
 }
 
