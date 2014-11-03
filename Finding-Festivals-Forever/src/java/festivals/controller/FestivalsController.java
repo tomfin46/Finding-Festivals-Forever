@@ -5,7 +5,10 @@
  */
 package festivals.controller;
 
+import festivals.resources.CountryConstantsEnum;
 import festivals.service.utils.DatabaseConnection;
+import java.util.Arrays;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,7 +29,13 @@ public class FestivalsController {
     @RequestMapping(method = RequestMethod.GET)
     public String initWebsite(ModelMap model) {
         dbConnection = DatabaseConnection.getInstance();
-
+        countryList(model);
         return "index";
+    }
+    
+    private void countryList(ModelMap model) {
+        List<CountryConstantsEnum> countryList = Arrays.asList(CountryConstantsEnum.values());
+       
+        model.addAttribute("countryList", countryList);
     }
 }

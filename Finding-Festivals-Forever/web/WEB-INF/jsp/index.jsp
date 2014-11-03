@@ -5,14 +5,16 @@
 <html>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/Carousel.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css">
-
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <!--    links to the rest of css files -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/css.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/login.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/register.css">
 
-    <head>
 
+    <head>
+        <!-- Required for G+ Share -->
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Festival Finder Forever!</title>
 
@@ -60,6 +62,17 @@
 </head>
 
 <body>
+    <!-- Required for Facebook Share -->    
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id))
+                return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
     <div class="navbar-wrapper">
         <div class="container">
 
@@ -101,7 +114,7 @@
         </ol>
         <div class="carousel-inner" role="listbox">
             <div class="item active">
-            <!--                                <img src="resources/images/find.jpg" alt="First slide">-->
+                <!--                                <img src="resources/images/find.jpg" alt="First slide">-->
                 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
                 <div class="container">
                     <div class="carousel-caption">
@@ -127,6 +140,8 @@
                         <h1>Share Festivals</h1>
                         <p> Going to this Festival? Share it with friends! </p>
                         <p><a class="btn btn-lg btn-primary" href="#" role="button"> Share this festival</a></p>
+                        <div class="g-plus" data-action="share"></div>
+                        <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/"></div>
                     </div>
                 </div>
             </div>
@@ -194,7 +209,6 @@
     <div class="allFestivals"></div>
 
     <div class="social"></div>
-        
     <h1>Login:</h1> 
     <form method="POST" action="/Finding-Festivals-Forever/login">
         <p>Username: <input type="text" name="username"  placeholder="Enter username"</p>
@@ -207,60 +221,22 @@
 
 
 
-    <h1>Register:</h1> 
-    
-    <form method="POST" action="/Finding-Festivals-Forever/register">
-        
-<!--        COMMENT FOR THE TEAM: validation for name. Unsure if this piece of code should be added in a source package instead.-->
-
-        <script>
-function validate(){
-  var elems = document.getElementsByClassName( 'dynamicAddedItems' );
-  var allgood = true;
-
-  //Loop through all elements with this class
-  for( var i = 0; i < elems.length; i++ ) {
-    if( !elems[i].value || !elems[i].value.length ) {
-      elems[i].className += " error";
-      allgood = false;
-    } else {
-      elems[i].className = "item_text_area item_name dynamicAddedItems";
-    }
-  }
-
-  //If any element did not meet the requirements, prevent it from being submitted and display an alert
-  if( !allgood ) {
-    alert( "Please fill in all the required fields." );
-    return false;
-  }
-
-  //Otherwise submit the form
-  return true;
-}
-</script>
-        
-<!--        COMMENT FOR THE TEAM: validation for email. Unsure if this piece of code should be added in a source package instead.-->
-            <script>
-function validateForm() {
-    var x = document.forms["register"]["email"].value;
-    var atpos = x.indexOf("@");
-    var dotpos = x.lastIndexOf(".");
-    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
-        alert("Not a valid e-mail address");
-        return false;
-    }
-}
-</script>
-        
-
-
-        <p>Username: <input type="text" name="username" placeholder="Enter username"</p>
+    <h1>Register:</h1> <form method="POST" action="/Finding-Festivals-Forever/register">
+        <p> Username: <input type="text" name="username" placeholder="Enter username"</p>
         <p>Password: <input type="password" name="password" placeholder="Enter password"</p>
         <p>Confirm Password: <input type="password" name="confirmedPassword" placeholder="Confirm password" </p>
         <p>Name: <input type="text" name="name" placeholder="Enter name" </p>
         <p>Email: <input type="email" name="email" placeholder="Enter email" </p>
         <p>Postcode: <input type="text" name="postcode" placeholder="Enter postcode"</p>
-        <p>Country: <input placeholder="Choose country"</p>
+        <p>Country: 
+            <select name="countryLst" id="countryLst">
+                <option value=""></option>
+                <c:forEach items="${countryList}" var="option">
+                    <option value="${option}">
+                        <c:out value="${option.name}"></c:out>
+                        </option>
+                </c:forEach>
+            </select>
         <p><input type="submit" value="Register" </p> 
     </form>
 </body>

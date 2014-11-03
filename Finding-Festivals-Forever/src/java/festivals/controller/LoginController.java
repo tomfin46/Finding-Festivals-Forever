@@ -65,7 +65,7 @@ public class LoginController {
 
         return "result";
     }
-
+    
     private LoginResult tryLogin(User user) {
         String queryUser = "SELECT * FROM users WHERE username='" + user.getUsername() + "';";
         LoginResult loginResult = LoginResult.FATAL_ERROR;
