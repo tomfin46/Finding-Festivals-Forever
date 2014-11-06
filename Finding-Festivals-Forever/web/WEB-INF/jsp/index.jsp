@@ -13,7 +13,8 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/css.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/login.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/register.css" />-->
-
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/mapsComponent.css" />-->
+        
         <!-- JavaScript Files -->
         <!--External-->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> <!-- JQuery -->
@@ -179,12 +180,6 @@
                 <div class="mapsComponent" data-type="place" data-place="fisht olympic stadium,sochi russia" data-context="${pageContext.request.contextPath}"></div>
 
                 <input class="locationInput" type="text" name="location" />
-                <!--<iframe
-                    width="600"
-                    height="450"
-                    frameborder="0" style="border:0"
-                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA_p5L_2uLMHSTyOdr_c3XnRiAD8maHwWc&q=Fisht+Olympic+Stadium,Sochi+Russia">
-                </iframe>-->
             </div>
         </div>
 

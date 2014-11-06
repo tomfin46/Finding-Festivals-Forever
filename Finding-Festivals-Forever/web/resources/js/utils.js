@@ -11,7 +11,7 @@ var Utils = (function () {
     var isValidVariable, isValidNonEmptyString, isValidFn;
 
     isValidVariable = function (variable) {
-        return variable !== null && variable !== 'undefined';
+        return variable !== null && typeof variable !== 'undefined';
     };
 
     isValidNonEmptyString = function (string) {

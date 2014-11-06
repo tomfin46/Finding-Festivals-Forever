@@ -12,9 +12,12 @@ function Component(element, update) {
     var component = {
         dataAttribute: {},
         set: function (key, value) {
-            this.dataAttribute[key] = value;
-            if (Utils.isValidFn(this._updateFn)) {
-                this._updateFn(this._parent);
+            // If new value is different then update dataAttribute and fire update function providing its been set and is valid
+            if (this.dataAttribute[key] !== value) {
+                this.dataAttribute[key] = value;
+                if (Utils.isValidFn(this._updateFn)) {
+                    this._updateFn(this._parent);
+                }
             }
         },
         get: function (key) {
@@ -24,6 +27,7 @@ function Component(element, update) {
         _updateFn: update
     };
 
+    // Initial setup of component by taking data-* attributes defined in the html tag
     $.each(element.dataset, function (key, value) {
         component.set(key, value);
     });
