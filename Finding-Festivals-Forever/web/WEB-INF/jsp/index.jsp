@@ -25,6 +25,7 @@
         <script src="${pageContext.request.contextPath}/resources/js/components/genericComponent.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/components/googleMapsComponent.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/default.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/share.js"></script>
 
         <meta charset=UTF-8" />
         <title>Festival Finder Forever!</title>
@@ -70,17 +71,6 @@
         <!--    declaring top of the page -->
         <a name="top" />
 
-        <!-- Required for Facebook Share -->    
-        <div id="fb-root"></div>
-        <script>(function (d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id))
-                    return;
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));</script>
         <div class="navbar-wrapper">
             <div class="container">
 
