@@ -8,20 +8,22 @@
         <!-- CSS Files -->
         <!--External-->
         <!--<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/Carousel.css" />
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" />
-        <!--Internal-->
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" />-->
+        <!--Internal
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/css.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/login.css" />
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/register.css" />
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/register.css" />-->
 
         <!-- JavaScript Files -->
         <!--External-->
-        <script src="https://apis.google.com/js/platform.js" async defer /> <!-- Required for G+ Share -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> <!-- JQuery -->
+        <script src="https://apis.google.com/js/platform.js" async defer></script> <!-- Google+ Share -->
         <!--Internal-->
-        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/components/googleMapsComponent.js/" />
+        <script src="${pageContext.request.contextPath}/resources/js/dataBinder.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/components/googleMapsComponent.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/default.js"></script>
 
-
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset=UTF-8" />
         <title>Festival Finder Forever!</title>
 
         <!--    adding cookies http://localhost:8080/Finding-Festivals-Forever -->
@@ -172,8 +174,9 @@
             <div class="col-md-5">
                 <img class="featurette-image img-responsive" data-src="find.jpg/200x200/auto" alt="find">
 
-                <div id="mapsComponent" data-place="fisht olympic stadium,sochi russia" data-context="${pageContext.request.contextPath}"></div>
+                <div class="mapsComponent" data-type="place" data-place="fisht olympic stadium,sochi russia" data-context="${pageContext.request.contextPath}"></div>
 
+                <input class="locationInput" type="text" name="location" />
                 <!--<iframe
                     width="600"
                     height="450"
@@ -210,17 +213,6 @@
         <hr class="featurette-divider">
 
         <!-- /END THE FEATURETTES source: view-source:http://getbootstrap.com/examples/carousel/  -->
-
-        <p>Hello! </p>
-        <p>Looking forward to the next festival season? You're in the right place! Find festivals around you,choose performers and dates. Load up your tent and coolers and get ready to be part of the biggest festivals.   </p>
-
-        <div class="festivalFinder">
-            <div class="mapsComponent"></div>
-        </div>
-
-        <div class="allFestivals"></div>
-
-        <div class="social"></div>
 
         <h1>Login:</h1> 
         <form method="POST" action="/Finding-Festivals-Forever/login">

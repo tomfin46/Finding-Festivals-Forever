@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -26,12 +27,12 @@ public class MapsController {
     
     
     @RequestMapping(value="/place", method = RequestMethod.GET)
-    public String getPlaceUrl(@RequestParam(value="place") String place) {
+    public @ResponseBody String getPlaceUrl(@RequestParam(value="place") String place) {
         ConfigFileProperties config = ConfigFileProperties.getInstance();
         String mapsAPI = config.getPropertyValue("mapsapi");
         String gmPlace = ApplicationConstants.GM_PLACE;
         try {
-            String encodedPlace = URLEncoder.encode(place, "UTF_8");
+            String encodedPlace = URLEncoder.encode(place, "UTF-8");
             
             gmPlace = String.format(gmPlace, mapsAPI, encodedPlace);
         } catch (UnsupportedEncodingException ex) {

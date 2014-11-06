@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Tom Finlayson
  */
 @Controller
-@RequestMapping("/")
+@RequestMapping("/index")
 public class FestivalsController {
 
     @Autowired
