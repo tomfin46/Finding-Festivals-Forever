@@ -14,7 +14,7 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/login.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/register.css" />-->
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/mapsComponent.css" />-->
-        
+
         <!-- JavaScript Files -->
         <!--External-->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> <!-- JQuery -->
@@ -140,6 +140,11 @@
                             <p><a class="btn btn-lg btn-primary" href="#" role="button"> Share this festival</a></p>
                             <div class="g-plus" data-action="share"></div>
                             <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/"></div>
+                            <a class="twitter-share-button"
+                               href="https://twitter.com/share">
+                                Tweet
+                            </a>
+
                         </div>
                     </div>
                 </div>
