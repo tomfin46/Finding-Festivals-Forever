@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/*global document, $, GoogleMapsComponent */
+/*global document, $, Component, GoogleMapsComponent */
 
 /*
  * Execute when DOM is loaded
@@ -12,18 +12,15 @@ $(function () {
 
     "use strict";
 
-    // Find all map components in the document and initialise them
-    /*$(".mapsComponent").each(function () {
-        GoogleMapsComponent.setup(this);
-    });*/
-    
-    var gMapsComponent = new GoogleMapsComponent(document.querySelector(".mapsComponent"));
-    
+    var elem = document.querySelector(".mapsComponent"),
+            gMapsComponent = new Component(elem, GoogleMapsComponent.changeSrcUrl);
+    $(elem).data("component", gMapsComponent);
+    GoogleMapsComponent.changeSrcUrl(elem);
+
 
     $(".locationInput").change(function () {
-        var val = $(this).val();
-        var elem = document.querySelector(".mapsComponent");
-        elem.setAttribute("data-place", $(this).val());
-        //$(".mapsComponent").attr("data-place", $(this).val());
+        var val = $(this).val(),
+                mapComponent = document.querySelector(".mapsComponent");
+        $(mapComponent).data("component").set("place", val);
     });
 });

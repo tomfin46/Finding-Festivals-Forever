@@ -4,34 +4,27 @@
  * and open the template in the editor.
  */
 
-
 var Utils = (function () {
 
-});
+    "use strict";
 
+    var isValidVariable, isValidNonEmptyString, isValidFn;
 
+    isValidVariable = function (variable) {
+        return variable !== null && variable !== 'undefined';
+    };
 
-function User(uid) {
-    var binder = new DataBinder(uid),
-            user = {
-                attributes: {},
-                // The attribute setter publish changes using the DataBinder PubSub
-                set: function (attr_name, val) {
-                    this.attributes[ attr_name ] = val;
-                    binder.trigger(uid + ":change", [attr_name, val, this]);
-                },
-                get: function (attr_name) {
-                    return this.attributes[ attr_name ];
-                },
-                _binder: binder
-            };
+    isValidNonEmptyString = function (string) {
+        return isValidVariable(string) && typeof string === 'string' && string !== '';
+    };
 
-    // Subscribe to the PubSub
-    binder.on(uid + ":change", function (evt, attr_name, new_val, initiator) {
-        if (initiator !== user) {
-            user.set(attr_name, new_val);
-        }
-    });
+    isValidFn = function (fn) {
+        return isValidVariable(fn) && typeof fn === 'function';
+    };
 
-    return user;
-}
+    return {
+        isValidVariable: isValidVariable,
+        isValidNonEmptyString: isValidNonEmptyString,
+        isValidFn: isValidFn
+    };
+}());

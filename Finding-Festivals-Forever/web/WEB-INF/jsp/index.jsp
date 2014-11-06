@@ -19,7 +19,9 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> <!-- JQuery -->
         <script src="https://apis.google.com/js/platform.js" async defer></script> <!-- Google+ Share -->
         <!--Internal-->
+        <script src="${pageContext.request.contextPath}/resources/js/utils.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/dataBinder.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/components/genericComponent.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/components/googleMapsComponent.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/default.js"></script>
 
