@@ -140,11 +140,7 @@
                             <p><a class="btn btn-lg btn-primary" href="#" role="button"> Share this festival</a></p>
                             <div class="g-plus" data-action="share"></div>
                             <div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/"></div>
-                            <a class="twitter-share-button"
-                               href="https://twitter.com/share">
-                                Tweet
-                            </a>
-
+                            <a class="twitter-share-button" href="https://twitter.com/share">Tweet</a>
                         </div>
                     </div>
                 </div>
