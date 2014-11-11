@@ -32,21 +32,24 @@ public class LoginController {
     private DatabaseConnection dbConnection;
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@ModelAttribute User user, ModelMap model) {
+    public String loginPost(@ModelAttribute User user, ModelMap model) {
         dbConnection = DatabaseConnection.getInstance();
 
         LoginResult loginResult = tryLogin(user);
-
         model.addAttribute("result", loginResult);
-
         model.addAttribute("username", user.getUsername());
         model.addAttribute("hashedpassword", Utilities.hashString(user.getPassword()));
-
         return "result";
+    }
+    
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login(@ModelAttribute User user, ModelMap model) {
+        dbConnection = DatabaseConnection.getInstance();
+        return "login";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@ModelAttribute User user, ModelMap model) {
+    public String registerPost(@ModelAttribute User user, ModelMap model) {
         dbConnection = DatabaseConnection.getInstance();
 
         RegisterResult registerResult = RegisterResult.GENERAL_ERROR;
@@ -64,6 +67,12 @@ public class LoginController {
         model.addAttribute("hashedpassword", Utilities.hashString(user.getPassword()));
 
         return "result";
+    }
+    
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register(@ModelAttribute User user, ModelMap model) {
+        dbConnection = DatabaseConnection.getInstance();
+        return "register";
     }
     
     private LoginResult tryLogin(User user) {
