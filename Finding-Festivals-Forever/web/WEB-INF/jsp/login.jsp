@@ -1,5 +1,5 @@
 <%-- 
-    Document   : register
+    Document   : login
     Created on : Oct 31, 2014, 11:14:38 PM
     Author     : CharaKatiri
     source: view-source:http://getbootstrap.com/examples/signin/

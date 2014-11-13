@@ -1,5 +1,5 @@
 <%-- 
-    Document   : login
+    Document   : register
     Created on : Oct 31, 2014, 11:14:28 PM
     Author     : CharaKatiri
 --%>
@@ -38,13 +38,21 @@
 
             <h1>Register:</h1> 
             <form method="POST" action="/Finding-Festivals-Forever/register">
-                <p> Username: <input type="text" name="username" </p>
+                <p>Username: <input type="text" name="username" </p>
                 <p>Password: <input type="password" name="password" </p>
                 <p>Confirm Password: <input type="password" name="confirmedPassword" </p>
                 <p>Name: <input type="text" name="name" </p>
                 <p>Email: <input type="email" name="email" </p>
                 <p>Postcode: <input type="text" name="postcode" </p>
                 <p>Country: 
+                    <select name="countryLst" id="countryLst">
+                        <option value=""></option>
+                        <c:forEach items="${countryList}" var="option">
+                            <option value="${option}">
+                                <c:out value="${option.name}"></c:out>
+                                </option>
+                        </c:forEach>
+                    </select>
                 <p><input type="submit" value="Register" </p>
             </form>
 
