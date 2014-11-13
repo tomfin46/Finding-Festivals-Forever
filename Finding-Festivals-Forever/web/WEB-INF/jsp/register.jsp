@@ -35,24 +35,21 @@
     </head>
 
     <body>
-        <h1>Register:</h1> <form method="POST" action="/Finding-Festivals-Forever/register">
-            <p>Username: <input type="text" name="username" placeholder="Enter username"</p>
-            <p>Password: <input type="password" name="password" placeholder="Enter password"</p>
-            <p>Confirm Password: <input type="password" name="confirmedPassword" placeholder="Confirm password" </p>
-            <p>Name: <input type="text" name="name" placeholder="Enter name" </p>
-            <p>Email: <input type="email" name="email" placeholder="Enter email" </p>
-            <p>Postcode: <input type="text" name="postcode" placeholder="Enter postcode"</p>
-            <p>Country: 
-                <select name="countryLst" id="countryLst">
-                    <option value=""></option>
-                    <c:forEach items="${countryList}" var="option">
-                        <option value="${option}">
-                        <c:out value="${option.name}"></c:out>
-                        </option>
-                    </c:forEach>
-                </select>
-            <p><input type="submit" value="Register" </p> 
-        </form>
+
+            <h1>Register:</h1> 
+            <form method="POST" action="/Finding-Festivals-Forever/register">
+                <p> Username: <input type="text" name="username" </p>
+                <p>Password: <input type="password" name="password" </p>
+                <p>Confirm Password: <input type="password" name="confirmedPassword" </p>
+                <p>Name: <input type="text" name="name" </p>
+                <p>Email: <input type="email" name="email" </p>
+                <p>Postcode: <input type="text" name="postcode" </p>
+                <p>Country: 
+                <p><input type="submit" value="Register" </p>
+            </form>
+
+            <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+            <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     </body>
     
 </html>
