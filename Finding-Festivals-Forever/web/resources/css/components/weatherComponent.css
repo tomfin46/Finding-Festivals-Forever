@@ -1,0 +1,43 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 17-Nov-2014, 13:56:37
+    Author     : Tom
+*/
+
+.weatherComponent .day {
+    display: inline-block;
+    margin-right: -4px;
+}
+
+.weatherComponent .day .dayTitle {
+    text-align: center;
+}
+
+.weatherComponent .day .time {
+    margin: 0.5em;
+    padding: 5px;
+    border-color: #000;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.weatherComponent .day .time > img {
+    margin-top: -15px;
+    margin-bottom: -20px;
+}
+
+.weatherComponent .day .time .minTemp, .weatherComponent .day .time .maxTemp {
+    display: inline;
+}
+
+.weatherComponent .day .time .minTemp:after {
+    content: " / ";
+}
+
+.weatherComponent .day .time .windSpeed {
+    display: none;
+}

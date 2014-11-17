@@ -14,19 +14,23 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/css.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/login.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/register.css" />
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/mapsComponent.css" />-->
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/mapsComponent.css" />
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/weatherComponent.css" />
 
         <!-- JavaScript Files -->
         <!--External-->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> <!-- JQuery -->
         <script src="https://apis.google.com/js/platform.js" async defer></script> <!-- Google+ Share -->
+        <script src="http://momentjs.com/downloads/moment.js"></script> <!-- moment.js - datetime manipulations -->
         <!--Internal-->
         <script src="${pageContext.request.contextPath}/resources/js/utils.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/dataBinder.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/share.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/geolocation.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/components/genericComponent.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/components/googleMapsComponent.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/components/weatherComponent.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/default.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/share.js"></script>
 
         <meta charset=UTF-8" />
         <title>Festival Finder Forever!</title>
@@ -71,6 +75,7 @@
     <body>
         <!--    declaring top of the page -->
         <a name="top" />
+        <div id="pageContextPath" data-page-context="${pageContext.request.contextPath}"></div>
 
         <div class="navbar-wrapper">
             <div class="container">
@@ -130,23 +135,30 @@
                 <div class="col-md-5">
                     <img class="featurette-image img-responsive" data-src="find.jpg/200x200/auto" alt="find">
 
-                    <div class="mapsComponent" data-type="place" data-place="fisht olympic stadium,sochi russia" data-context="${pageContext.request.contextPath}"></div>
-
-                    <input class="locationInput" type="text" name="location" />
-                </div>
+                <div class="mapsComponent"></div>
             </div>
 
             <hr class="featurette-divider">
 
-            <div class="row featurette">
-                <div class="col-md-5">
-                    <img class="featurette-image img-responsive" data-src="weather.jpg/200x200/auto" alt="weather">
-                </div>
-                <div class="col-md-7">
-                    <h2 class="featurette-heading">Check the weather 
-                        <p class="lead"> Get the latest forecast for the festival! </p>
-                </div>
+        <div class="row featurette">
+            <div class="col-md-5">
+                <img class="featurette-image img-responsive" data-src="weather.jpg/200x200/auto" alt="weather">
             </div>
+            <div class="col-md-7">
+                <h2 class="featurette-heading">Check the weather </h2>
+                <p class="lead"> Get the latest forecast for the festival! </p>
+
+                <form id="weatherSettings" action="">
+                    <input type="radio" name="temp" value="c" checked="true">°C
+                    <input type="radio" name="temp" value="f">°F<br />
+                    <input type="radio" name="speed" value="mph" checked="true">mph
+                    <input type="radio" name="speed" value="kph">kph
+                </form>
+
+
+                <div class="weatherComponent"></div>
+            </div>
+        </div>
 
             <hr class="featurette-divider">
 
