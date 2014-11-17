@@ -10,7 +10,7 @@ var WeatherComponent = (function () {
 
     "use strict";
 
-    var addWeather = function (timeOfDay, data) {
+    var addWeather = function (timeOfDay, dayOfWeek, data) {
         var weatherComponent = document.querySelector(".weatherComponent");
         var $weatherComponent = $(weatherComponent);
 
@@ -18,10 +18,10 @@ var WeatherComponent = (function () {
             var kids = $weatherComponent.children();
             var len = kids.length;
 
-            if (len === 0 || len > 5) {
+            if (len === 0 || len > 6) {
                 $weatherComponent.empty();
 
-                var dayDiv = createDayDivWithTimeDiv(timeOfDay, data);
+                var dayDiv = createDayDivWithTimeDiv(timeOfDay, dayOfWeek, data);
                 weatherComponent.appendChild(dayDiv);
             }
             else {
@@ -29,10 +29,11 @@ var WeatherComponent = (function () {
 
                 if (last) {
                     var todElem = last.querySelector("." + getTimeOfDayString(timeOfDay));
+                    var sameDay = last.classList.contains("day" + dayOfWeek);
 
-                    // If this time of day alreay exists then we're in a new day
-                    if (todElem) {
-                        var dayDiv = createDayDivWithTimeDiv(timeOfDay, data);
+                    // If this time of day alreay exists or dayOfWeek is different then we're in a new day
+                    if (todElem || !sameDay) {
+                        var dayDiv = createDayDivWithTimeDiv(timeOfDay, dayOfWeek, data);
                         weatherComponent.appendChild(dayDiv);
                     }
                     else {
@@ -58,38 +59,52 @@ var WeatherComponent = (function () {
                     $.each(temps, function () {
                         var current = this.innerHTML;
                         var val = current.substr(0, current.length - 2);
-                        this.innerHTML = convertTemperature(val);
+                        this.innerHTML = convertTemperature(val) + '°' + Utils.getTemperatureFormat();
                     });
                     break;
                 case "mph":
                 case "kph":
-                    var winds = weatherComponent.querySelectorAll(".minTemp, .maxTemp");
+                    var winds = weatherComponent.querySelectorAll(".windSpeed");
 
                     $.each(winds, function () {
                         var current = this.innerHTML;
                         var val = current.substr(0, current.length - 3);
-                        this.innerHTML = convertSpeed(val);
+                        this.innerHTML = convertSpeed(val) + Utils.getSpeedFormat();
                     });
                     break;
             }
         }
     };
 
-
-    var convertTemperature = function (fahrenheit) {
+    var convertTemperature = function (temp) {
         // Convert the temperature to either Celsius or Fahrenheit:
-        return Math.round(Utils.getTemperatureFormat() === 'f' ? fahrenheit : ((fahrenheit - 32) * (5 / 9)));
+        return Math.round(Utils.getTemperatureFormat() === 'f'
+                // c to f
+                ? ((temp * (180 / 100)) + 32)
+                // f to c
+                : ((temp - 32) * (5 / 9)));
     };
 
-    var convertSpeed = function (mph) {
+    var convertSpeed = function (speed) {
         // Convert the speed to either mph or kph:
-        return Math.round(Utils.getSpeedFormat() === 'mph' ? mph : (mph * 1.609344));
+        return Math.round(Utils.getSpeedFormat() === 'mph'
+                // kph to mph
+                ? (speed / 1.609344)
+                // mph to kph
+                : (speed * 1.609344));
     };
 
-    var createDayDivWithTimeDiv = function (timeOfDay, data) {
+    var createDayDivWithTimeDiv = function (timeOfDay, dayOfWeek, data) {
         var dayDiv = document.createElement("div");
-        var timeDiv = createTimeDiv(timeOfDay, data);
+        dayDiv.classList.add("day");
+        dayDiv.classList.add("day" + dayOfWeek);
 
+        var titleDiv = document.createElement("div");
+        titleDiv.classList.add("dayTitle");
+        titleDiv.innerHTML = data.momentTime.substr(0, data.momentTime.indexOf(" "));
+        dayDiv.appendChild(titleDiv);
+
+        var timeDiv = createTimeDiv(timeOfDay, data);
         dayDiv.appendChild(timeDiv);
 
         return dayDiv;
@@ -97,6 +112,7 @@ var WeatherComponent = (function () {
 
     var createTimeDiv = function (timeOfDay, data) {
         var timeDiv = document.createElement("div");
+        timeDiv.classList.add("time");
         timeDiv.classList.add(getTimeOfDayString(timeOfDay));
 
         $.each(data, function (key, value) {
@@ -109,7 +125,12 @@ var WeatherComponent = (function () {
             else {
                 var weatherItemDiv = document.createElement("div");
                 weatherItemDiv.classList.add(key);
-                weatherItemDiv.innerHTML = value;
+                if (key === "momentTime") {
+                    weatherItemDiv.innerHTML = value.substr(value.indexOf("at ") + 3, value.length);
+                }
+                else {
+                    weatherItemDiv.innerHTML = value;
+                }
                 timeDiv.appendChild(weatherItemDiv);
             }
         });
@@ -143,3 +164,5 @@ var WeatherComponent = (function () {
     };
 
 }());
+
+    

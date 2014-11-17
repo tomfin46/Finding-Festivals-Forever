@@ -5,11 +5,8 @@
  */
 package festivals.controller;
 
-import festivals.service.utils.ApplicationConstants;
 import festivals.service.utils.ConfigFileProperties;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.aksingh.java.api.owm.CurrentWeatherData;

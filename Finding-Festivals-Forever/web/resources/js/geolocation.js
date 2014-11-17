@@ -10,7 +10,7 @@ var GeoLocation = (function () {
 
     "use strict";
 
-    var geolocationSuccess, geolocationError, shouldUseWindIcon, convertTemperature, convertSpeed;
+    var geolocationSuccess, geolocationError, shouldUseWindIcon, showError;
 
     geolocationSuccess = function (position) {
         try {
@@ -29,12 +29,16 @@ var GeoLocation = (function () {
                 city = cache.data.city_Object.name;
                 country = cache.data.city_Object.countryCode;
 
+                var firstTime = new Date(cache.data.forecast_List[0].dateTime - offset);
+                var firstDayOfWeek = firstTime.getDay();
+
                 $.each(cache.data.forecast_List, function () {
                     // "this" holds a forecast object
 
                     // Get the local time of this forecast (the api returns it in utc)
                     var localTime = new Date(this.dateTime - offset);
                     var momentTime = moment(localTime);
+
                     var timeOfDay = null;
 
                     switch (momentTime.hour()) {
@@ -63,10 +67,11 @@ var GeoLocation = (function () {
                             maxTemp: WeatherComponent.convertTemperature(this.mainData_Object.maxTemperature) + '°' + DEG,
                             windSpeed: WeatherComponent.convertSpeed(this.wind_Object.windSpeed) + WINDSPEED
                         };
+                        var dayOfWeek = momentTime.weekday() - firstDayOfWeek;
 
                         shouldUseWindIcon(data);
 
-                        WeatherComponent.addWeather(timeOfDay, data);
+                        WeatherComponent.addWeather(timeOfDay, dayOfWeek, data);
                     }
 
                 });
@@ -133,6 +138,10 @@ var GeoLocation = (function () {
                 data.weatherIconName = "Cloud-Wind";
             }
         }
+    };
+    
+    showError = function(message) {
+        alert(message);
     };
 
 

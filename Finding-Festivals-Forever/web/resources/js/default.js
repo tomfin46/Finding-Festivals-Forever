@@ -30,12 +30,7 @@ $(function () {
     
     initMapsComonent();
     
-    $('input[type=radio][name=temp]').change(function() {
-        if (this.value === 'allot') {
-            alert("Allot Thai Gayo Bhai");
-        }
-        else if (this.value === 'transfer') {
-            alert("Transfer Thai Gayo");
-        }
+    $('#weatherSettings input[type=radio]').change(function() {
+        WeatherComponent.convertWeatherUnits(this.value);
     });
 });

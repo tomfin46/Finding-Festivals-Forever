@@ -13,7 +13,8 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/css.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/login.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/register.css" />-->
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/mapsComponent.css" />-->
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/mapsComponent.css" />
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/weatherComponent.css" />
 
         <!-- JavaScript Files -->
         <!--External-->
@@ -190,9 +191,9 @@
 
                 <form id="weatherSettings" action="">
                     <input type="radio" name="temp" value="c" checked="true">°C
-                    <input type="radio" name="temp" value="f">°F
-                    <input type="radio" name="speed" value="mph" checked="true">MPH
-                    <input type="radio" name="speed" value="kph">KPH
+                    <input type="radio" name="temp" value="f">°F<br />
+                    <input type="radio" name="speed" value="mph" checked="true">mph
+                    <input type="radio" name="speed" value="kph">kph
                 </form>
 
 
