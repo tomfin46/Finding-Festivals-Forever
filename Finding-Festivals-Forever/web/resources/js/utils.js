@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 
+/*global document, $ */
 var Utils = (function () {
 
     "use strict";
 
-    var isValidVariable, isValidNonEmptyString, isValidFn;
+    var isValidVariable, isValidNonEmptyString, isValidFn,
+            getPageContext, getTemperatureFormat, getSpeedFormat;
 
     isValidVariable = function (variable) {
         return variable !== null && typeof variable !== 'undefined';
@@ -22,9 +24,28 @@ var Utils = (function () {
         return isValidVariable(fn) && typeof fn === 'function';
     };
 
+    getPageContext = function () {
+        var elem = document.querySelector("#pageContextPath");
+        if (elem && $(elem).data()) {
+            return $(elem).data("pageContext");
+        }
+        return "";
+    };
+    
+    getTemperatureFormat = function() {
+        return $('input[name="temp"]:checked').val();
+    };
+    
+    getSpeedFormat = function() {
+        return $('input[name="speed"]:checked').val();
+    };
+
     return {
         isValidVariable: isValidVariable,
         isValidNonEmptyString: isValidNonEmptyString,
-        isValidFn: isValidFn
+        isValidFn: isValidFn,
+        getPageContext: getPageContext,
+        getTemperatureFormat: getTemperatureFormat,
+        getSpeedFormat: getSpeedFormat
     };
 }());

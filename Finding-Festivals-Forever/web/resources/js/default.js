@@ -12,15 +12,30 @@ $(function () {
 
     "use strict";
 
-    var elem = document.querySelector(".mapsComponent"),
-            gMapsComponent = new Component(elem, GoogleMapsComponent.changeSrcUrl);
-    $(elem).data("component", gMapsComponent);
-    GoogleMapsComponent.changeSrcUrl(elem);
+    var initMapsComonent;
+
+    initMapsComonent = function () {
+        var elem = document.querySelector(".mapsComponent"),
+                gMapsComponent = new Component(elem, GoogleMapsComponent.changeSrcUrl);
+        $(elem).data("component", gMapsComponent);
+        GoogleMapsComponent.changeSrcUrl(elem);
 
 
-    $(".locationInput").change(function () {
-        var val = $(this).val(),
-                mapComponent = document.querySelector(".mapsComponent");
-        $(mapComponent).data("component").set("place", val);
+        $(".locationInput").change(function () {
+            var val = $(this).val(),
+                    mapComponent = document.querySelector(".mapsComponent");
+            $(mapComponent).data("component").set("place", val);
+        });
+    };
+    
+    initMapsComonent();
+    
+    $('input[type=radio][name=temp]').change(function() {
+        if (this.value === 'allot') {
+            alert("Allot Thai Gayo Bhai");
+        }
+        else if (this.value === 'transfer') {
+            alert("Transfer Thai Gayo");
+        }
     });
 });
