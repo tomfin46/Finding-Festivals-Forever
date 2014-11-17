@@ -28,8 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class WeatherController {
 
     @RequestMapping(value = "/current", method = RequestMethod.GET)
-    public @ResponseBody
-    CurrentWeatherData getCurrentWeather(@RequestParam(value = "city") String city) {
+    public @ResponseBody CurrentWeatherData getCurrentWeather(@RequestParam(value = "city") String city) {
         try {
             ConfigFileProperties config = ConfigFileProperties.getInstance();
             String weatherApi = config.getPropertyValue("weatherapi");

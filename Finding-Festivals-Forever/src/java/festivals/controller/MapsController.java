@@ -41,6 +41,28 @@ public class MapsController {
         return gmPlace;
     }
     
+    @RequestMapping(value="/search", method = RequestMethod.GET)
+    public @ResponseBody String getSearchUrl(@RequestParam(value = "query") String query,
+            @RequestParam(value="lat", required=false) String lat,
+            @RequestParam(value="lon", required=false) String lon,
+            @RequestParam(value="zoom", required=false) String zoom) {
+        
+        ConfigFileProperties config = ConfigFileProperties.getInstance();
+        String mapsAPI = config.getPropertyValue("mapsapi");
+        String gmSearch = ApplicationConstants.GM_SEARCH;
+        
+        gmSearch = String.format(gmSearch, mapsAPI, query);
+        
+        if (lat != null && !lat.isEmpty() && lon != null && !lon.isEmpty()) {
+            gmSearch += String.format(ApplicationConstants.GM_CENTER_PARAM, lat, lon);
+        }
+        if (zoom != null && !zoom.isEmpty()) {
+            gmSearch += String.format(ApplicationConstants.GM_ZOOM_PARAM, zoom);
+        }
+        
+        return gmSearch;
+    }
+    
 //        public String place(@RequestParam(value="place", defaultValue="World") String name) {
 
 }

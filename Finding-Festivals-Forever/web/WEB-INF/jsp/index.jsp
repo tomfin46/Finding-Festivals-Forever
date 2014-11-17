@@ -173,9 +173,7 @@
             <div class="col-md-5">
                 <img class="featurette-image img-responsive" data-src="find.jpg/200x200/auto" alt="find">
 
-                <div class="mapsComponent" data-type="place" data-place="fisht olympic stadium,sochi russia" data-context="${pageContext.request.contextPath}"></div>
-
-                <input class="locationInput" type="text" name="location" />
+                <div class="mapsComponent"></div>
             </div>
         </div>
 

@@ -4,49 +4,52 @@
  * and open the template in the editor.
  */
 
-/*global $, Utils */
+/*global document, $, Utils */
 var GoogleMapsComponent = (function () {
 
     "use strict";
 
-    var changeSrcUrl = function (element) {
-        if (element && $(element).data() && element.className === "mapsComponent") {
-            var $elem = $(element),
-                    component = $elem.data("component"),
-                    context, params;
+    var setSrcUrl;
 
-            if (Utils.isValidVariable(component)) {
-                context = component.get("context");
-                switch (component.get("type")) {
-                    case "place":
-                        params = '/maps/place?place=' + component.get("place");
-                        break;
+    setSrcUrl = function (data) {
+        var mapsComponent = document.querySelector(".mapsComponent"),
+                params;
+
+        switch (data.type) {
+            case "place":
+                params = '/maps/place?place=' + data.place;
+                break;
+            case "search":
+                params = '/maps/search?query=' + data.query;
+                if (data.lat && data.lon) {
+                    params += '&lat=' + data.lat + '&lon=' + data.lon;
                 }
+                if (data.zoom) {
+                    params += '&zoom=' + data.zoom;
+                }
+                break;
+        }
 
-                if (Utils.isValidNonEmptyString(context) && Utils.isValidNonEmptyString(params)) {
-                    $.ajax({
-                        type: 'Get',
-                        url: context + params,
-                        success: function (result) {
-                            var iframe = element.querySelector("iframe"),
-                                    newIframe;
-                            if (iframe !== null) {
-                                iframe.setAttribute("src", result);
-                            }
-                            else {
-                                newIframe = document.createElement("iframe");
-                                newIframe.setAttribute("frameborder", "0");
-                                newIframe.setAttribute("src", result);
-                                element.appendChild(newIframe);
-                            }
-                        }
-                    });
+        $.ajax({
+            type: 'Get',
+            url: Utils.getPageContext() + params,
+            success: function (result) {
+                var iframe = mapsComponent.querySelector("iframe"),
+                        newIframe;
+                if (iframe !== null) {
+                    iframe.setAttribute("src", result);
+                }
+                else {
+                    newIframe = document.createElement("iframe");
+                    newIframe.setAttribute("frameborder", "0");
+                    newIframe.setAttribute("src", result);
+                    mapsComponent.appendChild(newIframe);
                 }
             }
-        }
+        });
     };
 
     return {
-        changeSrcUrl: changeSrcUrl
+        setSrcUrl: setSrcUrl
     };
 }());

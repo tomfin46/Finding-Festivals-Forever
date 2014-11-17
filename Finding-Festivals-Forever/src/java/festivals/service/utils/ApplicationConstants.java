@@ -23,6 +23,9 @@ public class ApplicationConstants {
     public static final String GM_DIRECTIONS = GOOGLE_MAPS_BASE_URL + "directions?key=%s&origin=%s&destination=%s&avoid=%s";
     public static final String GM_SEARCH = GOOGLE_MAPS_BASE_URL + "search?key=%s&q=%s";
     public static final String GM_VIEW = GOOGLE_MAPS_BASE_URL + "/view?key=%s&center=%s&zoom=%s&maptype=%s";
+    public static final String GM_CENTER_PARAM = "&center=%s,%s";
+    public static final String GM_ZOOM_PARAM = "&zoom=%s";
+
 
     /*
      Weather API
