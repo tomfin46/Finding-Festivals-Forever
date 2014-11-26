@@ -15,6 +15,7 @@
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/register.css" />-->
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/mapsComponent.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/weatherComponent.css" />
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/festivalsList.css" />
 
         <!-- JavaScript Files -->
         <!--External-->
@@ -29,6 +30,7 @@
         <script src="${pageContext.request.contextPath}/resources/js/components/genericComponent.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/components/googleMapsComponent.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/components/weatherComponent.js"></script>
+        <script src="${pageContext.request.contextPath}/resources/js/components/festivalsList.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/default.js"></script>
 
         <meta charset=UTF-8" />
@@ -173,6 +175,8 @@
             <div class="col-md-5">
                 <img class="featurette-image img-responsive" data-src="find.jpg/200x200/auto" alt="find">
 
+                <div class="festivalsList"></div>
+                
                 <div class="mapsComponent"></div>
             </div>
         </div>
