@@ -18,11 +18,13 @@ public class BaseFestival implements IFestival {
 
     private String name;
 
-    private List<String> genres;
+    private String genres;
     
     private String startDate;
     
     private String endDate;
+    
+    private String date;
 
     private Location location;
     
@@ -30,12 +32,22 @@ public class BaseFestival implements IFestival {
     
     private Map flags;
 
-    public BaseFestival(FestivalType type, String name, List<String> genres, String startDate, String endDate, Location location, String website, Map flags) {
+    public BaseFestival(FestivalType type, String name, String genres, String startDate, String endDate, Location location, String website, Map flags) {
         this.type = type;
         this.name = name;
         this.genres = genres;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.location = location;
+        this.website = website;
+        this.flags = flags;
+    }
+    
+    public BaseFestival(FestivalType type, String name, String genres, String date, Location location, String website, Map flags) {
+        this.type = type;
+        this.name = name;
+        this.genres = genres;
+        this.date = date;
         this.location = location;
         this.website = website;
         this.flags = flags;
@@ -57,11 +69,11 @@ public class BaseFestival implements IFestival {
         this.name = name;
     }
 
-    public List<String> getGenres() {
+    public String getGenres() {
         return genres;
     }
 
-    public void setGenres(List<String> genres) {
+    public void setGenres(String genres) {
         this.genres = genres;
     }
 
@@ -79,6 +91,14 @@ public class BaseFestival implements IFestival {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public Location getLocation() {

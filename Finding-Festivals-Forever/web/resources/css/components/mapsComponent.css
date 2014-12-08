@@ -9,6 +9,7 @@ and open the template in the editor.
 */
 
 .mapsComponent {
+    display: none;
     height: 450px;
     width: 600px;
 }
@@ -16,4 +17,12 @@ and open the template in the editor.
 .mapsComponent iframe {
     height: inherit;
     width: inherit;
+}
+
+.map-canvas {
+    height: 450px;
+    width: 600px;
+    margin: 10px;
+    float: left;
+    vertical-align: middle;
 }

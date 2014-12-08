@@ -140,7 +140,7 @@ var GeoLocation = (function () {
             zoom: 10
         };
 
-        GoogleMapsComponent.setSrcUrl(data);
+        GoogleMapsComponent.setupFields(data);
     };
 
     shouldUseWindIcon = function (data) {
@@ -180,17 +180,3 @@ var GeoLocation = (function () {
     };
 
 }());
-
-$(function () {
-
-    "use strict";
-
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(GeoLocation.geolocationSuccess, GeoLocation.geolocationError);
-    }
-    else {
-        GeoLocation.useDefault();
-    }
-
-
-});

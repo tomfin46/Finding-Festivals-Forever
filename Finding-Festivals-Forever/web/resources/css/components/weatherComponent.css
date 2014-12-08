@@ -37,7 +37,3 @@ and open the template in the editor.
 .weatherComponent .day .time .minTemp:after {
     content: " / ";
 }
-
-.weatherComponent .day .time .windSpeed {
-    display: none;
-}

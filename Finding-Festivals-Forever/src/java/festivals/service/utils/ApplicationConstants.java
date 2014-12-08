@@ -18,11 +18,12 @@ public class ApplicationConstants {
     /*
      Google Maps API
      */
-    private static final String GOOGLE_MAPS_BASE_URL = "https://www.google.com/maps/embed/v1/";
-    public static final String GM_PLACE = GOOGLE_MAPS_BASE_URL + "place?key=%s&q=%s";
-    public static final String GM_DIRECTIONS = GOOGLE_MAPS_BASE_URL + "directions?key=%s&origin=%s&destination=%s&avoid=%s";
-    public static final String GM_SEARCH = GOOGLE_MAPS_BASE_URL + "search?key=%s&q=%s";
-    public static final String GM_VIEW = GOOGLE_MAPS_BASE_URL + "/view?key=%s&center=%s&zoom=%s&maptype=%s";
+    private static final String GOOGLE_MAPS_EMBED_BASE_URL = "https://www.google.com/maps/embed/v1/";
+    public static final String GOOGLE_MAPS_JS_BASE_URL = "https://maps.googleapis.com/maps/api/js?v=3.exp&key=%s&callback=GoogleMapsComponent.initializeJsComponent";
+    public static final String GM_PLACE = GOOGLE_MAPS_EMBED_BASE_URL + "place?key=%s&q=%s";
+    public static final String GM_DIRECTIONS = GOOGLE_MAPS_EMBED_BASE_URL + "directions?key=%s&origin=%s&destination=%s&avoid=%s";
+    public static final String GM_SEARCH = GOOGLE_MAPS_EMBED_BASE_URL + "search?key=%s&q=%s";
+    public static final String GM_VIEW = GOOGLE_MAPS_EMBED_BASE_URL + "/view?key=%s&center=%s&zoom=%s&maptype=%s";
     public static final String GM_CENTER_PARAM = "&center=%s,%s";
     public static final String GM_ZOOM_PARAM = "&zoom=%s";
 

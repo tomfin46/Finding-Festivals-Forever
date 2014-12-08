@@ -1,9 +1,10 @@
+
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/*global document, $, Component, WeatherComponent, FestivalsList */
+/*global document, $, GoogleMapsComponent, WeatherComponent, FestivalsList */
 
 /*
  * Execute when DOM is loaded
@@ -11,6 +12,15 @@
 $(function () {
 
     "use strict";
+
+    GoogleMapsComponent.loadJsGMapsScript();
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(GeoLocation.geolocationSuccess, GeoLocation.geolocationError);
+    }
+    else {
+        GeoLocation.useDefault();
+    }
 
     $('#weatherSettings input[type=radio]').change(function () {
         WeatherComponent.convertWeatherUnits(this.value);
@@ -20,9 +30,9 @@ $(function () {
         type: 'Get',
         url: Utils.getPageContext() + '/index/festivals',
         success: function (festivals) {
-            for (var i = 0; i < festivals.length; ++i) {
-                FestivalsList.addFestival(festivals[i]);
-            }
+            $.each(festivals, function (idx, festival) {
+                FestivalsList.addFestival(festival);
+            });
         }
     });
 });

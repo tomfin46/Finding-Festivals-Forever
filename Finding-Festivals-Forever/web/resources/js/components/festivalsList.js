@@ -31,37 +31,34 @@ var FestivalsList = (function () {
         nameDiv.classList.add("festivalName");
         nameDiv.innerHTML = festivalData.name;
         $(nameDiv).click(function () {
+            //$(contentDiv).fadeIn("slow");
+
             $(contentDiv).css("display") === "none"
-                    ? $(contentDiv).css("display", "block")
-                    : $(contentDiv).css("display", "none");
+                    ? $(contentDiv).fadeIn("slow")
+                    : $(contentDiv).fadeOut("slow");
         });
 
         festivalDiv.appendChild(nameDiv);
 
         $.each(festivalData, function (key, value) {
-            var festivalImage, festivalItemDiv, festivalObjectDiv, k;
+            var festivalImage, festivalItemDiv, festivalLocationDiv, k;
 
             if (key === "festivalImage") {
                 festivalImage = document.createElement("img");
                 $(festivalImage).attr("src", value);
                 contentDiv.appendChild(festivalImage);
             }
-            else if (key === "location" || key === "genres") {
-                festivalObjectDiv = document.createElement("div");
-                festivalObjectDiv.classList.add(key);
+            else if (key === "location") {
+                festivalLocationDiv = document.createElement("div");
+                festivalLocationDiv.classList.add(key);
                 k = key;
                 $.each(value, function (key, val) {
-                    var objectDiv = document.createElement("div");
-                    if (k === "location") {
-                        objectDiv.classList.add(key);
-                    }
-                    else if (k === "genres") {
-                        objectDiv.classList.add("genre");
-                    }
-                    objectDiv.innerHTML = val;
-                    festivalObjectDiv.appendChild(objectDiv);
+                    var locationDiv = document.createElement("div");
+                    locationDiv.classList.add(key);
+                    locationDiv.innerHTML = val;
+                    festivalLocationDiv.appendChild(locationDiv);
                 });
-                contentDiv.appendChild(festivalObjectDiv);
+                contentDiv.appendChild(festivalLocationDiv);
             }
             else {
                 festivalItemDiv = document.createElement("div");

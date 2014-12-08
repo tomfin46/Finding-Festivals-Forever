@@ -63,6 +63,9 @@ public class MapsController {
         return gmSearch;
     }
     
-//        public String place(@RequestParam(value="place", defaultValue="World") String name) {
-
+    @RequestMapping(value="/jsUrl")
+    public @ResponseBody String getJavascriptUrl() {
+        ConfigFileProperties config = ConfigFileProperties.getInstance();
+        return String.format(ApplicationConstants.GOOGLE_MAPS_JS_BASE_URL, config.getPropertyValue("mapsapi"));
+    }
 }

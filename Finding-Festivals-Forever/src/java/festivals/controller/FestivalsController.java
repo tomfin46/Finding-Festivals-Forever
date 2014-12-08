@@ -50,14 +50,15 @@ public class FestivalsController {
     }
 
     @RequestMapping(value = "/festivals", method = RequestMethod.GET)
-    public @ResponseBody  List<IFestival> getFestivals() {
+    public @ResponseBody
+    List<IFestival> getFestivals() {
         String queryFestivals = "SELECT * FROM festivals;";
         List<IFestival> festivals = new ArrayList<>();
         try {
             ResultSet res = dbConnection.queryDB(queryFestivals);
             while (res.next()) {
                 String name = res.getString("Festival_Name");
-                List<String> genres = Arrays.asList(res.getString("Genre").split(","));
+                String genres = res.getString("Genre");
                 String startDate = res.getString("Start_Date");
                 String endDate = res.getString("End_Date");
                 String locationName = res.getString("Location");
@@ -66,18 +67,31 @@ public class FestivalsController {
                 String website = res.getString("Website");
                 Map flags = null;
 
-                festivals.add(
-                    new MusicFestival(
-                            name,
-                            genres,
-                            startDate,
-                            endDate,
-                            new Location(locationLat, locationLon, locationName),
-                            website,
-                            flags
-                    )
-                );
-            }            
+                if (startDate.equalsIgnoreCase(endDate)) {
+                    festivals.add(
+                            new MusicFestival(
+                                    name,
+                                    genres,
+                                    startDate,
+                                    new Location(locationLat, locationLon, locationName),
+                                    website,
+                                    flags
+                            )
+                    );
+                } else {
+                    festivals.add(
+                            new MusicFestival(
+                                    name,
+                                    genres,
+                                    startDate,
+                                    endDate,
+                                    new Location(locationLat, locationLon, locationName),
+                                    website,
+                                    flags
+                            )
+                    );
+                }
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "Error manipulating ResultSet", ex);

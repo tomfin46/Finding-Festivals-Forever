@@ -9,7 +9,27 @@ var GoogleMapsComponent = (function () {
 
     "use strict";
 
-    var setSrcUrl;
+    var loadJsGMapsScript, setupFields, setSrcUrl, initializeJsComponent, _addMarker,
+            map, infoWindow, fields = {};
+
+    loadJsGMapsScript = function () {
+        $.ajax({
+            type: 'Get',
+            url: Utils.getPageContext() + '/maps/jsUrl',
+            success: function (url) {
+                var gMapsApi = document.createElement('script');
+                gMapsApi.type = 'text/javascript';
+                gMapsApi.src = url;
+                document.body.appendChild(gMapsApi);
+            }
+        });
+    };
+
+    setupFields = function (data) {
+        fields.lat = data.lat;
+        fields.lon = data.lon;
+        fields.zoom = data.zoom;
+    };
 
     setSrcUrl = function (data) {
         var mapsComponent = document.querySelector(".mapsComponent"),
@@ -49,7 +69,63 @@ var GoogleMapsComponent = (function () {
         });
     };
 
+    initializeJsComponent = function () {
+        var myLatlng = new google.maps.LatLng(fields.lat, fields.lon);
+        var mapOptions = {
+            zoom: fields.zoom,
+            center: myLatlng
+        };
+
+        var mapDiv = document.querySelector('.map-canvas');
+        if (mapDiv) {
+            map = new google.maps.Map(mapDiv, mapOptions);
+            infoWindow = new google.maps.InfoWindow();
+
+            var festivals = document.querySelectorAll(".festival");
+            $.each(festivals, function (idx, festivalDiv) {
+
+                var festivalName = festivalDiv.querySelector(".festivalName").innerHTML;
+                var genres = festivalDiv.querySelector(".genres").innerHTML;
+                var markerData = {
+                    lat: festivalDiv.querySelector(".location .latitude").innerHTML,
+                    lon: festivalDiv.querySelector(".location .longitude").innerHTML,
+                    name: festivalName,
+                    content: '<div id="content">' +
+                            '<div id="siteNotice">' +
+                            '</div>' +
+                            '<h3 id="firstHeading" class="firstHeading">' + festivalName + '</h3>' +
+                            '<div id="bodyContent">' +
+                            '<p>' + genres + '</p>' +
+                            '</div>' +
+                            '</div>'
+                };
+
+                _addMarker(markerData);
+            });
+        }
+    };
+
+    _addMarker = function (markerData) {
+        if (map) {
+            var markerLatlng = new google.maps.LatLng(markerData.lat, markerData.lon);
+
+            var marker = new google.maps.Marker({
+                position: markerLatlng,
+                map: map,
+                title: markerData.name
+            });
+
+            google.maps.event.addListener(marker, 'click', function () {
+                infoWindow.setContent(markerData.content);
+                infoWindow.open(map, marker);
+            });
+        }
+    };
+
     return {
-        setSrcUrl: setSrcUrl
+        loadJsGMapsScript: loadJsGMapsScript,
+        setupFields: setupFields,
+        setSrcUrl: setSrcUrl,
+        initializeJsComponent: initializeJsComponent
     };
 }());
