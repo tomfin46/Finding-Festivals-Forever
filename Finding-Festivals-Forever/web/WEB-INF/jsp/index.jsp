@@ -160,6 +160,17 @@
 
         <hr class="featurette-divider">
 
+            </div>
+            <div class="col-md-5">
+                <img class="featurette-image img-responsive" data-src="share.jpg/200x200/auto" alt="share">
+            </div>
+            <div class="g-plus" data-action="share"></div>
+            <div class="fb-share-button" data-href="${pageContext.request.contextPath}"></div>
+            <a class="twitter-share-button" href="https://twitter.com/share">Tweet</a>
+        </div>
+
+        <hr class="featurette-divider">
+
         <!-- /END THE FEATURETTES source: view-source:http://getbootstrap.com/examples/carousel/  -->
 
         <h1>Login:</h1> 
