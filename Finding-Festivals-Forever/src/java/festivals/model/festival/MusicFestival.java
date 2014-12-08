@@ -5,12 +5,21 @@
  */
 package festivals.model.festival;
 
-import festivals.model.festival.BaseFestival;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author Tom Finlayson
  */
 public class MusicFestival extends BaseFestival {
+
+    public MusicFestival(String name, String genres, String startDate, String endDate, Location location, String website, Map flags) {
+        super(FestivalType.MUSIC, name, genres, startDate, endDate, location, website, flags);
+    }
+    
+    public MusicFestival(String name, String genres, String date, Location location, String website, Map flags) {
+        super(FestivalType.MUSIC, name, genres, date, location, website, flags);
+    }
     
 }
