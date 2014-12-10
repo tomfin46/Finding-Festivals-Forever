@@ -39,41 +39,6 @@
         <meta charset=UTF-8" />
         <title>Festival Finder Forever!</title>
 
-        <!--    adding cookies http://localhost:8080/Finding-Festivals-Forever -->
-        <script>
-            function setCookie(cname, cvalue, exdays) {
-                var d = new Date();
-                d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-                var expires = "expires=" + d.toGMTString();
-                document.cookie = cname + "=" + cvalue + "; " + expires;
-            }
-
-            function getCookie(cname) {
-                var name = cname + "=";
-                var ca = document.cookie.split(';');
-                for (var i = 0; i < ca.length; i++) {
-                    var c = ca[i];
-                    while (c.charAt(0) === ' ')
-                        c = c.substring(1);
-                    if (c.indexOf(name) !== -1) {
-                        return c.substring(name.length, c.length);
-                    }
-                }
-                return "";
-            }
-
-            function checkCookie() {
-                var user = getCookie("username");
-                if (user !== "") {
-                    alert("Welcome again " + user);
-                } else {
-                    user = prompt("Please enter your name:", "");
-                    if (user !== "" && user !== null) {
-                        setCookie("username", user, 30);
-                    }
-                }
-            }
-        </script>
     </head>
 
     <body>
@@ -115,7 +80,10 @@
             </div>
             <div class="col-md-5">
 
-                <div class="map-canvas"></div>
+                
+                
+
+<div class="map-canvas"></div>
                 <div class="festivalsList"></div>
 
                 <div class="mapsComponent"></div>
@@ -163,42 +131,10 @@
 
 <!-- /END THE FEATURETTES source: view-source:http://getbootstrap.com/examples/carousel/  -->
 
-<!--<h1>Login:</h1> 
-<form method="POST" action="/login">
-    <p>Username: <input type="text" name="username"  placeholder="Enter username"</p>
-    <p>Password: <input type="password" name="password" placeholder="Enter Password"</p>
-    <div class="checkbox">
-        <label><input type="checkbox"> Remember me</label>
-    </div>
-    <p><input type="submit" value="Login" </p>
-</form>
 
-
-<h1>Register:</h1> <form method="POST" action="/register">
-    <p>Username: <input type="text" name="username" placeholder="Enter username"</p>
-    <p>Password: <input type="password" name="password" placeholder="Enter password"</p>
-    <p>Confirm Password: <input type="password" name="confirmedPassword" placeholder="Confirm password" </p>
-    <p>Name: <input type="text" name="name" placeholder="Enter name" </p>
-    <p>Email: <input type="email" name="email" placeholder="Enter email" </p>
-    <p>Postcode: <input type="text" name="postcode" placeholder="Enter postcode"</p>
-    <p>Country: 
-        <select name="countryLst" id="countryLst">
-            <option value=""></option>
-            <c:forEach items="${countryList}" var="option">
-                <option value="${option}">
-                    <c:out value="${option.name}"></c:out>
-                    </option>
-            </c:forEach>
-        </select>
-    <p><input type="submit" value="Register" </p> 
-</form>-->
 </body>
 
 <a href="#top">Back to top </a> 
 <!--    bottom of the page. by clicking here the user will go back to top -->
-
-<footer class="footer">
-    <a href="/contact">Contact Us</a>
-</footer> 
 
 </html>

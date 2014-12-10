@@ -58,6 +58,10 @@
 
             <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
             <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+        <p><a href="/Finding-Festivals-Forever/index">Back to home</a></p>
+        <p><a href="/Finding-Festivals-Forever/login">Go to Login page</a></p>
+
+                    
     </body>
     
 </html>
