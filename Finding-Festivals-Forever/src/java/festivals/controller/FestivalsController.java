@@ -42,7 +42,7 @@ public class FestivalsController {
         countryList(model);
         return "index";
     }
-
+    
     private void countryList(ModelMap model) {
         List<CountryConstantsEnum> countryList = Arrays.asList(CountryConstantsEnum.values());
 

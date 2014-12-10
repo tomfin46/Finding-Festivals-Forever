@@ -33,6 +33,27 @@ public class LoginController {
     @Autowired
     private DatabaseConnection dbConnection;
 
+        //-------------------login
+    @RequestMapping(value = "/favorites", method = RequestMethod.POST)
+    public String favoritesPost(@ModelAttribute User user, ModelMap model, User favorites) {
+        try {
+            dbConnection = DatabaseConnection.getInstance();
+            
+            LoginResult loginResult = tryLogin(favorites);
+            model.addAttribute("result", loginResult);
+            return "result";
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "/favorites", method = RequestMethod.GET)
+    public String favorites(@ModelAttribute User user, ModelMap model) {
+        dbConnection = DatabaseConnection.getInstance();
+        return "favorites";
+    }
+    
     //-------------------login
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String loginPost(@ModelAttribute User user, ModelMap model) {

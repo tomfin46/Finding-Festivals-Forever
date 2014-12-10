@@ -11,13 +11,16 @@
                         
                 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css" />
                 Internal
-                <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/css.css" />
                 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/login.css" />
                 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/register.css" />-->
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/default.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/mapsComponent.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/weatherComponent.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/festivalsList.css" />
+
+
+        <!-- Custom styles for this template -->
+        <link href="starter-template.css" rel="stylesheet">
 
         <!-- JavaScript Files -->
         <!--External-->
@@ -80,10 +83,7 @@
             </div>
             <div class="col-md-5">
 
-                
-                
-
-<div class="map-canvas"></div>
+                <div class="map-canvas"></div>
                 <div class="festivalsList"></div>
 
                 <div class="mapsComponent"></div>
@@ -128,9 +128,6 @@
 </div>
 
 <hr class="featurette-divider">
-
-<!-- /END THE FEATURETTES source: view-source:http://getbootstrap.com/examples/carousel/  -->
-
 
 </body>
 
