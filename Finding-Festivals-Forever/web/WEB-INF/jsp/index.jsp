@@ -114,7 +114,6 @@
                 <p class="lead">Looking for festivals around you? Looking for specific dates? Looking for specific performers? You are in the right place! </p>
             </div>
             <div class="col-md-5">
-                <img class="featurette-image img-responsive" data-src="find.jpg/200x200/auto" alt="find">
 
                 <div class="map-canvas"></div>
                 <div class="festivalsList"></div>
@@ -128,7 +127,6 @@
 
         <div class="row featurette">
             <div class="col-md-5">
-                <img class="featurette-image img-responsive" data-src="weather.jpg/200x200/auto" alt="weather">
             </div>
             <div class="col-md-7">
                 <h2 class="featurette-heading">Check the weather </h2>
@@ -153,62 +151,54 @@
                 <h2 class="featurette-heading"> Share Festivals 
                     <p class="lead">Going to this Festival? Share it with friends!</p>
             </div>
-            <div class="col-md-5">
-                <img class="featurette-image img-responsive" data-src="share.jpg/200x200/auto" alt="share">
-            </div>
         </div>
+    </div>
 
-        <hr class="featurette-divider">
+    <div class="g-plus" data-action="share"></div>
+    <div class="fb-share-button" data-href="${pageContext.request.contextPath}"></div>
+    <a class="twitter-share-button" href="https://twitter.com/share">Tweet</a>
+</div>
 
-            </div>
-            <div class="col-md-5">
-                <img class="featurette-image img-responsive" data-src="share.jpg/200x200/auto" alt="share">
-            </div>
-            <div class="g-plus" data-action="share"></div>
-            <div class="fb-share-button" data-href="${pageContext.request.contextPath}"></div>
-            <a class="twitter-share-button" href="https://twitter.com/share">Tweet</a>
-        </div>
+<hr class="featurette-divider">
 
-        <hr class="featurette-divider">
+<!-- /END THE FEATURETTES source: view-source:http://getbootstrap.com/examples/carousel/  -->
 
-        <!-- /END THE FEATURETTES source: view-source:http://getbootstrap.com/examples/carousel/  -->
-
-        <h1>Login:</h1> 
-        <form method="POST" action="/login">
-            <p>Username: <input type="text" name="username"  placeholder="Enter username"</p>
-            <p>Password: <input type="password" name="password" placeholder="Enter Password"</p>
-            <div class="checkbox">
-                <label><input type="checkbox"> Remember me</label>
-            </div>
-            <p><input type="submit" value="Login" </p>
-        </form>
+<!--<h1>Login:</h1> 
+<form method="POST" action="/login">
+    <p>Username: <input type="text" name="username"  placeholder="Enter username"</p>
+    <p>Password: <input type="password" name="password" placeholder="Enter Password"</p>
+    <div class="checkbox">
+        <label><input type="checkbox"> Remember me</label>
+    </div>
+    <p><input type="submit" value="Login" </p>
+</form>
 
 
-        <h1>Register:</h1> <form method="POST" action="/register">
-            <p>Username: <input type="text" name="username" placeholder="Enter username"</p>
-            <p>Password: <input type="password" name="password" placeholder="Enter password"</p>
-            <p>Confirm Password: <input type="password" name="confirmedPassword" placeholder="Confirm password" </p>
-            <p>Name: <input type="text" name="name" placeholder="Enter name" </p>
-            <p>Email: <input type="email" name="email" placeholder="Enter email" </p>
-            <p>Postcode: <input type="text" name="postcode" placeholder="Enter postcode"</p>
-            <p>Country: 
-                <select name="countryLst" id="countryLst">
-                    <option value=""></option>
-                    <c:forEach items="${countryList}" var="option">
-                        <option value="${option}">
-                            <c:out value="${option.name}"></c:out>
-                            </option>
-                    </c:forEach>
-                </select>
-            <p><input type="submit" value="Register" </p> 
-        </form>
-    </body>
+<h1>Register:</h1> <form method="POST" action="/register">
+    <p>Username: <input type="text" name="username" placeholder="Enter username"</p>
+    <p>Password: <input type="password" name="password" placeholder="Enter password"</p>
+    <p>Confirm Password: <input type="password" name="confirmedPassword" placeholder="Confirm password" </p>
+    <p>Name: <input type="text" name="name" placeholder="Enter name" </p>
+    <p>Email: <input type="email" name="email" placeholder="Enter email" </p>
+    <p>Postcode: <input type="text" name="postcode" placeholder="Enter postcode"</p>
+    <p>Country: 
+        <select name="countryLst" id="countryLst">
+            <option value=""></option>
+            <c:forEach items="${countryList}" var="option">
+                <option value="${option}">
+                    <c:out value="${option.name}"></c:out>
+                    </option>
+            </c:forEach>
+        </select>
+    <p><input type="submit" value="Register" </p> 
+</form>-->
+</body>
 
-    <a href="#top">Back to top </a> 
-    <!--    bottom of the page. by clicking here the user will go back to top -->
+<a href="#top">Back to top </a> 
+<!--    bottom of the page. by clicking here the user will go back to top -->
 
-    <footer class="footer">
-        <a href="/contact">Contact Us</a>
-    </footer> 
+<footer class="footer">
+    <a href="/contact">Contact Us</a>
+</footer> 
 
 </html>
