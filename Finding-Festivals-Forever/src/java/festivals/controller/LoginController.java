@@ -10,10 +10,10 @@ import festivals.model.user.RegisterResult;
 import festivals.model.user.User;
 import festivals.service.utils.DatabaseConnection;
 import festivals.service.utils.Utilities;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,38 +112,35 @@ public class LoginController {
         String hashedPassword = Utilities.hashString(user.getPassword());
 
         try {
-            ResultSet res;
-            res = dbConnection.queryDB(queryUser, user.getName());
-            
-            if (res.isBeforeFirst()) {
-                // Assumption made that only one row would be returned and that we don't have duplicated usernames
-                res.next();
+            List<Map<String, Object>> res = dbConnection.queryDB(queryUser, Arrays.asList("userid", "username", "password"), user.getUsername());
 
-                String userid = res.getString("userid");
-                String username = res.getString("username");
-                String passInDB = res.getString("password");
+            if (res.size() > 0) {
+                Map<String, Object> r = res.get(0);
+                
+                String username = (String) r.get("username");
+                
+                int userid = (int) r.get("userid");
+                String passInDB = (String) r.get("password");
 
                 if (passInDB.equals(hashedPassword)) {
                     loginResult = LoginResult.SUCCESS;
                 } else {
                     loginResult = LoginResult.PASSWORD_INCORRECT;
                 }
-
             } else {
                 // Empty ResultSet therefore user doesn't exist
                 loginResult = LoginResult.USER_DOES_NOT_EXIST;
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "Error manipulating ResultSet", ex);
-            //                System.out.println (e.getMessage()); //this is for prepared statements 
 
         } catch (NullPointerException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "NullPointer from DB connection still not properly initialised", ex);
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "Possible NullPointer from DB connection still not properly initialised", ex);
         }
 
         return loginResult;
     }
-    
+
     private RegisterResult tryRegister(User user) throws SQLException {
         RegisterResult registerResult = RegisterResult.FATAL_ERROR;
 

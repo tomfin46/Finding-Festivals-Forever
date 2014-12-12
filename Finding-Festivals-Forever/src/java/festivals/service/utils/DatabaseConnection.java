@@ -8,6 +8,10 @@ package festivals.service.utils;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
@@ -50,11 +54,11 @@ public class DatabaseConnection {
         }
     }
 
-     public boolean executeSQL(String sqlToExecute, Object... params) {
-         PreparedStatement ps = createPreparedStatement(sqlToExecute, params);
-         return executeSQL(ps);
-     }
-             
+    public boolean executeSQL(String sqlToExecute, Object... params) {
+        PreparedStatement ps = createPreparedStatement(sqlToExecute, params);
+        return executeSQL(ps);
+    }
+
     private boolean executeSQL(PreparedStatement ps) {
         try {
             if (conn == null) {
@@ -69,37 +73,47 @@ public class DatabaseConnection {
         }
     }
 
-    public ResultSet queryDB(String sqlQuery, Object... params) {
-        ResultSet res = null;
+    public List<Map<String, Object>> queryDB(String sqlQuery, List<String> props, Object... params) throws SQLException {
+        PreparedStatement ps = null;
+        List<Map<String, Object>> returnedProps = new ArrayList<>();
 
         try {
-            PreparedStatement ps = createPreparedStatement(sqlQuery, params);
-            res = queryDB(ps);
+            ps = createPreparedStatement(sqlQuery, params);
+            ResultSet res = queryDB(ps);
+
+            //if (res.isBeforeFirst()) {
+                
+              while(  res.next()) {//;
+                
+                  Map<String, Object> result = new HashMap<>();
+                  
+                for (String prop : props) {
+                    result.put(prop, res.getObject(prop));
+                }
+                
+                returnedProps.add(result);
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return res;
-    }
-
-    private ResultSet queryDB(PreparedStatement ps) throws SQLException { // Throws from the finally block
-        ResultSet res = null;
-        try {
-            if (conn == null) {
-                initConnectionToDb();
-            }
-
-            if (ps != null) {
-                res = ps.executeQuery();
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, "Error querying sql db", ex);
         } finally {
             if (ps != null) {
                 ps.close();
             }
+        }
+
+        return returnedProps;
+    }
+
+    private ResultSet queryDB(PreparedStatement ps) throws SQLException { // Throws from the finally block
+        ResultSet res = null;
+
+        if (conn == null) {
+            initConnectionToDb();
+        }
+
+        if (ps != null) {
+            res = ps.executeQuery();
         }
 
         return res;
@@ -113,12 +127,12 @@ public class DatabaseConnection {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void updateDB(PreparedStatement ps) throws SQLException {
         try {
             if (conn == null) {
                 initConnectionToDb();
-            }            
+            }
             ps.executeUpdate();
 
         } catch (SQLException ex) {
@@ -134,21 +148,36 @@ public class DatabaseConnection {
         PreparedStatement ps = null;
 
         try {
+            if (conn == null) {
+                initConnectionToDb();
+            }
 
             ps = conn.prepareStatement(sqlString);
 
             for (int i = 0; i < params.length; ++i) {
                 Object param = params[i];
-                Class paramClass = param.getClass();
+                if (param != null) {
 
-                Method methodToFind = null;
-                methodToFind = PreparedStatement.class.getMethod("set" + paramClass.getName(), new Class[]{int.class, paramClass});
+                    Class paramClass = param.getClass();
 
-                if (methodToFind == null) {
-                    // Method not found.
-                } else {
-                    // Method found therefore invoke it
-                    methodToFind.invoke(ps, i, param);
+                    int dotIdx = paramClass.getName().lastIndexOf('.');
+                    String paramClassName = "";
+
+                    if (dotIdx > 0) {
+                        paramClassName = paramClass.getName().substring(dotIdx + 1);
+                    } else {
+                        paramClassName = paramClass.getName();
+                    }
+
+                    Method methodToFind = null;
+                    methodToFind = PreparedStatement.class.getMethod("set" + paramClassName, new Class[]{int.class, paramClass});
+
+                    if (methodToFind == null) {
+                        // Method not found.
+                    } else {
+                        // Method found therefore invoke it
+                        methodToFind.invoke(ps, i + 1, param);
+                    }
                 }
             }
         } catch (SQLException ex) {

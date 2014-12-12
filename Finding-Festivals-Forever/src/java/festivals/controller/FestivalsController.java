@@ -10,7 +10,7 @@ import festivals.model.festival.Location;
 import festivals.model.festival.MusicFestival;
 import festivals.resources.CountryConstantsEnum;
 import festivals.service.utils.DatabaseConnection;
-import java.sql.ResultSet;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,7 +42,7 @@ public class FestivalsController {
         countryList(model);
         return "index";
     }
-    
+
     private void countryList(ModelMap model) {
         List<CountryConstantsEnum> countryList = Arrays.asList(CountryConstantsEnum.values());
 
@@ -55,16 +55,18 @@ public class FestivalsController {
         String queryFestivals = "SELECT * FROM festivals;";
         List<IFestival> festivals = new ArrayList<>();
         try {
-            ResultSet res = dbConnection.queryDB(queryFestivals);
-            while (res.next()) {
-                String name = res.getString("Festival_Name");
-                String genres = res.getString("Genre");
-                String startDate = res.getString("Start_Date");
-                String endDate = res.getString("End_Date");
-                String locationName = res.getString("Location");
-                float locationLat = res.getFloat("Location_Lat");
-                float locationLon = res.getFloat("Location_Lon");
-                String website = res.getString("Website");
+            List<Map<String, Object>> res = dbConnection.queryDB(queryFestivals, Arrays.asList("Festival_Name", "Genre", "Start_Date", "End_Date", "Location", "Location_Lat", "Location_Lon", "Website"));
+
+            for (Map<String, Object> r : res) {
+
+                String name = (String) r.get("Festival_Name");
+                String genres = (String) r.get("Genre");
+                String startDate = (String) r.get("Start_Date");
+                String endDate = (String) r.get("End_Date");
+                String locationName = (String) r.get("Location");
+                float locationLat = ((BigDecimal) r.get("Location_Lat")).floatValue();
+                float locationLon = ((BigDecimal) r.get("Location_Lon")).floatValue();
+                String website = (String) r.get("Website");
                 Map flags = null;
 
                 if (startDate.equalsIgnoreCase(endDate)) {
