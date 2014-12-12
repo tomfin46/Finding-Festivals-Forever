@@ -37,7 +37,12 @@ public class LoginController {
     @RequestMapping(value = "/favorites", method = RequestMethod.POST)
     public String favoritesPost(@ModelAttribute User user, ModelMap model, User favorites) {
         dbConnection = DatabaseConnection.getInstance();
-        LoginResult loginResult = tryLogin(favorites);
+        LoginResult loginResult = LoginResult.FATAL_ERROR;
+        try {
+            loginResult = tryLogin(favorites);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         model.addAttribute("result", loginResult);
         return "result";
     }
@@ -53,7 +58,12 @@ public class LoginController {
     public String loginPost(@ModelAttribute User user, ModelMap model) {
         dbConnection = DatabaseConnection.getInstance();
 
-        LoginResult loginResult = tryLogin(user);
+        LoginResult loginResult = LoginResult.FATAL_ERROR;
+        try {
+            loginResult = tryLogin(user);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         model.addAttribute("result", loginResult);
         model.addAttribute("username", user.getUsername());
         model.addAttribute("hashedpassword", Utilities.hashString(user.getPassword()));
@@ -96,44 +106,27 @@ public class LoginController {
         return "register";
     }
 
-    //secure login using prepared Statements in java          
-    @SuppressWarnings("null")
-    public LoginResult tryLogin(User user, String selectSQL) throws SQLException {
-        Connection dbConnection = null; //ck
-        PreparedStatement preparedStatement = null; //ck
-
+    public LoginResult tryLogin(User user) throws SQLException {
         String queryUser = "SELECT userid, username, password FROM users WHERE username = ? "; //ck
         LoginResult loginResult = LoginResult.FATAL_ERROR;
         String hashedPassword = Utilities.hashString(user.getPassword());
 
         try {
             ResultSet res;
-            res = dbConnection.queryDB(queryUser);
-            preparedStatement = dbConnection.prepareStatement(selectSQL); //ck
-            preparedStatement.setInt(1, 1001); //ck
-            ResultSet result = preparedStatement.executeQuery();//ck
-
-            //dbConnection = getDBConnection(); //might not be required
+            res = dbConnection.queryDB(queryUser, user.getName());
+            
             if (res.isBeforeFirst()) {
                 // Assumption made that only one row would be returned and that we don't have duplicated usernames
                 res.next();
 
-                String userid = result.getString("userid");
-                String username = result.getString("username");
-                String dbPass = res.getString("password");
-                //String hashedPassword = Utilities.hashString("password"); //this code is for prepared statements in java 
+                String userid = res.getString("userid");
+                String username = res.getString("username");
+                String passInDB = res.getString("password");
 
-                if (dbPass.equals(hashedPassword)) {
+                if (passInDB.equals(hashedPassword)) {
                     loginResult = LoginResult.SUCCESS;
                 } else {
                     loginResult = LoginResult.PASSWORD_INCORRECT;
-                }
-
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (user != null) {
-                    dbConnection.close();
                 }
 
             } else {
@@ -150,51 +143,7 @@ public class LoginController {
 
         return loginResult;
     }
-
-// This code might not be required //ck
-//    private static Connection getDBConnection(Users users) {
-//        Connection dbConnection = null;
-//        Class.forName(users);
-//        try {   
-//            dbConnection = users.getConnection(
-//                    users);
-//            return dbConnection;
-//        } catch (SQLException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//        return dbConnection;
-//    }
-    //    //-------------- unsecure login - Tom's original code: keep comments until the method above is confirmed 
-    //    private LoginResult tryLogin(User user) {
-    //        String queryUser = "SELECT * FROM users WHERE username='" + user.getUsername() + "';";
-    //        LoginResult loginResult = LoginResult.FATAL_ERROR;
-    //        String hashedPassword = Utilities.hashString(user.getPassword());
-    //
-    //        try {
-    //            ResultSet res = dbConnection.queryDB(queryUser);
-    //
-    //            if (res.isBeforeFirst()) {
-    //                // Assumption made that only one row would be returned and that we don't have duplicated usernames
-    //                res.next();
-    //
-    //                String dbPass = res.getString("password");
-    //                if (dbPass.equals(hashedPassword)) {
-    //                    loginResult = LoginResult.SUCCESS;
-    //                } else {
-    //                    loginResult = LoginResult.PASSWORD_INCORRECT;
-    //                }
-    //            } else {
-    //                // Empty ResultSet therefore user doesn't exist
-    //                loginResult = LoginResult.USER_DOES_NOT_EXIST;
-    //            }
-    //        } catch (SQLException ex) {
-    //            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "Error manipulating ResultSet", ex);
-    //        } catch (NullPointerException ex) {
-    //            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "NullPointer from DB connection still not properly initialised", ex);
-    //        }
-    //
-    //        return loginResult;
-    //    }
+    
     private RegisterResult tryRegister(User user) throws SQLException {
         RegisterResult registerResult = RegisterResult.FATAL_ERROR;
 
@@ -225,9 +174,5 @@ public class LoginController {
 
     private boolean validateUser(User user) {
         return true;
-    }
-
-    private LoginResult tryLogin(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
