@@ -12,8 +12,7 @@ and open the template in the editor.
     clear: both;
 }
 
-
-body {
+.body {
   padding-top: 50px;
 }
 .starter-template {
