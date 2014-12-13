@@ -115,7 +115,7 @@
           </div>
         </div>
         <div class="item">
-                <img src="${pageContext.request.contextPath}/resources/images/test.JPG" alt="">
+                <img src="${pageContext.request.contextPath}/resources/images/festivals1.jpg" alt="">
           <div class="container">
             <div class="carousel-caption">
               <h1>Another example headline.</h1>
