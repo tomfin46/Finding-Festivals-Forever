@@ -18,14 +18,14 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @EnableWebMvc
 public class AppConfig {
-
+    
     @Bean(name = "dataSource")
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource source = new DriverManagerDataSource();
-
         ConfigFileProperties config = ConfigFileProperties.getInstance();
+
         source.setDriverClassName(config.getPropertyValue("dbDriver"));
-        source.setUrl(config.getPropertyValue("dbUrl"));
+        source.setUrl(config.getPropertyValue("dbUrl") + config.getPropertyValue("dbName"));
         source.setUsername(config.getPropertyValue("dbUserName"));
         source.setPassword(config.getPropertyValue("dbPassword"));
 

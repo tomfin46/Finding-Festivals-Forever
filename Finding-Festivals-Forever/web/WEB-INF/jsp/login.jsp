@@ -6,7 +6,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -40,37 +39,39 @@
 
     <body>
 
-        <c:if test="${not empty error}">
-            <div class="error">${error}</div>
-        </c:if>
-        <c:if test="${not empty msg}">
-            <div class="msg">${msg}</div>
-        </c:if>
+        <div class="container">
+            <c:if test="${not empty error}">
+                <div class="error">${error}</div>
+            </c:if>
+            <c:if test="${not empty msg}">
+                <div class="msg">${msg}</div>
+            </c:if>
 
-        <c:url value='/login' var="loginUrl" />
+            <c:url value='/login' var="loginUrl" />
 
-        <form name='loginForm' action="${loginUrl}" method='POST'>
+            <form name='loginForm' action="${loginUrl}" method='POST'>
 
-            <table>
-                <tr>
-                    <td>User:</td>
-                    <td><input type='text' name='username'></td>
-                </tr>
-                <tr>
-                    <td>Password:</td>
-                    <td><input type='password' name='password' /></td>
-                </tr>
-                <tr>
-                    <td colspan='2'>
-                        <input name="submit" type="submit" value="submit" />
-                    </td>
-                </tr>
-            </table>
+                <table>
+                    <tr>
+                        <td>User:</td>
+                        <td><input type='text' name='username'></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td><input type='password' name='password' /></td>
+                    </tr>
+                    <tr>
+                        <td colspan='2'>
+                            <input name="submit" type="submit" value="submit" />
+                        </td>
+                    </tr>
+                </table>
 
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
-        </form>
-            
+            </form>
+        </div> <!-- ./container -->
+
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
         <p><a href="/Finding-Festivals-Forever/index">Back to home</a></p>

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-/*global document, $, Utils */
+/*global document, $, google, Utils */
 var GoogleMapsComponent = (function () {
 
     "use strict";

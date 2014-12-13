@@ -23,27 +23,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     DataSource dataSource;
-
+    
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
-//        auth.jdbcAuthentication().dataSource(dataSource)
-//                .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username = ?")
-//                .authoritiesByUsernameQuery("SELECT username, role FROM user_roles WHERE username = ?");
+        auth.jdbcAuthentication().dataSource(dataSource)
+                .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username = ?")
+                .authoritiesByUsernameQuery("SELECT username, role FROM user_roles WHERE username = ?");
         
-        auth.inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");
+//        auth.inMemoryAuthentication()
+//                .withUser("user").password("password").roles("USER");
 
     }
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                    .antMatchers("/favorites").access("hasRole('ROLE_USER')")
+                .antMatchers("/favorites").access("hasRole('ROLE_USER')")
                     .and()
                 .formLogin()
                     .loginPage("/login")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
                     .defaultSuccessUrl("/index")
                     .and()
                 .logout()

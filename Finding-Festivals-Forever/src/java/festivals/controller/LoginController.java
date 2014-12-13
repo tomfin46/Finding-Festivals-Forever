@@ -36,6 +36,12 @@ public class LoginController {
     private DatabaseConnection dbConnection;
 
     //-------------------favourites
+    @RequestMapping(value = "/favorites", method = RequestMethod.GET)
+    public String favorites(@ModelAttribute User user, ModelMap model) {
+        dbConnection = DatabaseConnection.getInstance();
+        return "favorites";
+    }
+
     @RequestMapping(value = "/favorites", method = RequestMethod.POST)
     public String favoritesPost(@ModelAttribute User user, ModelMap model, User favorites) {
         dbConnection = DatabaseConnection.getInstance();
@@ -48,30 +54,9 @@ public class LoginController {
         model.addAttribute("result", loginResult);
         return "result";
     }
-
-    @RequestMapping(value = "/favorites", method = RequestMethod.GET)
-    public String favorites(@ModelAttribute User user, ModelMap model) {
-        dbConnection = DatabaseConnection.getInstance();
-        return "favorites";
-    }
+    //-------------------
 
     //-------------------login
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginPost(@ModelAttribute User user, ModelMap model) {
-        dbConnection = DatabaseConnection.getInstance();
-
-        LoginResult loginResult = LoginResult.FATAL_ERROR;
-        try {
-            loginResult = tryLogin(user);
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        model.addAttribute("result", loginResult);
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("hashedpassword", Utilities.hashString(user.getPassword()));
-        return "result";
-    }
-
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(@RequestParam(value = "error", required = false) String error,
             @RequestParam(value = "logout", required = false) String logout) {
@@ -90,34 +75,20 @@ public class LoginController {
 
     }
 
-    //-------------------register
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerPost(@ModelAttribute User user, ModelMap model) {
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String loginPost(@ModelAttribute User user, ModelMap model) {
         dbConnection = DatabaseConnection.getInstance();
 
-        RegisterResult registerResult = RegisterResult.GENERAL_ERROR;
-
-        if (validateUser(user)) {
-            try {
-                registerResult = tryRegister(user);
-            } catch (SQLException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            registerResult = RegisterResult.VALIDATION_ERROR;
+        LoginResult loginResult = LoginResult.FATAL_ERROR;
+        try {
+            loginResult = tryLogin(user);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        model.addAttribute("result", registerResult);
+        model.addAttribute("result", loginResult);
         model.addAttribute("username", user.getUsername());
         model.addAttribute("hashedpassword", Utilities.hashString(user.getPassword()));
-
         return "result";
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String register(@ModelAttribute User user, ModelMap model) {
-        dbConnection = DatabaseConnection.getInstance();
-        return "register";
     }
 
     public LoginResult tryLogin(User user) throws SQLException {
@@ -155,6 +126,37 @@ public class LoginController {
         return loginResult;
     }
 
+    //-------------------
+    //-------------------register
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register(@ModelAttribute User user, ModelMap model) {
+        dbConnection = DatabaseConnection.getInstance();
+        return "register";
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public String registerPost(@ModelAttribute User user, ModelMap model) {
+        dbConnection = DatabaseConnection.getInstance();
+
+        RegisterResult registerResult = RegisterResult.GENERAL_ERROR;
+
+        if (validateUser(user)) {
+            try {
+                registerResult = tryRegister(user);
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            registerResult = RegisterResult.VALIDATION_ERROR;
+        }
+
+        model.addAttribute("result", registerResult);
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("hashedpassword", Utilities.hashString(user.getPassword()));
+
+        return "result";
+    }
+
     private RegisterResult tryRegister(User user) throws SQLException {
         RegisterResult registerResult = RegisterResult.FATAL_ERROR;
 
@@ -183,6 +185,7 @@ public class LoginController {
         return registerResult;
     }
 
+    //-------------------
     private boolean validateUser(User user) {
         return true;
     }
