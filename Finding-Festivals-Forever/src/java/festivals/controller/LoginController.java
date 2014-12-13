@@ -72,12 +72,23 @@ public class LoginController {
         return "result";
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public ModelAndView login(@RequestParam(value = "error", required = false) String error,
+            @RequestParam(value = "logout", required = false) String logout) {
+
+        ModelAndView model = new ModelAndView();
+        if (error != null) {
+            model.addObject("error", "Invalid username and password!");
+        }
+
+        if (logout != null) {
+            model.addObject("msg", "You've been logged out successfully.");
+        }
+        model.setViewName("login");
+
+        return model;
+
     }
-//    @RequestMapping(value = "/login", method = RequestMethod.GET)
-//    public String login(@ModelAttribute User user, ModelMap model) {
-//        dbConnection = DatabaseConnection.getInstance();
-//        return "login";
-//    }
 
     //-------------------register
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -119,9 +130,9 @@ public class LoginController {
 
             if (res.size() > 0) {
                 Map<String, Object> r = res.get(0);
-                
+
                 String username = (String) r.get("username");
-                
+
                 int userid = (int) r.get("userid");
                 String passInDB = (String) r.get("password");
 
