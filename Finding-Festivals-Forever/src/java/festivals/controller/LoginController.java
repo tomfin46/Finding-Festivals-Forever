@@ -20,6 +20,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -31,6 +33,48 @@ public class LoginController {
     @Autowired
     private DatabaseConnection dbConnection;
 
+<<<<<<< Updated upstream
+=======
+    //-------------------favourites
+    @RequestMapping(value = "/favorites", method = RequestMethod.POST)
+    public String favoritesPost(@ModelAttribute User user, ModelMap model, User favorites) {
+        dbConnection = DatabaseConnection.getInstance();
+        LoginResult loginResult = LoginResult.FATAL_ERROR;
+        try {
+            loginResult = tryLogin(favorites);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        model.addAttribute("result", loginResult);
+        return "result";
+    }
+
+    @RequestMapping(value = "/favorites", method = RequestMethod.GET)
+    public String favorites(@ModelAttribute User user, ModelMap model) {
+        dbConnection = DatabaseConnection.getInstance();
+        return "favorites";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ModelAndView login(@RequestParam(value = "error", required = false) String error,
+		@RequestParam(value = "logout", required = false) String logout) {
+ 
+	  ModelAndView model = new ModelAndView();
+	  if (error != null) {
+		model.addObject("error", "Invalid username and password!");
+	  }
+ 
+	  if (logout != null) {
+		model.addObject("msg", "You've been logged out successfully.");
+	  }
+	  model.setViewName("login");
+ 
+	  return model;
+ 
+	}
+    
+    //-------------------login
+>>>>>>> Stashed changes
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute User user, ModelMap model) {
         dbConnection = DatabaseConnection.getInstance();
@@ -42,8 +86,16 @@ public class LoginController {
         model.addAttribute("username", user.getUsername());
         model.addAttribute("hashedpassword", Utilities.hashString(user.getPassword()));
 
+<<<<<<< Updated upstream
         return "result";
     }
+=======
+//    @RequestMapping(value = "/login", method = RequestMethod.GET)
+//    public String login(@ModelAttribute User user, ModelMap model) {
+//        dbConnection = DatabaseConnection.getInstance();
+//        return "login";
+//    }
+>>>>>>> Stashed changes
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@ModelAttribute User user, ModelMap model) {

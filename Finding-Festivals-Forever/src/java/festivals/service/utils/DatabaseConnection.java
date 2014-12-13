@@ -39,7 +39,7 @@ public class DatabaseConnection {
         String dbName = config.getPropertyValue("dbName");
         String userName = config.getPropertyValue("dbUserName");
         String password = config.getPropertyValue("dbPassword");
-        String driver = "com.mysql.jdbc.Driver";
+        String driver = config.getPropertyValue("dbDriver");
 
         try {
             Class.forName(driver).newInstance();

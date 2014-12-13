@@ -6,6 +6,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -19,15 +20,27 @@
         <title>Log in</title>
 
         <!-- Bootstrap core CSS -->
+<<<<<<< Updated upstream
         <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Custom styles for this template -->
         <link href="signin.css" rel="stylesheet">
+=======
+        <!--        <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">-->
+
+        <!-- Custom styles for this template -->
+        <!--        <link href="signin.css" rel="stylesheet">-->
+>>>>>>> Stashed changes
 
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
         <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
         <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -37,7 +50,7 @@
 
     <body>
 
-        <div class="container">
+        <!--<div class="container">
             <div class="social"></div>
             <h1>Login:</h1> 
             <form method="POST" action="/Finding-Festivals-Forever/login">
@@ -50,9 +63,46 @@
                 </div>
                 <p><input type="submit" value="Login" </p>
             </form>
-        </div> <!-- /container -->
+        </div>  /container -->
 
+    <c:if test="${not empty error}">
+        <div class="error">${error}</div>
+    </c:if>
+    <c:if test="${not empty msg}">
+        <div class="msg">${msg}</div>
+    </c:if>
+
+    <form name='loginForm'
+          action="<c:url value='/j_spring_security_check' />" method='POST'>
+
+        <table>
+            <tr>
+                <td>User:</td>
+                <td><input type='text' name='username'></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type='password' name='password' /></td>
+            </tr>
+            <tr>
+                <td colspan='2'><input name="submit" type="submit"
+                                       value="submit" /></td>
+            </tr>
+        </table>
+
+        <input type="hidden" name="${_csrf.parameterName}"
+               value="${_csrf.token}" />
+
+    </form>
+
+<<<<<<< Updated upstream
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     </body>
+=======
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <p><a href="/Finding-Festivals-Forever/index">Back to home</a></p>
+</body>
+>>>>>>> Stashed changes
 </html>
