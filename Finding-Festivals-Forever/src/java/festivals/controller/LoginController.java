@@ -33,18 +33,12 @@ public class LoginController {
     @Autowired
     private DatabaseConnection dbConnection;
 
-<<<<<<< Updated upstream
-=======
     //-------------------favourites
     @RequestMapping(value = "/favorites", method = RequestMethod.POST)
     public String favoritesPost(@ModelAttribute User user, ModelMap model, User favorites) {
         dbConnection = DatabaseConnection.getInstance();
         LoginResult loginResult = LoginResult.FATAL_ERROR;
-        try {
-            loginResult = tryLogin(favorites);
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        loginResult = tryLogin(favorites);
         model.addAttribute("result", loginResult);
         return "result";
     }
@@ -56,25 +50,24 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ModelAndView login(@RequestParam(value = "error", required = false) String error,
-		@RequestParam(value = "logout", required = false) String logout) {
- 
-	  ModelAndView model = new ModelAndView();
-	  if (error != null) {
-		model.addObject("error", "Invalid username and password!");
-	  }
- 
-	  if (logout != null) {
-		model.addObject("msg", "You've been logged out successfully.");
-	  }
-	  model.setViewName("login");
- 
-	  return model;
- 
-	}
-    
+    public ModelAndView login(@RequestParam(value = "error", required = false) String error,
+            @RequestParam(value = "logout", required = false) String logout) {
+
+        ModelAndView model = new ModelAndView();
+        if (error != null) {
+            model.addObject("error", "Invalid username and password!");
+        }
+
+        if (logout != null) {
+            model.addObject("msg", "You've been logged out successfully.");
+        }
+        model.setViewName("login");
+
+        return model;
+
+    }
+
     //-------------------login
->>>>>>> Stashed changes
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@ModelAttribute User user, ModelMap model) {
         dbConnection = DatabaseConnection.getInstance();
@@ -86,30 +79,26 @@ public class LoginController {
         model.addAttribute("username", user.getUsername());
         model.addAttribute("hashedpassword", Utilities.hashString(user.getPassword()));
 
-<<<<<<< Updated upstream
         return "result";
     }
-=======
 //    @RequestMapping(value = "/login", method = RequestMethod.GET)
 //    public String login(@ModelAttribute User user, ModelMap model) {
 //        dbConnection = DatabaseConnection.getInstance();
 //        return "login";
 //    }
->>>>>>> Stashed changes
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(@ModelAttribute User user, ModelMap model) {
         dbConnection = DatabaseConnection.getInstance();
 
         RegisterResult registerResult = RegisterResult.GENERAL_ERROR;
-                
+
         if (validateUser(user)) {
             registerResult = tryRegister(user);
-        }
-        else {
+        } else {
             registerResult = RegisterResult.VALIDATION_ERROR;
         }
-        
+
         model.addAttribute("result", registerResult);
 
         model.addAttribute("username", user.getUsername());
@@ -117,7 +106,7 @@ public class LoginController {
 
         return "result";
     }
-    
+
     private LoginResult tryLogin(User user) {
         String queryUser = "SELECT * FROM users WHERE username='" + user.getUsername() + "';";
         LoginResult loginResult = LoginResult.FATAL_ERROR;
@@ -166,8 +155,7 @@ public class LoginController {
 
                 if (success) {
                     registerResult = RegisterResult.SUCCESS;
-                }
-                else {
+                } else {
                     registerResult = RegisterResult.GENERAL_ERROR;
                 }
             } catch (NullPointerException ex) {
