@@ -14,7 +14,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
-      <!--        CSS Files -->
+        <!--        CSS Files -->
         <!--        External-->
 
         <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet"> 
@@ -35,13 +35,13 @@
     <body>
 
         <h1>Register:</h1> 
-        <form method="POST" action="/Finding-Festivals-Forever/register">
+        <form id="registration" method="POST" action="/Finding-Festivals-Forever/register">
             <p>Username: <input type="text" name="username" data-validation="length alphanumeric" 
                                 data-validation-length="4-12" data-validation-error-msg="The username has to contain at least 4 characters "</p>
-            <p>Password: <input type="password" name="password" data-validation="strength" 
-                                data-validation-strength="2" </p>
-            <p>Confirm Password: <input type="password" name="confirmedPassword" data-validation="confirmation" data-validation-error-msg="Passwords don't match " </p>
-         
+            <p> Password (Min 8 Characters): <input type="password" name="pass_confirmation" data-validation="length" data-validation-length="min8"  data-validation-error-msg="password need to contain at least 8 characters ">
+            </p>
+            <p>Confirm password:<input type="password" name="pass" data-validation="confirmation">
+            </p>
             <p>Name: <input type="text" name="name"  </p>
             <p>Email: <input type="email" name="email" data-validation="email"</p>
             <p>Postcode: <input type="text" name="postcode" </p>
@@ -64,6 +64,7 @@
             <p><input type="submit" value="Register" </p>
         </form>
 
+
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
         <p><a href="/Finding-Festivals-Forever/index">Back to home</a></p>
@@ -71,22 +72,17 @@
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
-        <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
 
-        
+
         <script>
 
             $.validate({
-                modules: 'location,security',
+                modules: 'location, security',
                 onModulesLoaded: function () {
                     $('#country').suggestCountry();
                 },
-                
-                            });
+            });
 
-        </script>            
+        </script>    
     </body>
-
-
-
 </html>
