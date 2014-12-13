@@ -1,5 +1,5 @@
 <%-- 
-    Document   : register
+    Document   : login
     Created on : Oct 31, 2014, 11:14:38 PM
     Author     : CharaKatiri
     source: view-source:http://getbootstrap.com/examples/signin/
@@ -20,27 +20,17 @@
         <title>Log in</title>
 
         <!-- Bootstrap core CSS -->
-<<<<<<< Updated upstream
-        <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+<!--        <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">-->
 
         <!-- Custom styles for this template -->
-        <link href="signin.css" rel="stylesheet">
-=======
-        <!--        <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">-->
-
-        <!-- Custom styles for this template -->
-        <!--        <link href="signin.css" rel="stylesheet">-->
->>>>>>> Stashed changes
+<!--        <link href="signin.css" rel="stylesheet">-->
 
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
         <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
         <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 
-<<<<<<< Updated upstream
-=======
-
-
->>>>>>> Stashed changes
+        
+        
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -98,6 +88,7 @@
 <<<<<<< Updated upstream
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+        <p><a href="/Finding-Festivals-Forever/index">Back to home</a></p>
     </body>
 =======
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

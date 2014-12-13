@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Finding Festivals Forever!!1</title>
+        <title>Finding Festivals Forever!!</title>
     </head>
     <body>
         <h1>Login Result: ${result}</h1>

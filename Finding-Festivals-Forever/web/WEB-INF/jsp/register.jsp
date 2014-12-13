@@ -1,5 +1,5 @@
 <%-- 
-    Document   : login
+    Document   : register
     Created on : Oct 31, 2014, 11:14:28 PM
     Author     : CharaKatiri
 --%>
@@ -14,14 +14,12 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
+        <!--        CSS Files -->
+        <!--        External-->
 
+        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet"> 
         <title>Register</title>
 
-        <!-- Bootstrap core CSS -->
-        <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom styles for this template -->
-        <link href="signin.css" rel="stylesheet">
 
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
         <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -36,20 +34,55 @@
 
     <body>
 
-            <h1>Register:</h1> 
-            <form method="POST" action="/Finding-Festivals-Forever/register">
-                <p> Username: <input type="text" name="username" </p>
-                <p>Password: <input type="password" name="password" </p>
-                <p>Confirm Password: <input type="password" name="confirmedPassword" </p>
-                <p>Name: <input type="text" name="name" </p>
-                <p>Email: <input type="email" name="email" </p>
-                <p>Postcode: <input type="text" name="postcode" </p>
-                <p>Country: 
-                <p><input type="submit" value="Register" </p>
-            </form>
+        <h1>Register:</h1> 
+        <form id="registration" method="POST" action="/Finding-Festivals-Forever/register">
+            <p>Username: <input type="text" name="username" data-validation="length alphanumeric" 
+                                data-validation-length="4-12" data-validation-error-msg="The username has to contain at least 4 characters "</p>
+            <p> Password (Min 8 Characters): <input type="password" name="pass_confirmation" data-validation="length" data-validation-length="min8"  data-validation-error-msg="password need to contain at least 8 characters ">
+            </p>
+            <p>Confirm password:<input type="password" name="pass" data-validation="confirmation">
+            </p>
+            <p>Name: <input type="text" name="name"  </p>
+            <p>Email: <input type="email" name="email" data-validation="email"</p>
+            <p>Postcode: <input type="text" name="postcode" </p>
+            <!-- <p>Country: 
+                 <select name="countryLst" id="countryLst">
+                     <option value=""></option>
+                     <c:forEach items="${countryList}" var="option">
+                         <option value="${option}">
+                             <c:out value="${option.name}"></c:out>
+                             </option>
+                     </c:forEach>
+                 </select> -->
 
-            <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-            <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+
+            <!-- Feel free to delete if you want the old way-->
+            <p>
+                Country
+                <input name="country" id="country" data-validation="country">
+            </p>
+            <p><input type="submit" value="Register" </p>
+        </form>
+
+
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+        <p><a href="/Finding-Festivals-Forever/index">Back to home</a></p>
+        <p><a href="/Finding-Festivals-Forever/login">Go to Login page</a></p>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
+
+
+        <script>
+
+            $.validate({
+                modules: 'location, security',
+                onModulesLoaded: function () {
+                    $('#country').suggestCountry();
+                },
+            });
+
+        </script>    
     </body>
-    
 </html>

@@ -17,6 +17,4 @@
  
     <context:component-scan base-package="festivals.service" />
     <context:component-scan base-package="festivals.model" />
-    <!-- <mvc:resources mapping="/resources/css/**"  location="/WEB-INF/resources/css/" />
-    -->
 </beans>

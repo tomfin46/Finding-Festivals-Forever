@@ -10,8 +10,10 @@ import festivals.model.user.RegisterResult;
 import festivals.model.user.User;
 import festivals.service.utils.DatabaseConnection;
 import festivals.service.utils.Utilities;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,11 @@ public class LoginController {
     public String favoritesPost(@ModelAttribute User user, ModelMap model, User favorites) {
         dbConnection = DatabaseConnection.getInstance();
         LoginResult loginResult = LoginResult.FATAL_ERROR;
-        loginResult = tryLogin(favorites);
+        try {
+            loginResult = tryLogin(favorites);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         model.addAttribute("result", loginResult);
         return "result";
     }
@@ -49,37 +55,23 @@ public class LoginController {
         return "favorites";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView login(@RequestParam(value = "error", required = false) String error,
-            @RequestParam(value = "logout", required = false) String logout) {
-
-        ModelAndView model = new ModelAndView();
-        if (error != null) {
-            model.addObject("error", "Invalid username and password!");
-        }
-
-        if (logout != null) {
-            model.addObject("msg", "You've been logged out successfully.");
-        }
-        model.setViewName("login");
-
-        return model;
-
-    }
-
     //-------------------login
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(@ModelAttribute User user, ModelMap model) {
+    public String loginPost(@ModelAttribute User user, ModelMap model) {
         dbConnection = DatabaseConnection.getInstance();
 
-        LoginResult loginResult = tryLogin(user);
-
+        LoginResult loginResult = LoginResult.FATAL_ERROR;
+        try {
+            loginResult = tryLogin(user);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         model.addAttribute("result", loginResult);
-
         model.addAttribute("username", user.getUsername());
         model.addAttribute("hashedpassword", Utilities.hashString(user.getPassword()));
-
         return "result";
+    }
+
     }
 //    @RequestMapping(value = "/login", method = RequestMethod.GET)
 //    public String login(@ModelAttribute User user, ModelMap model) {
@@ -87,40 +79,53 @@ public class LoginController {
 //        return "login";
 //    }
 
+    //-------------------register
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@ModelAttribute User user, ModelMap model) {
+    public String registerPost(@ModelAttribute User user, ModelMap model) {
         dbConnection = DatabaseConnection.getInstance();
 
         RegisterResult registerResult = RegisterResult.GENERAL_ERROR;
 
         if (validateUser(user)) {
-            registerResult = tryRegister(user);
+            try {
+                registerResult = tryRegister(user);
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             registerResult = RegisterResult.VALIDATION_ERROR;
         }
 
         model.addAttribute("result", registerResult);
-
         model.addAttribute("username", user.getUsername());
         model.addAttribute("hashedpassword", Utilities.hashString(user.getPassword()));
 
         return "result";
     }
 
-    private LoginResult tryLogin(User user) {
-        String queryUser = "SELECT * FROM users WHERE username='" + user.getUsername() + "';";
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String register(@ModelAttribute User user, ModelMap model) {
+        dbConnection = DatabaseConnection.getInstance();
+        return "register";
+    }
+
+    public LoginResult tryLogin(User user) throws SQLException {
+        String queryUser = "SELECT userid, username, password FROM users WHERE username = ? "; //ck
         LoginResult loginResult = LoginResult.FATAL_ERROR;
         String hashedPassword = Utilities.hashString(user.getPassword());
 
         try {
-            ResultSet res = dbConnection.queryDB(queryUser);
+            List<Map<String, Object>> res = dbConnection.queryDB(queryUser, Arrays.asList("userid", "username", "password"), user.getUsername());
 
-            if (res.isBeforeFirst()) {
-                // Assumption made that only one row would be returned and that we don't have duplicated usernames
-                res.next();
+            if (res.size() > 0) {
+                Map<String, Object> r = res.get(0);
+                
+                String username = (String) r.get("username");
+                
+                int userid = (int) r.get("userid");
+                String passInDB = (String) r.get("password");
 
-                String dbPass = res.getString("password");
-                if (dbPass.equals(hashedPassword)) {
+                if (passInDB.equals(hashedPassword)) {
                     loginResult = LoginResult.SUCCESS;
                 } else {
                     loginResult = LoginResult.PASSWORD_INCORRECT;
@@ -131,14 +136,15 @@ public class LoginController {
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "Error manipulating ResultSet", ex);
+
         } catch (NullPointerException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "NullPointer from DB connection still not properly initialised", ex);
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "Possible NullPointer from DB connection still not properly initialised", ex);
         }
 
         return loginResult;
     }
 
-    private RegisterResult tryRegister(User user) {
+    private RegisterResult tryRegister(User user) throws SQLException {
         RegisterResult registerResult = RegisterResult.FATAL_ERROR;
 
         LoginResult loginResult = tryLogin(user);
