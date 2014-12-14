@@ -70,7 +70,9 @@
         <p><a href="/Finding-Festivals-Forever/index">Back to home</a></p>
         <p><a href="/Finding-Festivals-Forever/login">Go to Login page</a></p>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <!-- JavaScript Files -->
+        <!--External-->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> <!-- JQuery -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 
 
