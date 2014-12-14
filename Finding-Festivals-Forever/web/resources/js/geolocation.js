@@ -10,7 +10,7 @@ var GeoLocation = (function () {
 
     "use strict";
 
-    var geolocationSuccess, geolocationError, initWeatherComponent, initMapsComponent, shouldUseWindIcon, showError, useDefault;
+    var geolocationSuccess, geolocationError, initWeatherComponent, refreshWeatherWithNewPosition, initMapsComponent, refreshMapsWithNewPosition, shouldUseWindIcon, showError, useDefault;
 
     geolocationSuccess = function (position) {
         try {
@@ -131,6 +131,11 @@ var GeoLocation = (function () {
 
     };
 
+    refreshWeatherWithNewPosition = function (position) {
+        localStorage.weatherCache = null;
+        initWeatherComponent(position);
+    };
+
     initMapsComponent = function (position) {
         var data = {
             type: 'search',
@@ -141,6 +146,11 @@ var GeoLocation = (function () {
         };
 
         GoogleMapsComponent.setupFields(data);
+    };
+
+    refreshMapsWithNewPosition = function (position) {
+        initMapsComponent(position);
+        GoogleMapsComponent.initializeJsComponent();
     };
 
     shouldUseWindIcon = function (data) {
@@ -176,7 +186,9 @@ var GeoLocation = (function () {
     return {
         geolocationSuccess: geolocationSuccess,
         geolocationError: geolocationError,
-        useDefault: useDefault
+        useDefault: useDefault,
+        refreshWeatherWithNewPosition: refreshWeatherWithNewPosition,
+        refreshMapsWithNewPosition: refreshMapsWithNewPosition
     };
 
 }());

@@ -70,38 +70,40 @@ var GoogleMapsComponent = (function () {
     };
 
     initializeJsComponent = function () {
-        var myLatlng = new google.maps.LatLng(fields.lat, fields.lon);
-        var mapOptions = {
-            zoom: fields.zoom,
-            center: myLatlng
-        };
+        if (google) {
+            var myLatlng = new google.maps.LatLng(fields.lat, fields.lon);
+            var mapOptions = {
+                zoom: fields.zoom,
+                center: myLatlng
+            };
 
-        var mapDiv = document.querySelector('.map-canvas');
-        if (mapDiv) {
-            map = new google.maps.Map(mapDiv, mapOptions);
-            infoWindow = new google.maps.InfoWindow();
+            var mapDiv = document.querySelector('.map-canvas');
+            if (mapDiv) {
+                map = new google.maps.Map(mapDiv, mapOptions);
+                infoWindow = new google.maps.InfoWindow();
 
-            var festivals = document.querySelectorAll(".festival");
-            $.each(festivals, function (idx, festivalDiv) {
+                var festivals = document.querySelectorAll(".festival");
+                $.each(festivals, function (idx, festivalDiv) {
 
-                var festivalName = festivalDiv.querySelector(".festivalName").innerHTML;
-                var genres = festivalDiv.querySelector(".genres").innerHTML;
-                var markerData = {
-                    lat: festivalDiv.querySelector(".location .latitude").innerHTML,
-                    lon: festivalDiv.querySelector(".location .longitude").innerHTML,
-                    name: festivalName,
-                    content: '<div id="content">' +
-                            '<div id="siteNotice">' +
-                            '</div>' +
-                            '<h3 id="firstHeading" class="firstHeading">' + festivalName + '</h3>' +
-                            '<div id="bodyContent">' +
-                            '<p>' + genres + '</p>' +
-                            '</div>' +
-                            '</div>'
-                };
+                    var festivalName = festivalDiv.querySelector(".festivalName").innerHTML;
+                    var genres = festivalDiv.querySelector(".genres").innerHTML;
+                    var markerData = {
+                        lat: festivalDiv.querySelector(".location .latitude").innerHTML,
+                        lon: festivalDiv.querySelector(".location .longitude").innerHTML,
+                        name: festivalName,
+                        content: '<div id="content">' +
+                                '<div id="siteNotice">' +
+                                '</div>' +
+                                '<h3 id="firstHeading" class="firstHeading">' + festivalName + '</h3>' +
+                                '<div id="bodyContent">' +
+                                '<p>' + genres + '</p>' +
+                                '</div>' +
+                                '</div>'
+                    };
 
-                _addMarker(markerData);
-            });
+                    _addMarker(markerData);
+                });
+            }
         }
     };
 
@@ -118,6 +120,22 @@ var GoogleMapsComponent = (function () {
             google.maps.event.addListener(marker, 'click', function () {
                 infoWindow.setContent(markerData.content);
                 infoWindow.open(map, marker);
+
+                var festivalDatas = document.querySelectorAll(".festivalData");
+                $.each(festivalDatas, function () {
+                    if (this.querySelector(".name").innerHTML === markerData.name && $(this).css("display") === "none") {
+                        $(this).fadeIn("slow");
+                    }
+                });
+                
+                var position = {
+                    coords: {
+                        latitude: markerData.lat,
+                        longitude: markerData.lon
+                    }
+                };
+
+                GeoLocation.refreshWeatherWithNewPosition(position);
             });
         }
     };

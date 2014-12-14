@@ -25,7 +25,7 @@ var FestivalsList = (function () {
         var festivalDiv = document.createElement("div"),
                 nameDiv = document.createElement("div"),
                 contentDiv = document.createElement("div");
-        
+
         festivalDiv.classList.add("festival");
         festivalDiv.classList.add(festivalData.id);
         contentDiv.classList.add("festivalData");
@@ -33,11 +33,24 @@ var FestivalsList = (function () {
         nameDiv.classList.add("festivalName");
         nameDiv.innerHTML = festivalData.name;
         $(nameDiv).click(function () {
-            //$(contentDiv).fadeIn("slow");
+            
+            if ($(contentDiv).css("display") === "none") {
+                $(contentDiv).fadeIn("slow");
 
-            $(contentDiv).css("display") === "none"
-                    ? $(contentDiv).fadeIn("slow")
-                    : $(contentDiv).fadeOut("slow");
+                var position = {
+                    coords: {
+                        latitude: festivalData.location.latitude,
+                        longitude: festivalData.location.longitude
+                    }
+                };
+
+                GeoLocation.refreshMapsWithNewPosition(position);
+                GeoLocation.refreshWeatherWithNewPosition(position);
+            }
+            else {
+                $(contentDiv).fadeOut("slow");
+            }
+
         });
 
         festivalDiv.appendChild(nameDiv);
@@ -89,10 +102,10 @@ var FestivalsList = (function () {
 
                 if (Utils.isValidVariable(authorizedToggle)) {
 
-                    var toggleFav = authorizedToggle.cloneNode(true);
+                    var toggleFav = authorizedToggle.cloneNode(true); //deep clone
 
                     toggleFav.innerHTML = isFavourite ? removeFromFavourites : addToFavourites;
-                    
+
                     $(toggleFav).click(function () {
 
                         if (this.innerHTML === addToFavourites) {

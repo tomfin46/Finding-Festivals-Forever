@@ -24,7 +24,7 @@ var WeatherComponent = (function () {
             kids = $weatherComponent.children();
             len = kids.length;
 
-            if (len === 0 || len > 6) {
+            if (len === 0 || len > 6 || dayOfWeek === 0) {
                 $weatherComponent.empty();
 
                 dayDiv = _createDayDivWithTimeDiv(timeOfDay, dayOfWeek, data);
