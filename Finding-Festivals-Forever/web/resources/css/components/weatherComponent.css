@@ -22,7 +22,8 @@ and open the template in the editor.
     padding: 5px;
     border-color: #000;
     border-style: solid;
-    border-width: 2px;
+    border-width: 1px;
+    border-radius: 5px;
 }
 
 .weatherComponent .day .time > img {

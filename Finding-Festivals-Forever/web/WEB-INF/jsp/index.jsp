@@ -193,56 +193,65 @@
 
             <!-- START THE FEATURETTES -->
 
-            <div class="row featurette">
+            <div class="row featurette festivals">
                 <div class="col-md-7">
-                    <h2 class="featurette-heading">Festivals <span class="text-muted">Browse Festivals.</span></h2>
-                    <p class="lead" id="main" >Looking for festivals around you? Looking for specific dates? Looking for specific performers? You are in the right place! </p>
-                </div>
+                    <h2 class="featurette-heading">Festivals <span class="text-muted">Festivals Everywhere</span></h2>
+                    <p class="lead">Find Festivals everywhere</p>
 
-                <div class="col-md-6">
                     <div class="festivalsList"></div>
                 </div>
 
                 <div class="col-md-5">
-                    <div class="map-canvas"></div>            
-                    <div class="mapsComponent"></div>
+                    <div class="map-canvas"></div>
                 </div>
 
-            </div> <!-- ./featurette -->
+            </div> <!-- ./festivals featurette -->
 
             <hr class="featurette-divider">
 
-            <div class="row featurette">
-                <div class="col-md-5">
-                    <h2 class="featurette-heading">Check the weather </h2>
-                    <p class="lead" id="weather"> Get the latest forecast for the festival! </p>
+            <div class="row featurette weather">
+                <div class="col-md-4">
+                    <h2 class="featurette-heading">Weather<br/><span class="text-muted">Raining Down</span></h2>
+                    <p class="lead weatherSubTitle" id="weather">Get the latest forecast for the festival!</p>
 
-                    <div class="col-md-10">
-                        <form  id="weatherSettings" action="">
-                            <input type="radio" name="temp" value="c" checked="true">°C
-                            <input type="radio" name="temp" value="f">°F<br />
-                            <input type="radio" name="speed" value="mph" checked="true">mph
-                            <input type="radio" name="speed" value="kph">kph
-                        </form>
-                    </div>
+                    <form id="weatherSettings" action="">
+                        <div class="temp">
+                            <label class="radio-inline">
+                                <input type="radio" name="temp" value="c" checked="true"> °C 
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="temp" value="f"> °F
+                            </label>
+                        </div>
+                        <div class="wind-speed">
+                            <label class="radio-inline">
+                                <input type="radio" name="speed" value="mph" checked="true"> mph 
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="speed" value="kph"> kph
+                            </label>
+                        </div>
+                    </form>
                 </div>
 
-                <div class="col-md-10">
+                <div class="col-md-8">
                     <div class="weatherComponent"></div>
                 </div>
 
-            </div> <!-- ./featurette -->
+            </div> <!-- ./ weather featurette -->
 
             <hr class="featurette-divider">
 
-            <div class="row featurette">
+            <div class="row featurette share">
                 <div class="col-md-7">
-                    <h2 class="featurette-heading"> Share Festivals 
-                        <p class="lead" id="share">Going to this Festival? Share it with friends!</p>
+                    <h2 class="featurette-heading">Share<br/><span class="text-muted">The Knowledge</span></h2>
+                        <p class="lead" id="share">Going to a Festival? Share it with friends!</p>
+                </div>
 
-                        <div class="g-plus" data-action="share"></div>
-                        <div class="fb-share-button" data-href="${pageContext.request.contextPath}"></div>
-                        <a class="twitter-share-button" href="https://twitter.com/share">Tweet</a>
+                <div class="col-md-4">
+                    <div class="g-plus share-button" data-action="share"></div><br/>
+                    <a class="twitter-share-button share-button" href="https://twitter.com/share">Tweet</a><br/>
+                    <div class="fb-share-button share-button" data-href="${pageContext.request.contextPath}"></div>
                 </div>
             </div> <!-- ./featurette -->
 

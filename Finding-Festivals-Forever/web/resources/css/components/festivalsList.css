@@ -22,9 +22,8 @@ and open the template in the editor.
 
 .festivalsList .festival .festivalName {
     text-align: center;
-    border: 2px solid;
-    border-radius: 5px;
     cursor: pointer;
+    width: 100%;
 }
 
 .festivalsList .festival .festivalData {
@@ -34,6 +33,7 @@ and open the template in the editor.
 
 .festivalsList .festival .festivalData .toggleFavourite {
     cursor: pointer;
+    width: 100%;
 }
 
 .festivalsList .festival .festivalData .id {

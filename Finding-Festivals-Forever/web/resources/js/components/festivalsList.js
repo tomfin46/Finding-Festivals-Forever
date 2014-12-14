@@ -31,9 +31,11 @@ var FestivalsList = (function () {
         contentDiv.classList.add("festivalData");
 
         nameDiv.classList.add("festivalName");
+        nameDiv.classList.add("btn");
+        nameDiv.classList.add("btn-default");
         nameDiv.innerHTML = festivalData.name;
         $(nameDiv).click(function () {
-            
+
             if ($(contentDiv).css("display") === "none") {
                 $(contentDiv).fadeIn("slow");
 
@@ -46,6 +48,7 @@ var FestivalsList = (function () {
 
                 GeoLocation.refreshMapsWithNewPosition(position);
                 GeoLocation.refreshWeatherWithNewPosition(position);
+                WeatherComponent.setWeatherTitle(festivalData.name);
             }
             else {
                 $(contentDiv).fadeOut("slow");
@@ -105,6 +108,8 @@ var FestivalsList = (function () {
                     var toggleFav = authorizedToggle.cloneNode(true); //deep clone
 
                     toggleFav.innerHTML = isFavourite ? removeFromFavourites : addToFavourites;
+                    toggleFav.classList.add("btn");
+                    toggleFav.classList.add("btn-default");
 
                     $(toggleFav).click(function () {
 

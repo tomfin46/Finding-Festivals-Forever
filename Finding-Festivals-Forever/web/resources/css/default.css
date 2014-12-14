@@ -8,19 +8,15 @@ and open the template in the editor.
     Author     : Tom
 */
 
-.featurette-divider {
-    clear: both;
-}
-
-.body {
-    padding-top: 50px;
-}
-
-.starter-template {
-    padding: 40px 15px;
-    text-align: center;
+.share-button {
+    margin-bottom: 30px;
 }
 
 .form-control {
     margin-bottom: 10px;
+}
+
+.featurette {
+    margin: 0 auto;
+    padding: 0 20px;
 }

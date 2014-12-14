@@ -10,8 +10,12 @@ var WeatherComponent = (function () {
 
     "use strict";
 
-    var addWeather, convertWeatherUnits, convertTemperature, convertSpeed,
+    var setWeatherTitle, addWeather, convertWeatherUnits, convertTemperature, convertSpeed,
             _createDayDivWithTimeDiv, _createTimeDiv, _getTimeOfDayString;
+
+    setWeatherTitle = function(newTitle) {
+        document.querySelector(".weatherSubTitle").innerHTML = newTitle;        
+    };
 
     addWeather = function (timeOfDay, dayOfWeek, data) {
         var weatherComponent = document.querySelector(".weatherComponent"),
@@ -170,6 +174,7 @@ var WeatherComponent = (function () {
     };
 
     return {
+        setWeatherTitle: setWeatherTitle,
         addWeather: addWeather,
         convertWeatherUnits: convertWeatherUnits,
         convertTemperature: convertTemperature,
