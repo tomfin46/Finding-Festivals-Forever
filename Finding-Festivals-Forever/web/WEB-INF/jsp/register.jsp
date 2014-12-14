@@ -45,7 +45,7 @@
                data-validation-length="min8"
                data-validation-error-msg="password need to contain at least 8 characters " />
         <input class="form-control" type="password" name="pass" placeholder="Confirm Password"
-               data-validation="confirmation">
+               data-validation="confirmation"/>
         <input class="form-control" type="text" name="name" placeholder="Name" />
         <input class="form-control" type="email" name="email" placeholder="Email"
                data-validation="email" />

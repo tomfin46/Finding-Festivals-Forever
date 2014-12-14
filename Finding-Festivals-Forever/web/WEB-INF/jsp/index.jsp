@@ -153,7 +153,7 @@
                         <img src="${pageContext.request.contextPath}/resources/images/test.JPG" alt="">
                         <div class="container">
                             <div class="carousel-caption">
-                                <h1>Festival Finder Forever!</h1>
+                                <h1>Finding Festivals Forever!</h1>
                                 <p>Looking for festivals around you? Looking for specific dates? Looking for performers? You are in the right place! </p>
                             </div>
                         </div> <!-- ./container -->
@@ -196,7 +196,7 @@
             <div class="row featurette">
                 <div class="col-md-7">
                     <h2 class="featurette-heading">Festivals <span class="text-muted">Browse Festivals.</span></h2>
-                    <p class="lead">Looking for festivals around you? Looking for specific dates? Looking for specific performers? You are in the right place! </p>
+                    <p class="lead" id="main" >Looking for festivals around you? Looking for specific dates? Looking for specific performers? You are in the right place! </p>
                 </div>
 
                 <div class="col-md-6">
@@ -215,7 +215,7 @@
             <div class="row featurette">
                 <div class="col-md-5">
                     <h2 class="featurette-heading">Check the weather </h2>
-                    <p class="lead"> Get the latest forecast for the festival! </p>
+                    <p class="lead" id="weather"> Get the latest forecast for the festival! </p>
 
                     <div class="col-md-10">
                         <form  id="weatherSettings" action="">
@@ -238,7 +238,7 @@
             <div class="row featurette">
                 <div class="col-md-7">
                     <h2 class="featurette-heading"> Share Festivals 
-                        <p class="lead">Going to this Festival? Share it with friends!</p>
+                        <p class="lead" id="name">Going to this Festival? Share it with friends!</p>
 
                         <div class="g-plus" data-action="share"></div>
                         <div class="fb-share-button" data-href="${pageContext.request.contextPath}"></div>
