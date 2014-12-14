@@ -8,7 +8,7 @@
         <meta charset=UTF-8>
         <!-- CSS Files -->
         <!-- External-->
-        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
         <link href="http://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet"> <!-- Bootstrap Carousel -->
 
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/default.css" />
@@ -180,6 +180,7 @@
                     </div> <!-- ./item -->
                 </div> <!-- ./carousel-inner -->
 
+
                 <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
@@ -195,7 +196,7 @@
 
             <div class="row featurette festivals">
                 <div class="col-md-7">
-                    <h2 class="featurette-heading">Festivals <span class="text-muted">Festivals Everywhere</span></h2>
+                    <h2 class="featurette-heading">Festivals<br/><span class="text-muted">Festivals Everywhere</span></h2>
                     <p class="lead">Find Festivals everywhere</p>
 
                     <div class="festivalsList"></div>
@@ -245,7 +246,7 @@
             <div class="row featurette share">
                 <div class="col-md-7">
                     <h2 class="featurette-heading">Share<br/><span class="text-muted">The Knowledge</span></h2>
-                        <p class="lead" id="share">Going to a Festival? Share it with friends!</p>
+                    <p class="lead" id="share">Going to a Festival? Share it with friends!</p>
                 </div>
 
                 <div class="col-md-4">
@@ -265,11 +266,7 @@
                 </div>
             </div> <!-- ./featurette -->
 
-            <script src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
-            <script src="http://getbootstrap.com/assets/js/docs.min.js"></script>
-            <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-            <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
-
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
             <script src="${pageContext.request.contextPath}/resources/js/register.js"></script>
     </body>
 
