@@ -31,16 +31,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username = ?")
                 .authoritiesByUsernameQuery("SELECT username, role FROM user_roles WHERE username = ?");
         
-//        auth.inMemoryAuthentication()
-//                .withUser("user").password("password").roles("USER");
-
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/favorites").access("hasRole('ROLE_USER')")
+                .antMatchers("/favourites").access("hasRole('ROLE_USER')")
                     .and()
                 .formLogin()
                     .loginPage("/login")

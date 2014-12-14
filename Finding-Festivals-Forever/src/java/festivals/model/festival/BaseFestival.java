@@ -16,6 +16,8 @@ public class BaseFestival implements IFestival {
 
     private FestivalType type;
 
+    private int id;
+    
     private String name;
 
     private String genres;
@@ -32,8 +34,9 @@ public class BaseFestival implements IFestival {
     
     private Map flags;
 
-    public BaseFestival(FestivalType type, String name, String genres, String startDate, String endDate, Location location, String website, Map flags) {
+    public BaseFestival(FestivalType type, int id, String name, String genres, String startDate, String endDate, Location location, String website, Map flags) {
         this.type = type;
+        this.id = id;
         this.name = name;
         this.genres = genres;
         this.startDate = startDate;
@@ -43,8 +46,9 @@ public class BaseFestival implements IFestival {
         this.flags = flags;
     }
     
-    public BaseFestival(FestivalType type, String name, String genres, String date, Location location, String website, Map flags) {
+    public BaseFestival(FestivalType type, int id, String name, String genres, String date, Location location, String website, Map flags) {
         this.type = type;
+        this.id = id;
         this.name = name;
         this.genres = genres;
         this.date = date;
@@ -61,6 +65,14 @@ public class BaseFestival implements IFestival {
         this.type = type;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getName() {
         return name;
     }

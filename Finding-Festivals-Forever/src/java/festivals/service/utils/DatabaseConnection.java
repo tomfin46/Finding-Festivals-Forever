@@ -160,37 +160,22 @@ public class DatabaseConnection {
 
                     Class paramClass = param.getClass();
 
-                    int dotIdx = paramClass.getName().lastIndexOf('.');
-                    String paramClassName = "";
-
-                    if (dotIdx > 0) {
-                        paramClassName = paramClass.getName().substring(dotIdx + 1);
-                    } else {
-                        paramClassName = paramClass.getName();
+                    if (paramClass == String.class) {
+                        ps.setString(i + 1, (String) param);
                     }
-
-                    Method methodToFind = null;
-                    methodToFind = PreparedStatement.class.getMethod("set" + paramClassName, new Class[]{int.class, paramClass});
-
-                    if (methodToFind == null) {
-                        // Method not found.
-                    } else {
-                        // Method found therefore invoke it
-                        methodToFind.invoke(ps, i + 1, param);
+                    else if (paramClass == Integer.class) {
+                        ps.setInt(i + 1, (int) param);
+                    }
+                    else {
+                        Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, "PreparedStatement set method not mapped");
                     }
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchMethodException ex) {
-            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SecurityException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IllegalArgumentException ex) {
-            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InvocationTargetException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
 

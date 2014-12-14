@@ -11,6 +11,7 @@ import festivals.model.festival.MusicFestival;
 import festivals.resources.CountryConstantsEnum;
 import festivals.service.utils.DatabaseConnection;
 import java.math.BigDecimal;
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,15 +51,45 @@ public class FestivalsController {
     }
 
     @RequestMapping(value = "/festivals", method = RequestMethod.GET)
-    public @ResponseBody
-    List<IFestival> getFestivals() {
+    @ResponseBody
+    public List<IFestival> getFestivals() {
         String queryFestivals = "SELECT * FROM festivals;";
         List<IFestival> festivals = new ArrayList<>();
+
+        festivals = constructFestivalsList(queryFestivals);
+
+        return festivals;
+    }
+
+    @RequestMapping(value = "/festivals/favourites", method = RequestMethod.GET)
+    @ResponseBody
+    public List<IFestival> getFestivalsFavourites(Principal principal) {
+        String queryFavourites = "SELECT f.Festivals_ID, f.Festival_Name, f.Genre, f.Start_Date, f.End_Date, f.Location, f.Location_Lat, f.Location_Lon, f.Website "
+                + "FROM festivals f "
+                + "INNER JOIN user_favourites uf "
+                + "ON f.Festivals_ID = uf.Favourite JOIN users u "
+                + "ON uf.username = u.username "
+                + "WHERE u.username = ?";
+
+        List<IFestival> festivals = new ArrayList<>();
+
+        if (principal != null) {
+            String username = principal.getName();
+            festivals = constructFestivalsList(queryFavourites, username);
+        }
+
+        return festivals;
+    }
+
+    private List<IFestival> constructFestivalsList(String sqlQuery, Object... params) {
+        List<IFestival> festivals = new ArrayList<>();
+
         try {
-            List<Map<String, Object>> res = dbConnection.queryDB(queryFestivals, Arrays.asList("Festival_Name", "Genre", "Start_Date", "End_Date", "Location", "Location_Lat", "Location_Lon", "Website"));
+            List<Map<String, Object>> res = dbConnection.queryDB(sqlQuery, Arrays.asList("Festivals_ID", "Festival_Name", "Genre", "Start_Date", "End_Date", "Location", "Location_Lat", "Location_Lon", "Website"), params);
 
             for (Map<String, Object> r : res) {
 
+                int id = (int) r.get("Festivals_ID");
                 String name = (String) r.get("Festival_Name");
                 String genres = (String) r.get("Genre");
                 String startDate = (String) r.get("Start_Date");
@@ -72,6 +103,7 @@ public class FestivalsController {
                 if (startDate.equalsIgnoreCase(endDate)) {
                     festivals.add(
                             new MusicFestival(
+                                    id,
                                     name,
                                     genres,
                                     startDate,
@@ -83,6 +115,7 @@ public class FestivalsController {
                 } else {
                     festivals.add(
                             new MusicFestival(
+                                    id,
                                     name,
                                     genres,
                                     startDate,
@@ -96,7 +129,7 @@ public class FestivalsController {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "Error manipulating ResultSet", ex);
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "Error executing SQL query", ex);
         } catch (NullPointerException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "NullPointer from DB connection still not properly initialised", ex);
         }

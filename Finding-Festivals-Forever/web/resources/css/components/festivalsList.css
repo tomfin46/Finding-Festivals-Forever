@@ -29,8 +29,15 @@ and open the template in the editor.
 
 .festivalsList .festival .festivalData {
     display: none;
-    
     padding: 10px;
+}
+
+.festivalsList .festival .festivalData .toggleFavourite {
+    cursor: pointer;
+}
+
+.festivalsList .festival .festivalData .id {
+    display: none;
 }
 
 .festivalsList .festival .festivalData .name {

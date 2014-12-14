@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -48,6 +49,11 @@
         <!--    declaring top of the page -->
         <a name="top" />
         <div id="pageContextPath" data-page-context="${pageContext.request.contextPath}"></div>
+        <div class="authorizeUser">
+            <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
+                <div class="toggleFavourite"></div>
+            </sec:authorize>
+        </div>
 
         <script>
             function formSubmit() {
@@ -69,7 +75,7 @@
 
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/Finding-Festivals-Forever/favorites">Favorites</a></li>
+                    <li><a href="/Finding-Festivals-Forever/favourites">Favourites</a></li>
 
                     <c:choose>
                         <c:when test="${pageContext.request.userPrincipal.name != null}">

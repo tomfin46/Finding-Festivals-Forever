@@ -36,24 +36,7 @@ public class LoginController {
     private DatabaseConnection dbConnection;
 
     //-------------------favourites
-    @RequestMapping(value = "/favorites", method = RequestMethod.GET)
-    public String favorites(@ModelAttribute User user, ModelMap model) {
-        dbConnection = DatabaseConnection.getInstance();
-        return "favorites";
-    }
-
-    @RequestMapping(value = "/favorites", method = RequestMethod.POST)
-    public String favoritesPost(@ModelAttribute User user, ModelMap model, User favorites) {
-        dbConnection = DatabaseConnection.getInstance();
-        LoginResult loginResult = LoginResult.FATAL_ERROR;
-        try {
-            loginResult = tryLogin(favorites);
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        model.addAttribute("result", loginResult);
-        return "result";
-    }
+    
     //-------------------
 
     //-------------------login

@@ -10,7 +10,7 @@ var FestivalsList = (function () {
 
     "use strict";
 
-    var addFestival, _createFestivalDiv;
+    var addFestival, _createFestivalDiv, _addFavToggleIfAuthorized;
 
     addFestival = function (festival) {
         var festivalList = document.querySelector(".festivalsList"),
@@ -25,7 +25,9 @@ var FestivalsList = (function () {
         var festivalDiv = document.createElement("div"),
                 nameDiv = document.createElement("div"),
                 contentDiv = document.createElement("div");
+        
         festivalDiv.classList.add("festival");
+        festivalDiv.classList.add(festivalData.id);
         contentDiv.classList.add("festivalData");
 
         nameDiv.classList.add("festivalName");
@@ -68,9 +70,65 @@ var FestivalsList = (function () {
             }
         });
 
+        _addFavToggleIfAuthorized(festivalData.id, contentDiv);
+
         festivalDiv.appendChild(contentDiv);
 
         return festivalDiv;
+    };
+
+    _addFavToggleIfAuthorized = function (festivalId, contentDiv) {
+        var addToFavourites = "Add To Favourites",
+                removeFromFavourites = "Remove From Favourites";
+
+        $.ajax({
+            type: 'Get',
+            url: Utils.getPageContext() + '/isFavourite?festival=' + festivalId,
+            success: function (isFavourite) {
+                var authorizedToggle = document.querySelector('.authorizeUser .toggleFavourite');
+
+                if (Utils.isValidVariable(authorizedToggle)) {
+
+                    var toggleFav = authorizedToggle.cloneNode(true);
+
+                    toggleFav.innerHTML = isFavourite ? removeFromFavourites : addToFavourites;
+                    
+                    $(toggleFav).click(function () {
+
+                        if (this.innerHTML === addToFavourites) {
+                            $.ajax({
+                                type: 'Get',
+                                url: Utils.getPageContext() + '/addToFavourites?festival=' + festivalId,
+                                success: function () {
+                                }
+                            });
+
+                            this.innerHTML = removeFromFavourites;
+                        }
+                        else {
+                            $.ajax({
+                                type: 'Get',
+                                url: Utils.getPageContext() + '/removeFromFavourites?festival=' + festivalId,
+                                success: function () {
+                                    if (document.URL.indexOf("favourites") !== -1) {
+                                        var festivals = document.querySelectorAll(".festival");
+                                        $.each(festivals, function (idx, festival) {
+                                            if (festival.classList.contains(festivalId)) {
+                                                festival.parentElement.removeChild(festival);
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+
+                            this.innerHTML = addToFavourites;
+                        }
+                    });
+
+                    contentDiv.appendChild(toggleFav);
+                }
+            }
+        });
     };
 
     return {
