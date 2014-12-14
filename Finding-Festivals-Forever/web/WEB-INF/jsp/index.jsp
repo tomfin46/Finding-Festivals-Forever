@@ -73,17 +73,12 @@
 
                     <c:choose>
                         <c:when test="${pageContext.request.userPrincipal.name != null}">
-
                             <li><a>Welcome <c:out value="${pageContext.request.userPrincipal.name}" /></a></li>
                             <li><a href="javascript:formSubmit()">Logout</a></li>
-
                         </c:when>
-
                         <c:otherwise>
-
                             <li><a href="/Finding-Festivals-Forever/login">Login</a></li>                                
                             <li><a href="/Finding-Festivals-Forever/register">Register</a></li>
-
                         </c:otherwise>
                     </c:choose>
 
