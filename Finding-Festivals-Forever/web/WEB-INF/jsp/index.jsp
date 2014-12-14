@@ -28,6 +28,7 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> <!-- JQuery -->
         <script src="https://apis.google.com/js/platform.js" async defer></script> <!-- Google+ Share -->
         <script src="http://momentjs.com/downloads/moment.js"></script> <!-- moment.js - datetime manipulations -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script> <!-- JQuery Form Validator -->
 
         <!--Internal-->
         <script src="${pageContext.request.contextPath}/resources/js/utils.js"></script>
@@ -59,6 +60,13 @@
             function formSubmit() {
                 document.getElementById("logoutForm").submit();
             }
+            
+            $.validate({
+                modules: 'location, security',
+                onModulesLoaded: function () {
+                    $('#country').suggestCountry();
+                }
+            });
         </script>
 
     <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
@@ -81,10 +89,52 @@
                         <c:when test="${pageContext.request.userPrincipal.name != null}">
                             <li><a>Welcome <c:out value="${pageContext.request.userPrincipal.name}" /></a></li>
                             <li><a href="javascript:formSubmit()">Logout</a></li>
+
                         </c:when>
+
                         <c:otherwise>
-                            <li><a href="/Finding-Festivals-Forever/login">Login</a></li>                                
-                            <li><a href="/Finding-Festivals-Forever/register">Register</a></li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Login<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <c:url value='/login' var="loginUrl" />
+                                    <form class="navbar-form" name='loginForm' action="${loginUrl}" method='POST'>
+                                        <input class="form-control" type='text' name='username' placeholder="Username" />
+                                        <input class="form-control" type='password' name='password' placeholder="Password" />
+                                        <input class="btn btn-default" name="submit" type="submit" value="Login" />
+                                        <input class="form-control" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                                    </form>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Register<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <c:url value='/register' var="registerUrl" />
+                                    <form class="navbar-form" id="registration" action="${registerUrl}" method="POST">
+                                        <div class="form-group">
+                                            <input class="form-control" type="text" name="username" placeholder="Username"
+                                                   data-validation="length alphanumeric" 
+                                                   data-validation-length="4-12"
+                                                   data-validation-error-msg="The username has to contain at least 4 characters " />
+                                            <input class="form-control" type="password" name="pass" placeholder="Password (Min 8 Characters)"
+                                                   data-validation="length"
+                                                   data-validation-length="min8"
+                                                   data-validation-error-msg="password need to contain at least 8 characters " />
+                                            <input class="form-control" type="password" name="pass_confirmation" placeholder="Confirm Password"
+                                                   data-validation="confirmation">
+                                            <input class="form-control" type="text" name="name" placeholder="Name" />
+                                            <input class="form-control" type="email" name="email" placeholder="Email"
+                                                   data-validation="email" />
+                                            <input class="form-control" type="text" name="postcode" placeholder="Postcode" />
+                                            <input class="form-control" name="country" id="country" placeholder="Country"
+                                                   data-validation="country" />
+                                        </div>
+                                        <input class="btn btn-default" type="submit" value="Register" />
+                                    </form>
+                                </ul>
+                            </li>
+
                         </c:otherwise>
                     </c:choose>
 
