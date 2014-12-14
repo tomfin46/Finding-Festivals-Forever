@@ -23,7 +23,7 @@
         <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
 
         <!--Internal -->
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/login.css" />
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/forms.css" />
     </head>
 
     <body>
@@ -33,8 +33,8 @@
 
             <c:url value='/login' var="loginUrl" />
 
-            <form class="form-login" name='loginForm' action="${loginUrl}" method='POST'>
-                <h2 class="form-login-heading">Please Login to continue</h2>
+            <form class="form" name='loginForm' action="${loginUrl}" method='POST'>
+                <h2 class="form-heading">Please Login to continue</h2>
                 
                 <c:if test="${not empty error}">
                     <div class="error">${error}</div>
@@ -44,7 +44,7 @@
                 </c:if>
                 
                 <input class="form-control" type='text' name='username' placeholder="Username" required autofocus />
-                <input class="form-control" type='password' name='password' placeholder="Password" required />
+                <input class="form-control last-input" type='password' name='password' placeholder="Password" required />
                 <input class="btn btn-lg btn-primary btn-block" type="submit" value="Login" />
                 <input class="form-control" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 

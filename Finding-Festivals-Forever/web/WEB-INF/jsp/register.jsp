@@ -14,77 +14,52 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
-        
-        <!--        CSS Files -->
-        <!--        External-->
-        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet"> 
-        
+
         <title>Register</title>
 
-        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-        <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-        <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+        <!-- CSS Files -->
+        <!-- External-->
+        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
 
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-    </head>
-
-    <body>
-
-        <h1>Register:</h1> 
-        <form id="registration" method="POST" action="/Finding-Festivals-Forever/register">
-            <p>Username: <input type="text" name="username" data-validation="length alphanumeric" 
-                                data-validation-length="4-12" data-validation-error-msg="The username has to contain at least 4 characters "</p>
-            <p> Password (Min 8 Characters): <input type="password" name="pass_confirmation" data-validation="length" data-validation-length="min8"  data-validation-error-msg="password need to contain at least 8 characters ">
-            </p>
-            <p>Confirm password:<input type="password" name="pass" data-validation="confirmation">
-            </p>
-            <p>Name: <input type="text" name="name"  </p>
-            <p>Email: <input type="email" name="email" data-validation="email"</p>
-            <p>Postcode: <input type="text" name="postcode" </p>
-            <!-- <p>Country: 
-                 <select name="countryLst" id="countryLst">
-                     <option value=""></option>
-                     <c:forEach items="${countryList}" var="option">
-                         <option value="${option}">
-                             <c:out value="${option.name}"></c:out>
-                             </option>
-                     </c:forEach>
-                 </select> -->
-
-
-            <!-- Feel free to delete if you want the old way-->
-            <p>
-                Country
-                <input name="country" id="country" data-validation="country">
-            </p>
-            <p><input type="submit" value="Register" </p>
-        </form>
-
-
-        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-        <p><a href="/Finding-Festivals-Forever/index">Back to home</a></p>
-        <p><a href="/Finding-Festivals-Forever/login">Go to Login page</a></p>
+        <!--Internal -->
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/forms.css" />
 
         <!-- JavaScript Files -->
         <!--External-->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> <!-- JQuery -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
+    </head>
 
+    <body>
 
-        <script>
+    <c:url value='/register' var="registerUrl" />
+    <form class="form" id="registrationForm" action="${registerUrl}" method="POST">
+        <h2 class="form-heading">Register New User</h2>
 
-            $.validate({
-                modules: 'location, security',
-                onModulesLoaded: function () {
-                    $('#country').suggestCountry();
-                }
-            });
+        <input class="form-control" type="text" name="username" placeholder="Username"
+               data-validation="length alphanumeric" 
+               data-validation-length="4-12"
+               data-validation-error-msg="The username has to contain at least 4 characters " />
+        <input class="form-control" type="password" name="pass_confirmation" placeholder="Password (Min 8 Characters)"
+               data-validation="length"
+               data-validation-length="min8"
+               data-validation-error-msg="password need to contain at least 8 characters " />
+        <input class="form-control" type="password" name="pass" placeholder="Confirm Password"
+               data-validation="confirmation">
+        <input class="form-control" type="text" name="name" placeholder="Name" />
+        <input class="form-control" type="email" name="email" placeholder="Email"
+               data-validation="email" />
+        <input class="form-control" type="text" name="postcode" placeholder="Postcode" />
+        <input class="form-control last-input" name="country" id="country" placeholder="Country"
+               data-validation="country" />
 
-        </script>    
-    </body>
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Register" />
+        <input class="form-control" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
+        <a class="btn btn-primary" href="/Finding-Festivals-Forever/index">Back to home</a>
+        <a class="btn btn-primary" href="/Finding-Festivals-Forever/login">Login</a>
+    </form>
+
+    <script src="${pageContext.request.contextPath}/resources/js/register.js"></script>
+</body>
 </html>

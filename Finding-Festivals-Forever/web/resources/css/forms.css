@@ -14,20 +14,16 @@ body {
   background-color: #eee;
 }
 
-.form-login {
+.form {
   max-width: 370px;
   padding: 15px;
   margin: 0 auto;
 }
-.form-login .form-login-heading,
-.form-login .checkbox,
-.form-login .btn-lg {
+.form .form-heading,
+.form .btn-lg {
   margin-bottom: 10px;
 }
-.form-login .checkbox {
-  font-weight: normal;
-}
-.form-login .form-control {
+.form .form-control {
   position: relative;
   height: auto;
   -webkit-box-sizing: border-box;
@@ -36,22 +32,22 @@ body {
   padding: 10px;
   font-size: 16px;
 }
-.form-login .form-control:focus {
+.form .form-control:focus {
   z-index: 2;
 }
-.form-login a {
+.form a {
     width: 49%;
 }
-.form-login .error,
-.form-login .logout {
+.form .error,
+.form .logout {
     color: red;
 }
-.form-login input[type="username"] {
+.form input[type="username"] {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.form-login input[type="password"] {
+.form input.last-input {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
