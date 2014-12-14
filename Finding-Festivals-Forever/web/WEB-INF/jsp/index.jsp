@@ -5,24 +5,17 @@
 
 <html>
     <head>
-        <meta charset=UTF-8>
-        <!--        CSS Files -->
-        <!--        External-->
-
-        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom styles for this template -->
-        <link href="http://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet">
+		<meta charset=UTF-8>
+        <!-- CSS Files -->
+        <!-- External-->
+        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
+        <link href="http://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet"> <!-- Bootstrap Carousel -->
 
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/default.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/mapsComponent.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/weatherComponent.css" />
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/festivalsList.css" />
 
-
-        <!-- Custom styles for this template -->
-        <!--        <link href="starter-template.css" rel="stylesheet"> -->
-        
         <!-- JavaScript Files -->
         <!--External-->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> <!-- JQuery -->

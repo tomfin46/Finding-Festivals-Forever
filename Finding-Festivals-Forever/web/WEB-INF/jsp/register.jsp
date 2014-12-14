@@ -14,12 +14,12 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="icon" href="../../favicon.ico">
+        
         <!--        CSS Files -->
         <!--        External-->
-
         <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet"> 
+        
         <title>Register</title>
-
 
         <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
         <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -82,7 +82,7 @@
                 modules: 'location, security',
                 onModulesLoaded: function () {
                     $('#country').suggestCountry();
-                },
+                }
             });
 
         </script>    

@@ -50,7 +50,7 @@ public class LoginController {
         }
 
         if (logout != null) {
-            model.addObject("msg", "You've been logged out successfully.");
+            model.addObject("logout", "You've been logged out successfully.");
         }
         model.setViewName("login");
 
@@ -112,7 +112,6 @@ public class LoginController {
 
         return loginResult;
     }
-
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(@ModelAttribute User user, ModelMap model) {
         dbConnection = DatabaseConnection.getInstance();
@@ -169,7 +168,7 @@ public class LoginController {
 
         return registerResult;
     }
-
+    
     private boolean validateUser(User user) {
         return true;
     }

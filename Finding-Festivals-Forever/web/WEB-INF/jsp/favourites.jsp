@@ -29,8 +29,8 @@
         <div class="authorizeUser">
             <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
                 <div class="toggleFavourite"></div>
-            </sec:authorize>
-        </div>
+            </sec:authorize> 
+       </div>
 
         <h1>Favourites</h1>
 
