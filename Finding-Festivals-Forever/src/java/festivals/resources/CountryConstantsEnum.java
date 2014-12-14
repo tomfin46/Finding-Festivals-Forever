@@ -9,6 +9,7 @@ package festivals.resources;
 /**
  *
  * @author YatinVadhia
+ * This enum has been created to populate the Country field during user registration.
  */
 public enum CountryConstantsEnum {
 	/** Afghanistan */

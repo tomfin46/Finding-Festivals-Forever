@@ -34,12 +34,12 @@ public class LoginController {
 
     @Autowired
     private DatabaseConnection dbConnection;
-
-    //-------------------favourites
     
-    //-------------------
-
-    //-------------------login
+    /** 
+     * Create a connection to Login page, handle exceptions using the configured 
+     * enum and retrieve the information submitted by the user (username and password)
+    */
+    
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(@RequestParam(value = "error", required = false) String error,
             @RequestParam(value = "logout", required = false) String logout) {
@@ -57,7 +57,9 @@ public class LoginController {
         return model;
 
     }
-
+    /** 
+     * Create a connection to Register page and handle SQL exceptions
+    */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String loginPost(@ModelAttribute User user, ModelMap model) {
         dbConnection = DatabaseConnection.getInstance();
@@ -75,10 +77,12 @@ public class LoginController {
     }
 
     public LoginResult tryLogin(User user) throws SQLException {
-        String queryUser = "SELECT userid, username, password FROM users WHERE username = ? "; //ck
+        String queryUser = "SELECT userid, username, password FROM users WHERE username = ? ";
         LoginResult loginResult = LoginResult.FATAL_ERROR;
         String hashedPassword = Utilities.hashString(user.getPassword());
-
+    /** 
+     * //Security defence: use of Java prepared statements to avoid SQL injections such as "Little Bobby tables"
+    */
         try {
             List<Map<String, Object>> res = dbConnection.queryDB(queryUser, Arrays.asList("userid", "username", "password"), user.getUsername());
 
@@ -109,8 +113,6 @@ public class LoginController {
         return loginResult;
     }
 
-    //-------------------
-    //-------------------register
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(@ModelAttribute User user, ModelMap model) {
         dbConnection = DatabaseConnection.getInstance();
@@ -168,7 +170,6 @@ public class LoginController {
         return registerResult;
     }
 
-    //-------------------
     private boolean validateUser(User user) {
         return true;
     }
