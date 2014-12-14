@@ -12,7 +12,7 @@ package festivals.model.user;
 public class User {
     
     private String username;
-    private String password;
+    private String pass;
     private String name;
     private String email;
     private String postcode;
@@ -27,12 +27,12 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPass() {
+        return pass;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 
     public String getName() {

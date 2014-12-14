@@ -34,12 +34,12 @@ public class LoginController {
 
     @Autowired
     private DatabaseConnection dbConnection;
-    
-    /** 
-     * Create a connection to Login page, handle exceptions using the configured 
-     * enum and retrieve the information submitted by the user (username and password)
-    */
-    
+
+    /**
+     * Create a connection to Login page, handle exceptions using the configured
+     * enum and retrieve the information submitted by the user (username and
+     * password)
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(@RequestParam(value = "error", required = false) String error,
             @RequestParam(value = "logout", required = false) String logout) {
@@ -57,61 +57,7 @@ public class LoginController {
         return model;
 
     }
-    /** 
-     * Create a connection to Register page and handle SQL exceptions
-    */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String loginPost(@ModelAttribute User user, ModelMap model) {
-        dbConnection = DatabaseConnection.getInstance();
 
-        LoginResult loginResult = LoginResult.FATAL_ERROR;
-        try {
-            loginResult = tryLogin(user);
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        model.addAttribute("result", loginResult);
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("hashedpassword", Utilities.hashString(user.getPassword()));
-        return "result";
-    }
-
-    public LoginResult tryLogin(User user) throws SQLException {
-        String queryUser = "SELECT userid, username, password FROM users WHERE username = ? ";
-        LoginResult loginResult = LoginResult.FATAL_ERROR;
-        String hashedPassword = Utilities.hashString(user.getPassword());
-    /** 
-     * //Security defence: use of Java prepared statements to avoid SQL injections such as "Little Bobby tables"
-    */
-        try {
-            List<Map<String, Object>> res = dbConnection.queryDB(queryUser, Arrays.asList("userid", "username", "password"), user.getUsername());
-
-            if (res.size() > 0) {
-                Map<String, Object> r = res.get(0);
-
-                String username = (String) r.get("username");
-
-                int userid = (int) r.get("userid");
-                String passInDB = (String) r.get("password");
-
-                if (passInDB.equals(hashedPassword)) {
-                    loginResult = LoginResult.SUCCESS;
-                } else {
-                    loginResult = LoginResult.PASSWORD_INCORRECT;
-                }
-            } else {
-                // Empty ResultSet therefore user doesn't exist
-                loginResult = LoginResult.USER_DOES_NOT_EXIST;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "Error manipulating ResultSet", ex);
-
-        } catch (NullPointerException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, "Possible NullPointer from DB connection still not properly initialised", ex);
-        }
-
-        return loginResult;
-    }
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(@ModelAttribute User user, ModelMap model) {
         dbConnection = DatabaseConnection.getInstance();
@@ -124,19 +70,30 @@ public class LoginController {
 
         RegisterResult registerResult = RegisterResult.GENERAL_ERROR;
 
-        if (validateUser(user)) {
-            try {
-                registerResult = tryRegister(user);
-            } catch (SQLException ex) {
-                Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            registerResult = RegisterResult.VALIDATION_ERROR;
+        try {
+            registerResult = tryRegister(user);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        model.addAttribute("result", registerResult);
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("hashedpassword", Utilities.hashString(user.getPassword()));
+        String result;
+        switch (registerResult) {
+            case SUCCESS:
+                result = "success";
+                break;
+            case USER_ALREADY_EXISTS:
+                result = "alreadyexists";
+                break;
+            case DATABASE_OUT_OF_SPACE:
+            case VALIDATION_ERROR:
+            case GENERAL_ERROR:
+            case FATAL_ERROR:
+            default:
+                result = "error";
+                break;
+        }
+
+        model.addAttribute("result", result);
 
         return "result";
     }
@@ -144,17 +101,16 @@ public class LoginController {
     private RegisterResult tryRegister(User user) throws SQLException {
         RegisterResult registerResult = RegisterResult.FATAL_ERROR;
 
-        LoginResult loginResult = tryLogin(user);
-
-        if (loginResult != LoginResult.USER_DOES_NOT_EXIST) {
+        if (userAlreadyExists(user)) {
             registerResult = RegisterResult.USER_ALREADY_EXISTS;
         } else {
-            String hashedPassword = Utilities.hashString(user.getPassword());
-            String insertUser = "INSERT INTO users (username, password, name, email, country, postcode) "
-                    + "VALUES ('" + user.getUsername() + "','" + hashedPassword + "','" + user.getName() + "','" + user.getEmail() + "','" + user.getCountry() + "','" + user.getPostcode() + "');";
+            String hashedPassword = Utilities.encodePassword(user.getPass());
+            String insertUser = "INSERT INTO users (username, password, enabled) VALUES (?,?,1);";
+            String insertRole = "INSERT INTO user_roles (username, ROLE) VALUES (?, 'ROLE_USER');";
 
             try {
-                boolean success = dbConnection.executeSQL(insertUser);
+                boolean success = dbConnection.executeSQL(insertUser, user.getUsername(), hashedPassword);
+                success = success && dbConnection.executeSQL(insertRole, user.getUsername());
 
                 if (success) {
                     registerResult = RegisterResult.SUCCESS;
@@ -168,8 +124,15 @@ public class LoginController {
 
         return registerResult;
     }
-    
-    private boolean validateUser(User user) {
-        return true;
+
+    private boolean userAlreadyExists(User user) {
+        String queryUser = "SELECT username, password, enabled FROM users WHERE username = ? ";
+        try {
+            List<Map<String, Object>> res = dbConnection.queryDB(queryUser, Arrays.asList("username", "password", "enabled"), user.getUsername());
+            return res.size() > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }

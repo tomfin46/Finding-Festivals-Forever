@@ -27,11 +27,8 @@
     </head>
 
     <body>
-
         <div class="container">
-
-
-            <c:url value='/login' var="loginUrl" />
+            <c:url value='/login' var="loginUrl"></c:url>
 
             <form class="form" name='loginForm' action="${loginUrl}" method='POST'>
                 <h2 class="form-heading">Please Login to continue</h2>

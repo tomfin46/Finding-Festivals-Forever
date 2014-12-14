@@ -32,7 +32,7 @@
 
     <body>
 
-    <c:url value='/register' var="registerUrl" />
+    <c:url value='/register' var="registerUrl"></c:url>
     <form class="form" id="registrationForm" action="${registerUrl}" method="POST">
         <h2 class="form-heading">Register New User</h2>
 
