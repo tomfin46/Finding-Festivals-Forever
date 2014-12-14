@@ -150,7 +150,7 @@
 
                 <div class="carousel-inner" role="listbox">
                     <div class="item active">
-                        <img src="${pageContext.request.contextPath}/resources/images/test.JPG" alt="">
+                        <img src="${pageContext.request.contextPath}/resources/images/festivals2.jpg" alt="">
                         <div class="container">
                             <div class="carousel-caption">
                                 <h1>Finding Festivals Forever!</h1>
@@ -163,18 +163,18 @@
                         <img src="${pageContext.request.contextPath}/resources/images/festivals1.jpg" alt="">
                         <div class="container">
                             <div class="carousel-caption">
-                                <h1>Another example headline.</h1>
-                                <p><a class="btn btn-lg btn-primary" href="#" role="button">Contact us</a></p>
+                                <h1>Finding Festivals Forever!</h1>
+                                <p>Find the biggest festivals here!</p>
                             </div>
                         </div> <!-- ./container -->
                     </div> <!-- ./item -->
 
                     <div class="item">
-                        <img src="${pageContext.request.contextPath}/resources/images/test.JPG" alt="">
+                        <img src="${pageContext.request.contextPath}/resources/images/festivals.jpg" alt="">
                         <div class="container">
                             <div class="carousel-caption">
-                                <h1>One more for good measure.</h1>
-                                <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                                <h1>Finding Festivals Forever!</h1>
+                                <p>The biggest music festivals in the UK can be found here!</p>
                             </div>
                         </div> <!-- ./container -->
                     </div> <!-- ./item -->
@@ -238,7 +238,7 @@
             <div class="row featurette">
                 <div class="col-md-7">
                     <h2 class="featurette-heading"> Share Festivals 
-                        <p class="lead" id="name">Going to this Festival? Share it with friends!</p>
+                        <p class="lead" id="share">Going to this Festival? Share it with friends!</p>
 
                         <div class="g-plus" data-action="share"></div>
                         <div class="fb-share-button" data-href="${pageContext.request.contextPath}"></div>
