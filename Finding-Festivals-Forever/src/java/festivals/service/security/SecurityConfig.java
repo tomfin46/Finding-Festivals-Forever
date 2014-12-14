@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
+ * Configure Spring Security settings
  *
  * @author Tom
  */
@@ -27,6 +28,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     DataSource dataSource;
     
+    /**
+     * Configure Spring Security to use JDBC and BCrypt for user authenticating
+     * 
+     * @param auth Applications authentication manager
+     * @throws Exception 
+     */
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
@@ -34,9 +41,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery("SELECT username, password, enabled FROM users WHERE username = ?")
                 .authoritiesByUsernameQuery("SELECT username, role FROM user_roles WHERE username = ?");
-        
     }
 
+    /**
+     * Configure the authorisation settings for application's pages
+     * Favourites page is restricted to only those with ROLE_USER
+     * Default success pages for login and logout to index page
+     * 
+     * @param http Application's HttpSecurity
+     * @throws Exception
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -54,6 +68,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .invalidateHttpSession(true);
     }
     
+    /**
+     * Set up application's password encoder to use BCrypt
+     * 
+     * @return BCryptPasswordEncoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         PasswordEncoder encoder = new BCryptPasswordEncoder();

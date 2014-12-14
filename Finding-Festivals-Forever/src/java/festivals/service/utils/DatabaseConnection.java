@@ -5,8 +5,6 @@
  */
 package festivals.service.utils;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +15,7 @@ import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
 
 /**
+ * Singleton implementation of a connection to a database
  *
  * @author Tom
  */
@@ -34,6 +33,11 @@ public class DatabaseConnection {
         initConnectionToDb();
     }
 
+    /**
+     * Return singleton instance of class
+     *
+     * @return
+     */
     public static DatabaseConnection getInstance() {
         return DBConnectionHolder.INSTANCE;
     }
@@ -54,6 +58,13 @@ public class DatabaseConnection {
         }
     }
 
+    /**
+     * Execute SQL statement as a PreparedStatement with specified parameters
+     *
+     * @param sqlToExecute Statement to execute
+     * @param params Params to use with statement
+     * @return Execution of statement successful
+     */
     public boolean executeSQL(String sqlToExecute, Object... params) {
         PreparedStatement ps = createPreparedStatement(sqlToExecute, params);
         return executeSQL(ps);
@@ -73,6 +84,16 @@ public class DatabaseConnection {
         }
     }
 
+    /**
+     * Execute SQL query statement as a PreparedStatement with specified
+     * parameters
+     *
+     * @param sqlQuery Query statement to execute
+     * @param props Properties to return out from query
+     * @param params Params to use with statement
+     * @return List of requested properties with values from database
+     * @throws SQLException
+     */
     public List<Map<String, Object>> queryDB(String sqlQuery, List<String> props, Object... params) throws SQLException {
         PreparedStatement ps = null;
         List<Map<String, Object>> returnedProps = new ArrayList<>();
@@ -81,16 +102,13 @@ public class DatabaseConnection {
             ps = createPreparedStatement(sqlQuery, params);
             ResultSet res = queryDB(ps);
 
-            //if (res.isBeforeFirst()) {
-                
-              while(  res.next()) {//;
-                
-                  Map<String, Object> result = new HashMap<>();
-                  
+            while (res.next()) {
+                Map<String, Object> result = new HashMap<>();
+
                 for (String prop : props) {
                     result.put(prop, res.getObject(prop));
                 }
-                
+
                 returnedProps.add(result);
             }
 
@@ -105,7 +123,7 @@ public class DatabaseConnection {
         return returnedProps;
     }
 
-    private ResultSet queryDB(PreparedStatement ps) throws SQLException { // Throws from the finally block
+    private ResultSet queryDB(PreparedStatement ps) throws SQLException {
         ResultSet res = null;
 
         if (conn == null) {
@@ -119,6 +137,12 @@ public class DatabaseConnection {
         return res;
     }
 
+    /**
+     * Execute SQL update statement as a PreparedStatement with specified parameters
+     * 
+     * @param sqlUpdate Update statement to execute
+     * @param params Params to use with statement
+     */
     public void updateDB(String sqlUpdate, Object... params) {
         try {
             PreparedStatement ps = createPreparedStatement(sqlUpdate, params);
@@ -162,11 +186,9 @@ public class DatabaseConnection {
 
                     if (paramClass == String.class) {
                         ps.setString(i + 1, (String) param);
-                    }
-                    else if (paramClass == Integer.class) {
+                    } else if (paramClass == Integer.class) {
                         ps.setInt(i + 1, (int) param);
-                    }
-                    else {
+                    } else {
                         Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, "PreparedStatement set method not mapped");
                     }
                 }

@@ -9,7 +9,6 @@ import festivals.service.utils.ConfigFileProperties;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.aksingh.java.api.owm.CurrentWeatherData;
 import net.aksingh.java.api.owm.ForecastWeatherData;
 import net.aksingh.java.api.owm.OpenWeatherMap;
 import org.json.JSONException;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
+ * Controller for weather endpoints
  *
  * @author Tom Finlayson
  */
@@ -27,32 +27,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/weather")
 public class WeatherController {
 
-    @RequestMapping(value = "/current", method = RequestMethod.GET)
-    public @ResponseBody CurrentWeatherData getCurrentWeather(@RequestParam(value = "city") String city) {
-        try {
-            ConfigFileProperties config = ConfigFileProperties.getInstance();
-            String weatherApi = config.getPropertyValue("weatherapi");
-
-            OpenWeatherMap owm = new OpenWeatherMap(weatherApi);
-
-            CurrentWeatherData cwd = owm.currentWeatherByCityName(city);
-
-            // checking data retrieval was successful or not using the response code
-            // response code = 200 means successful retrieval
-            if (cwd.hasResponseCode() && cwd.getResponseCode() == 200) {
-
-                return cwd;
-            }
-
-        } catch (IOException | JSONException ex) {
-            Logger.getLogger(WeatherController.class.getName()).log(Level.SEVERE, "Error fetching CurrentWeatherData for " + city, ex);
-        }
-
-        return null;
-    }
-
+    /**
+     * Fetch weather forecast for supplied location, either city name or
+     * latitude and longitude coordinates using Open Weather Map Java API
+     *
+     * @param city City name to fetch forecast for
+     * @param lat Latitude coordinate to fetch forecast for
+     * @param lon Longitude coordinate to fetch forecast for
+     * @return ForecastWeatherData containing list of forecast objects for
+     * supplied location
+     */
     @RequestMapping(value = "/forecast", method = RequestMethod.GET)
-    public @ResponseBody ForecastWeatherData getForecast(@RequestParam(value = "city", required = false) String city, @RequestParam(value = "lat", required = false) float lat, @RequestParam(value = "lon", required = false) float lon) {
+    public @ResponseBody
+    ForecastWeatherData getForecast(@RequestParam(value = "city", required = false) String city, @RequestParam(value = "lat", required = false) float lat, @RequestParam(value = "lon", required = false) float lon) {
         ConfigFileProperties config = ConfigFileProperties.getInstance();
         String weatherApi = config.getPropertyValue("weatherapi");
 

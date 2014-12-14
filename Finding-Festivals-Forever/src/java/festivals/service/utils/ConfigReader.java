@@ -13,12 +13,19 @@ import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
 
 /**
+ * Load config file into Properties object
  *
  * @author Tom Finlayson
  */
 @Service
 public class ConfigReader {
       
+    /**
+     * Statically load a properties file
+     * 
+     * @param resourceLocation Properties file location
+     * @return Properties file
+     */
     public static Properties loadConfigFile(String resourceLocation) {
         InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceLocation);
         Properties prop = new Properties();

@@ -15,13 +15,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
+ * Controller for favourites endpoints
  *
  * @author Tom
  */
@@ -31,12 +31,23 @@ public class FavouritesController {
     @Autowired
     DatabaseConnection dbConnection;
 
+    /**
+     * Navigate to the favourites page
+     *
+     * @return Favourites page file name
+     */
     @RequestMapping(value = "/favourites", method = RequestMethod.GET)
-    public String favourites(Principal principal, ModelMap model) {
-        dbConnection = DatabaseConnection.getInstance();
+    public String favourites() {
         return "favourites";
     }
 
+    /**
+     * Add a favourite festival to the currently logged in user
+     *
+     * @param principal Currently logged in user
+     * @param festivalId Id of festival to add to user's favourites
+     * @return Update has executed
+     */
     @RequestMapping(value = "/addToFavourites", method = RequestMethod.GET)
     @ResponseBody
     public boolean addToFavourites(Principal principal, @RequestParam(value = "festival") int festivalId) {
@@ -47,11 +58,20 @@ public class FavouritesController {
             String username = principal.getName();
 
             dbConnection.updateDB(addFavourite, username, festivalId);
+
+            return true;
         }
-        
-        return true;
+
+        return false;
     }
-    
+
+    /**
+     * Remove a favourite festival from the currently logged in user
+     *
+     * @param principal Currently logged in user
+     * @param festivalId Id of festival to remove from user's favourites
+     * @return Update has executed
+     */
     @RequestMapping(value = "/removeFromFavourites", method = RequestMethod.GET)
     @ResponseBody
     public boolean removeFromFavourites(Principal principal, @RequestParam(value = "festival") int festivalId) {
@@ -62,11 +82,20 @@ public class FavouritesController {
             String username = principal.getName();
 
             dbConnection.updateDB(addFavourite, username, festivalId);
+
+            return true;
         }
-        
-        return true;
+
+        return false;
     }
-    
+
+    /**
+     * Check if festival is favourite of the current user
+     *
+     * @param principal Currently logged in user
+     * @param festivalId Id of festival to check
+     * @return Festival is favourite
+     */
     @RequestMapping(value = "/isFavourite", method = RequestMethod.GET)
     @ResponseBody
     public boolean isFavourite(Principal principal, @RequestParam(value = "festival") int festivalId) {
@@ -86,7 +115,7 @@ public class FavouritesController {
                 return false;
             }
         }
-        
+
         return false;
     }
 }

@@ -5,7 +5,6 @@
  */
 package festivals.controller;
 
-import festivals.model.user.LoginResult;
 import festivals.model.user.RegisterResult;
 import festivals.model.user.User;
 import festivals.service.utils.DatabaseConnection;
@@ -26,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
+ * Controller for login endpoints
  *
  * @author YatinVadhia
  */
@@ -36,9 +36,13 @@ public class LoginController {
     private DatabaseConnection dbConnection;
 
     /**
-     * Create a connection to Login page, handle exceptions using the configured
-     * enum and retrieve the information submitted by the user (username and
-     * password)
+     * Get the model and view name for the login page
+     *
+     * @param error Is an empty String if the user tried to login with invalid
+     * credentials
+     * @param logout Is an empty String if the user has successfully been logged
+     * out
+     * @return ModelAndView for login page with messages where appropriate
      */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(@RequestParam(value = "error", required = false) String error,
@@ -55,17 +59,27 @@ public class LoginController {
         model.setViewName("login");
 
         return model;
-
     }
 
+    /**
+     * Navigate to the register page
+     *
+     * @return Register page file name
+     */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String register(@ModelAttribute User user, ModelMap model) {
-        dbConnection = DatabaseConnection.getInstance();
+    public String register() {
         return "register";
     }
 
+    /**
+     * Try to register a new user and then navigate to the result page
+     *
+     * @param user New user to register
+     * @param model Model to display register result message on result page
+     * @return Result page file name
+     */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String registerPost(@ModelAttribute User user, ModelMap model) {
+    public String register(@ModelAttribute User user, ModelMap model) {
         dbConnection = DatabaseConnection.getInstance();
 
         RegisterResult registerResult = RegisterResult.GENERAL_ERROR;
@@ -84,8 +98,6 @@ public class LoginController {
             case USER_ALREADY_EXISTS:
                 result = "alreadyexists";
                 break;
-            case DATABASE_OUT_OF_SPACE:
-            case VALIDATION_ERROR:
             case GENERAL_ERROR:
             case FATAL_ERROR:
             default:

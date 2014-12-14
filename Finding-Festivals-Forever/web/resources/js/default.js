@@ -28,7 +28,7 @@ $(function () {
 
     $.ajax({
         type: 'Get',
-        url: Utils.getPageContext() + '/index/festivals',
+        url: Utils.getPageContext() + '/festivals',
         success: function (festivals) {
             $.each(festivals, function (idx, festival) {
                 FestivalsList.addFestival(festival);

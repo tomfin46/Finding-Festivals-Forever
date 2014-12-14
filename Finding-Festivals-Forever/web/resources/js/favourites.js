@@ -10,7 +10,7 @@ $(function () {
 
     $.ajax({
         type: 'Get',
-        url: Utils.getPageContext() + '/index/festivals/favourites',
+        url: Utils.getPageContext() + '/festivals/favourites',
         success: function (festivals) {
             $.each(festivals, function (idx, festival) {
                 FestivalsList.addFestival(festival);

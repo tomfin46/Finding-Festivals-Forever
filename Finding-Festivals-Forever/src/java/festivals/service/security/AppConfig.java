@@ -12,6 +12,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
+ * Configure application settings
  *
  * @author Tom
  */
@@ -19,6 +20,11 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 public class AppConfig {
     
+    /**
+     * Establish MySQL database as Spring Security users data source
+     * 
+     * @return Data source established with config properties
+     */
     @Bean(name = "dataSource")
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource source = new DriverManagerDataSource();

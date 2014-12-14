@@ -6,9 +6,34 @@
 package festivals.model.festival;
 
 /**
+ * Enum for festival types
  *
  * @author Tom Finlayson
  */
 public enum FestivalType {
-    MUSIC, FOOD, BEER, ART, FILM
+
+    /**
+     * Music Festival
+     */
+    MUSIC,
+
+    /**
+     * Food Festival
+     */
+    FOOD,
+
+    /**
+     * Beer Festival
+     */
+    BEER,
+
+    /**
+     * Art Festival
+     */
+    ART,
+
+    /**
+     * Film Festival
+     */
+    FILM
 }

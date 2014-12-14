@@ -8,7 +8,6 @@ package festivals.controller;
 import festivals.model.festival.IFestival;
 import festivals.model.festival.Location;
 import festivals.model.festival.MusicFestival;
-import festivals.resources.CountryConstantsEnum;
 import festivals.service.utils.DatabaseConnection;
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -21,47 +20,42 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
+ * Controller for festival endpoints
  *
  * @author Tom Finlayson
  */
 @Controller
-@RequestMapping("/index")
+@RequestMapping("/festivals")
 public class FestivalsController {
 
     @Autowired
     private DatabaseConnection dbConnection;
 
+    /**
+     * Fetch a list of all the festivals currently stored in the database
+     *
+     * @return List of IFestivals
+     */
     @RequestMapping(method = RequestMethod.GET)
-    public String initWebsite(ModelMap model) {
-        dbConnection = DatabaseConnection.getInstance();
-        countryList(model);
-        return "index";
-    }
-
-    private void countryList(ModelMap model) {
-        List<CountryConstantsEnum> countryList = Arrays.asList(CountryConstantsEnum.values());
-
-        model.addAttribute("countryList", countryList);
-    }
-
-    @RequestMapping(value = "/festivals", method = RequestMethod.GET)
     @ResponseBody
     public List<IFestival> getFestivals() {
         String queryFestivals = "SELECT * FROM festivals;";
-        List<IFestival> festivals = new ArrayList<>();
-
-        festivals = constructFestivalsList(queryFestivals);
-
-        return festivals;
+        return constructFestivalsList(queryFestivals);
     }
 
-    @RequestMapping(value = "/festivals/favourites", method = RequestMethod.GET)
+    /**
+     * Fetch a list of all the festivals currently stored in the database that
+     * the currently logged in user has favourited
+     *
+     * @param principal Currently logged in user
+     * @return List of IFestivals
+     */
+    @RequestMapping(value = "/favourites", method = RequestMethod.GET)
     @ResponseBody
     public List<IFestival> getFestivalsFavourites(Principal principal) {
         String queryFavourites = "SELECT f.Festivals_ID, f.Festival_Name, f.Genre, f.Start_Date, f.End_Date, f.Location, f.Location_Lat, f.Location_Lon, f.Website "

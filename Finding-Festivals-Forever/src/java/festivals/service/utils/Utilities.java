@@ -5,37 +5,21 @@
  */
 package festivals.service.utils;
 
-import festivals.controller.LoginController;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
+ * Utility methods
  *
  * @author Tom
  */
 public class Utilities {
 
-    public static String hashString(String stringToHash) {
-        StringBuilder sb = new StringBuilder();
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            md.update(stringToHash.getBytes());
-
-            byte byteData[] = md.digest();
-
-            for (int i = 0; i < byteData.length; i++) {
-                sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
-            }
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return sb.toString();
-    }
-
+    /**
+     * Use BCryptPasswordEncoder to hash password
+     *
+     * @param password Password to encode
+     * @return Hashed password
+     */
     public static String encodePassword(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.encode(password);
