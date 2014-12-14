@@ -59,7 +59,7 @@ var FestivalsList = (function () {
         festivalDiv.appendChild(nameDiv);
 
         $.each(festivalData, function (key, value) {
-            var festivalImage, festivalItemDiv, festivalLocationDiv, k;
+            var festivalImage, festivalItemDiv, festivalLocationDiv, websiteDiv, k;
 
             if (key === "festivalImage") {
                 festivalImage = document.createElement("img");
@@ -77,6 +77,13 @@ var FestivalsList = (function () {
                     festivalLocationDiv.appendChild(locationDiv);
                 });
                 contentDiv.appendChild(festivalLocationDiv);
+            }
+            else if (key === "website") {
+                websiteDiv = document.createElement("a");
+                websiteDiv.classList.add(key);
+                websiteDiv.innerHTML = value;
+                $(websiteDiv).attr("href", value);
+                contentDiv.appendChild(websiteDiv);
             }
             else {
                 festivalItemDiv = document.createElement("div");
