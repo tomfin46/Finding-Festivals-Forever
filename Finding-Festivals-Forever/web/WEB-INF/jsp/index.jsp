@@ -1,11 +1,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 
 <html>
     <head>
+        <meta charset=UTF-8>
         <!--        CSS Files -->
         <!--        External-->
 
@@ -21,7 +21,7 @@
 
 
         <!-- Custom styles for this template -->
-        <!--        <link href="starter-template.css" rel="stylesheet">
+        <!--        <link href="starter-template.css" rel="stylesheet"> -->
         
         <!-- JavaScript Files -->
         <!--External-->
@@ -41,14 +41,13 @@
         <script src="${pageContext.request.contextPath}/resources/js/components/festivalsList.js"></script>
         <script src="${pageContext.request.contextPath}/resources/js/default.js"></script>
 
-        <meta charset=UTF-8" />
         <title>Festival Finder Forever!</title>
 
     </head>
 
     <body>
         <!--    declaring top of the page -->
-        <a name="top" />
+        <a id="top">
         <div id="pageContextPath" data-page-context="${pageContext.request.contextPath}"></div>
         <div class="authorizeUser">
             <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
@@ -72,13 +71,14 @@
     <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
         <div class="container">
             <div class="navbar-header">
+                <!-- The line below is invalid HTML, but I do not know how to make it valid. The error is: "The element button must not appear as a descendant of the a element." -->
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Finding Festival Forever </a>
+                <a class="navbar-brand" href="#">Finding Festivals Forever</a>
             </div><!-- /.navbar-header -->
 
             <div id="navbar" class="collapse navbar-collapse">
