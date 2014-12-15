@@ -40,9 +40,13 @@ var FestivalsList = (function () {
                     }
                 };
 
+                if (GeoLocation) {
                 GeoLocation.refreshMapsWithNewPosition(position);
-                GeoLocation.refreshWeatherWithNewPosition(position);
-                WeatherComponent.setWeatherTitle(festivalData.name);
+                GeoLocation.refreshWeatherWithNewPosition(position);    
+                }
+                if (WeatherComponent) {
+                    WeatherComponent.setWeatherTitle(festivalData.name);
+                }                
             }
             else {
                 $(contentDiv).fadeOut("slow");
