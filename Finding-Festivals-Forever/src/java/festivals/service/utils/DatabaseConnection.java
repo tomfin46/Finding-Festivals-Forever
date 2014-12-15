@@ -108,10 +108,11 @@ public class DatabaseConnection {
      * @throws SQLException
      */
     public List<Map<String, Object>> queryDB(String sqlQuery, List<String> props, Object... params) throws SQLException {
+        PreparedStatement ps = null;
         List<Map<String, Object>> returnedProps = new ArrayList<>();
 
         try {
-            PreparedStatement ps = createPreparedStatement(sqlQuery, params);
+            ps = createPreparedStatement(sqlQuery, params);
             ResultSet res = queryDB(ps);
 
             while (res.next()) {
@@ -125,13 +126,18 @@ public class DatabaseConnection {
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, "Error closing PreparedStatement", ex);
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, "Error manipulating ResultSet", ex);
+        }
+        finally {
+            if (ps != null) {
+                ps.close();
+            }
         }
 
         return returnedProps;
     }
 
-    private ResultSet queryDB(PreparedStatement ps) throws SQLException {
+    private ResultSet queryDB(PreparedStatement ps) {
         ResultSet res = null;
         try {
             if (conn == null) {
@@ -144,10 +150,6 @@ public class DatabaseConnection {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, "Error executing sql query statement", ex);
-        } finally {
-            if (ps != null) {
-                ps.close();
-            }
         }
 
         return res;

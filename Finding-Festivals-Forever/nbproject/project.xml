@@ -19,27 +19,27 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.OWM_JAPIs.jar}</file>
+                    <file>${file.reference.OWM_JAPIs.jar-1}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.JSON.jar}</file>
+                    <file>${file.reference.JSON.jar-1}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.spring-security-core-3.2.5.RELEASE.jar}</file>
+                    <file>${file.reference.spring-security-config-3.2.5.RELEASE.jar-1}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.spring-security-config-3.2.5.RELEASE.jar}</file>
+                    <file>${file.reference.spring-security-core-3.2.5.RELEASE.jar-1}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.spring-security-web-3.2.5.RELEASE.jar}</file>
+                    <file>${file.reference.spring-security-taglibs-3.2.5.RELEASE.jar-1}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.spring-security-taglibs-3.2.5.RELEASE.jar}</file>
+                    <file>${file.reference.spring-security-web-3.2.5.RELEASE.jar-1}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
