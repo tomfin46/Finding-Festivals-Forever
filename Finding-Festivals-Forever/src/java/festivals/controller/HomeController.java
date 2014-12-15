@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author Tom
  */
 @Controller
-@RequestMapping("/index")
 public class HomeController {
 
     /**
@@ -18,9 +17,14 @@ public class HomeController {
      *
      * @return index page file name
      */
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String homePage() {
         return "index";
+    }
+    
+    @RequestMapping(value = "/403", method = RequestMethod.GET)
+    public String accessDeniedPage() {
+        return "403";
     }
 
 }

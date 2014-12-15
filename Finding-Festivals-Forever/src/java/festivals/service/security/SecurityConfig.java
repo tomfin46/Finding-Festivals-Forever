@@ -61,7 +61,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .logout()
                     .logoutSuccessUrl("/index")
-                    .invalidateHttpSession(true);
+                    .invalidateHttpSession(true)
+                    .and()
+                .exceptionHandling()
+                    .accessDeniedPage("/403");
     }
     
     /**

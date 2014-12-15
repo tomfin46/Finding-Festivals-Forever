@@ -1,0 +1,24 @@
+/* 
+    Created on : 15-Dec-2014, 19:46:59
+    Author     : Tom
+*/
+
+body {
+    background-color: #eee;
+}
+
+.jumbotron {
+    padding: 30px;
+    display: block;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+img {
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
