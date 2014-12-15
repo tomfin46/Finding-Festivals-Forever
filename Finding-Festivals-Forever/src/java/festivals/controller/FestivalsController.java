@@ -5,6 +5,7 @@
  */
 package festivals.controller;
 
+import festivals.model.festival.BaseFestival;
 import festivals.model.festival.IFestival;
 import festivals.model.festival.Location;
 import festivals.model.festival.MusicFestival;
@@ -19,7 +20,10 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -73,6 +77,53 @@ public class FestivalsController {
         }
 
         return festivals;
+    }
+
+    /**
+     * Navigate to the manage festivals page
+     *
+     * @return Manage Festivals page file name
+     */
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/manage", method = RequestMethod.GET)
+    public String manageFestivals() {
+        return "festivalsadmin";
+    }
+
+    /**
+     * Add new festival to the database
+     *
+     * @param festival Festival to add
+     * @return Manage Festivals page file name
+     */
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/manage/add", method = RequestMethod.POST)
+    public String addFestival(BaseFestival festival) {
+
+        String insertFestival = "INSERT INTO festivals (Festival_Name, Genre, Start_Date, End_Date, Location, Location_Lat, Location_Lon, Website) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+
+        dbConnection.executeSQL(insertFestival,
+                festival.getName(), festival.getGenres(), festival.getStartDate(), festival.getEndDate(),
+                festival.getLocation().getName(), festival.getLocation().getLatitude(), festival.getLocation().getLongitude(), festival.getWebsite());
+
+        return "festivalsadmin";
+    }
+
+    /**
+     * Remove festival from the database
+     *
+     * @param festivalId Festival to remove
+     * @return Manage Festivals page file name
+     */
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(value = "/manage/remove", method = RequestMethod.POST)
+    public String removeFestival(int festivalId) {
+
+        String removeFavourite = "DELETE FROM festivals WHERE Festivals_ID=?";
+
+        dbConnection.updateDB(removeFavourite, festivalId);
+
+        return "festivalsadmin";
     }
 
     private List<IFestival> constructFestivalsList(String sqlQuery, Object... params) {

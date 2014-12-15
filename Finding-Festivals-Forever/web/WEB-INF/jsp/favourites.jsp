@@ -11,8 +11,15 @@
 <html>
     <head>
 
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/festivalsList.css" />
+        <!-- CSS Files -->
+        <!-- External-->
+        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
 
+        <!--Internal-->        
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/festivalsList.css" />
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/favourites.css" />
+
+        <!-- JavaScript Files -->
         <!--External-->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> <!-- JQuery -->
 
@@ -30,12 +37,12 @@
             <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
                 <div class="toggleFavourite"></div>
             </sec:authorize> 
-       </div>
+        </div>
 
         <h1>Favourites</h1>
 
         <div class="festivalsList"></div>
 
-        <p><a href="/Finding-Festivals-Forever/index">Back to home</a></p>
+        <p><a class="btn btn-primary btn-lg back-to-home" href="/Finding-Festivals-Forever/index">Back to home</a></p>
     </body>
 </html>

@@ -188,7 +188,9 @@ public class DatabaseConnection {
                         ps.setString(i + 1, (String) param);
                     } else if (paramClass == Integer.class) {
                         ps.setInt(i + 1, (int) param);
-                    } else {
+                    } else if (paramClass == Float.class) {
+                        ps.setFloat(i + 1, (float) param);
+                    }  else {
                         Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, "PreparedStatement set method not mapped");
                     }
                 }

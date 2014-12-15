@@ -17,6 +17,13 @@ public class Location {
     private String name;
 
     /**
+     * Default constructor for Location
+     */
+    public Location() {
+        
+    }
+    
+    /**
      * Construct location object
      * 
      * @param latitude Location latitude

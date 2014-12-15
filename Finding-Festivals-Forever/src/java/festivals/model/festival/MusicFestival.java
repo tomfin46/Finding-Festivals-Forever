@@ -27,7 +27,7 @@ public class MusicFestival extends BaseFestival {
      * @param flags
      */
     public MusicFestival(int id, String name, String genres, String startDate, String endDate, Location location, String website, Map flags) {
-        super(FestivalType.MUSIC, id, name, genres, startDate, endDate, location, website, flags);
+        super(FestivalType.MUSIC, id, name, genres, startDate, endDate, location, website);
     }
     
     /**
@@ -42,6 +42,6 @@ public class MusicFestival extends BaseFestival {
      * @param flags
      */
     public MusicFestival(int id, String name, String genres, String date, Location location, String website, Map flags) {
-        super(FestivalType.MUSIC, id, name, genres, date, location, website, flags);
+        super(FestivalType.MUSIC, id, name, genres, date, location, website);
     }
 }

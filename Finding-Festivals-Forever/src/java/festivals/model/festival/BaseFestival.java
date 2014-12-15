@@ -5,7 +5,7 @@
  */
 package festivals.model.festival;
 
-import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Implementation of IFestival
@@ -17,26 +17,31 @@ public class BaseFestival implements IFestival {
     private FestivalType type;
 
     private int id;
-    
+
     private String name;
 
     private String genres;
-    
+
     private String startDate;
-    
+
     private String endDate;
-    
+
     private String date;
 
     private Location location;
-    
+
     private String website;
-    
-    private Map flags;
+
+    /**
+     * Default constructor for BaseFestival
+     */
+    public BaseFestival() {
+        this.location = new Location();
+    }
 
     /**
      * Construct new BaseFestival with different start and end dates
-     * 
+     *
      * @param type
      * @param id
      * @param name
@@ -45,9 +50,8 @@ public class BaseFestival implements IFestival {
      * @param endDate
      * @param location
      * @param website
-     * @param flags
      */
-    public BaseFestival(FestivalType type, int id, String name, String genres, String startDate, String endDate, Location location, String website, Map flags) {
+    public BaseFestival(FestivalType type, int id, String name, String genres, String startDate, String endDate, Location location, String website) {
         this.type = type;
         this.id = id;
         this.name = name;
@@ -56,12 +60,11 @@ public class BaseFestival implements IFestival {
         this.endDate = endDate;
         this.location = location;
         this.website = website;
-        this.flags = flags;
     }
-    
+
     /**
      * Construct new BaseFestival with the same start and end date
-     * 
+     *
      * @param type
      * @param id
      * @param name
@@ -69,9 +72,8 @@ public class BaseFestival implements IFestival {
      * @param date
      * @param location
      * @param website
-     * @param flags
      */
-    public BaseFestival(FestivalType type, int id, String name, String genres, String date, Location location, String website, Map flags) {
+    public BaseFestival(FestivalType type, int id, String name, String genres, String date, Location location, String website) {
         this.type = type;
         this.id = id;
         this.name = name;
@@ -79,12 +81,11 @@ public class BaseFestival implements IFestival {
         this.date = date;
         this.location = location;
         this.website = website;
-        this.flags = flags;
     }
 
     /**
      * Accessor method for type field
-     * 
+     *
      * @return Festival type
      */
     public FestivalType getType() {
@@ -93,7 +94,7 @@ public class BaseFestival implements IFestival {
 
     /**
      * Mutator method for type field
-     * 
+     *
      * @param type Festival type
      */
     public void setType(FestivalType type) {
@@ -102,7 +103,7 @@ public class BaseFestival implements IFestival {
 
     /**
      * Accessor method for id field
-     * 
+     *
      * @return Festival id
      */
     public int getId() {
@@ -111,16 +112,16 @@ public class BaseFestival implements IFestival {
 
     /**
      * Mutator method for id field
-     * 
+     *
      * @param id Festival id
      */
     public void setId(int id) {
         this.id = id;
     }
-    
+
     /**
      * Accessor method for name field
-     * 
+     *
      * @return Festival name
      */
     public String getName() {
@@ -129,7 +130,7 @@ public class BaseFestival implements IFestival {
 
     /**
      * Mutator method for name field
-     * 
+     *
      * @param name Festival name
      */
     public void setName(String name) {
@@ -138,7 +139,7 @@ public class BaseFestival implements IFestival {
 
     /**
      * Accessor method for genres field
-     * 
+     *
      * @return Festival genres
      */
     public String getGenres() {
@@ -147,7 +148,7 @@ public class BaseFestival implements IFestival {
 
     /**
      * Mutator method for genres field
-     * 
+     *
      * @param genres Festival genres
      */
     public void setGenres(String genres) {
@@ -156,7 +157,7 @@ public class BaseFestival implements IFestival {
 
     /**
      * Accessor method for startDate field
-     * 
+     *
      * @return Festival start date
      */
     public String getStartDate() {
@@ -165,7 +166,7 @@ public class BaseFestival implements IFestival {
 
     /**
      * Mutator method for startDate field
-     * 
+     *
      * @param startDate Festival start date
      */
     public void setStartDate(String startDate) {
@@ -174,7 +175,7 @@ public class BaseFestival implements IFestival {
 
     /**
      * Accessor method for endDate field
-     * 
+     *
      * @return Festival end date
      */
     public String getEndDate() {
@@ -183,7 +184,7 @@ public class BaseFestival implements IFestival {
 
     /**
      * Mutator method for endDate field
-     * 
+     *
      * @param endDate Festival end date
      */
     public void setEndDate(String endDate) {
@@ -192,7 +193,7 @@ public class BaseFestival implements IFestival {
 
     /**
      * Accessor method for date field
-     * 
+     *
      * @return Festival date
      */
     public String getDate() {
@@ -201,7 +202,7 @@ public class BaseFestival implements IFestival {
 
     /**
      * Mutator method for date field
-     * 
+     *
      * @param date Festival date
      */
     public void setDate(String date) {
@@ -210,7 +211,7 @@ public class BaseFestival implements IFestival {
 
     /**
      * Accessor method for location field
-     * 
+     *
      * @return Festival location
      */
     public Location getLocation() {
@@ -219,16 +220,17 @@ public class BaseFestival implements IFestival {
 
     /**
      * Mutator method for location field
-     * 
+     *
      * @param location Festival location
      */
+    @Autowired
     public void setLocation(Location location) {
         this.location = location;
     }
 
     /**
      * Accessor method for website field
-     * 
+     *
      * @return Festival website
      */
     public String getWebsite() {
@@ -237,28 +239,10 @@ public class BaseFestival implements IFestival {
 
     /**
      * Mutator method for website field
-     * 
+     *
      * @param website Festival website
      */
     public void setWebsite(String website) {
         this.website = website;
-    }
-
-    /**
-     * Accessor method for flags field
-     * 
-     * @return Festival flags
-     */
-    public Map getFlags() {
-        return flags;
-    }
-
-    /**
-     * Mutator method for flags field
-     * 
-     * @param flags Festival flags
-     */
-    public void setFlags(Map flags) {
-        this.flags = flags;
     }
 }

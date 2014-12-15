@@ -10,8 +10,8 @@ var Utils = (function () {
     "use strict";
 
     var isValidVariable, isValidNonEmptyString, isValidFn,
-            getPageContext, getTemperatureFormat, getSpeedFormat,
-            setUpDynamicBackToTop;
+            getPageContext, getCsrfToken, getTemperatureFormat,
+            getSpeedFormat, setUpDynamicBackToTop;
 
     isValidVariable = function (variable) {
         return variable !== null && typeof variable !== 'undefined';
@@ -29,6 +29,14 @@ var Utils = (function () {
         var elem = document.querySelector("#pageContextPath");
         if (elem && $(elem).data()) {
             return $(elem).data("pageContext");
+        }
+        return "";
+    };
+    
+    getCsrfToken = function () {
+        var elem = document.querySelector("#csrfToken");
+        if (elem && $(elem).data()) {
+            return $(elem).data("csrfToken");
         }
         return "";
     };
@@ -65,6 +73,7 @@ var Utils = (function () {
         isValidNonEmptyString: isValidNonEmptyString,
         isValidFn: isValidFn,
         getPageContext: getPageContext,
+        getCsrfToken: getCsrfToken,
         getTemperatureFormat: getTemperatureFormat,
         getSpeedFormat: getSpeedFormat,
         setUpDynamicBackToTop: setUpDynamicBackToTop

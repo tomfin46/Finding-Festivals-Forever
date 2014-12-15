@@ -31,7 +31,8 @@ and open the template in the editor.
     padding: 10px;
 }
 
-.festivalsList .festival .festivalData .toggleFavourite {
+.festivalsList .festival .festivalData .toggleFavourite,
+.festivalsList .festival .festivalData .deleteFestival {
     cursor: pointer;
     width: 100%;
 }

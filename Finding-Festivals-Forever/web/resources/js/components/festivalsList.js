@@ -10,18 +10,18 @@ var FestivalsList = (function () {
 
     "use strict";
 
-    var addFestival, _createFestivalDiv, _addFavToggleIfAuthorized;
+    var addFestival, _createFestivalDiv, _addFavToggleIfAuthorized, _addDeleteButton;
 
-    addFestival = function (festival) {
+    addFestival = function (festival, addDelete) {
         var festivalList = document.querySelector(".festivalsList"),
                 $festivalList = $(festivalList);
 
         if (festivalList && $festivalList) {
-            festivalList.appendChild(_createFestivalDiv(festival));
+            festivalList.appendChild(_createFestivalDiv(festival, addDelete));
         }
     };
 
-    _createFestivalDiv = function (festivalData) {
+    _createFestivalDiv = function (festivalData, addDelete) {
         var festivalDiv = document.createElement("div"),
                 nameDiv = document.createElement("div"),
                 contentDiv = document.createElement("div");
@@ -95,6 +95,10 @@ var FestivalsList = (function () {
 
         _addFavToggleIfAuthorized(festivalData.id, contentDiv);
 
+        if (addDelete) {
+            _addDeleteButton(festivalData.id, contentDiv);
+        }
+
         festivalDiv.appendChild(contentDiv);
 
         return festivalDiv;
@@ -155,6 +159,39 @@ var FestivalsList = (function () {
             }
         });
     };
+
+    _addDeleteButton = function (festivalId, contentDiv) {
+        var deleteFestival = document.createElement("div");
+
+        deleteFestival.classList.add("btn");
+        deleteFestival.classList.add("btn-default");
+        deleteFestival.classList.add("deleteFestival");
+        deleteFestival.innerHTML = "Delete Festival";
+
+        $(deleteFestival).click(function () {
+            $.ajax({
+                type: 'Post',
+                headers: {
+                    'X-CSRF-Token': Utils.getCsrfToken()
+                },
+                url: Utils.getPageContext() + '/festivals/manage/remove',
+                data: {
+                    festivalId: festivalId
+                },
+                success: function () {
+                    var festivals = document.querySelectorAll(".festival");
+                    $.each(festivals, function () {
+                        if (this.classList.contains(festivalId)) {
+                            this.parentElement.removeChild(this);
+                        }
+                    });
+                }
+            });
+        });
+
+        contentDiv.appendChild(deleteFestival);
+    };
+
 
     return {
         addFestival: addFestival
