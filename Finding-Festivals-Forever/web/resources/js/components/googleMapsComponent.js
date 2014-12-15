@@ -1,15 +1,9 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*global document, $, google, Utils */
+/*global document, $, google, Utils, GeoLocation */
 var GoogleMapsComponent = (function () {
 
     "use strict";
 
-    var loadJsGMapsScript, setupFields, setSrcUrl, initializeJsComponent, _addMarker,
+    var loadJsGMapsScript, setupFields, initializeJsComponent, _addMarker,
             map, infoWindow, fields = {};
 
     loadJsGMapsScript = function () {
@@ -31,75 +25,37 @@ var GoogleMapsComponent = (function () {
         fields.zoom = data.zoom;
     };
 
-    setSrcUrl = function (data) {
-        var mapsComponent = document.querySelector(".mapsComponent"),
-                params;
-
-        switch (data.type) {
-            case "place":
-                params = '/maps/place?place=' + data.place;
-                break;
-            case "search":
-                params = '/maps/search?query=' + data.query;
-                if (data.lat && data.lon) {
-                    params += '&lat=' + data.lat + '&lon=' + data.lon;
-                }
-                if (data.zoom) {
-                    params += '&zoom=' + data.zoom;
-                }
-                break;
-        }
-
-        $.ajax({
-            type: 'Get',
-            url: Utils.getPageContext() + params,
-            success: function (result) {
-                var iframe = mapsComponent.querySelector("iframe"),
-                        newIframe;
-                if (iframe !== null) {
-                    iframe.setAttribute("src", result);
-                }
-                else {
-                    newIframe = document.createElement("iframe");
-                    newIframe.setAttribute("frameborder", "0");
-                    newIframe.setAttribute("src", result);
-                    mapsComponent.appendChild(newIframe);
-                }
-            }
-        });
-    };
-
     initializeJsComponent = function () {
         if (google) {
-            var myLatlng = new google.maps.LatLng(fields.lat, fields.lon);
-            var mapOptions = {
-                zoom: fields.zoom,
-                center: myLatlng
-            };
+            var myLatlng = new google.maps.LatLng(fields.lat, fields.lon),
+                    mapDiv = document.querySelector('.map-canvas'),
+                    festivalDivs = document.querySelectorAll(".festival"),
+                    mapOptions = {
+                        zoom: fields.zoom,
+                        center: myLatlng
+                    };
 
-            var mapDiv = document.querySelector('.map-canvas');
             if (mapDiv) {
                 map = new google.maps.Map(mapDiv, mapOptions);
                 infoWindow = new google.maps.InfoWindow();
 
-                var festivals = document.querySelectorAll(".festival");
-                $.each(festivals, function (idx, festivalDiv) {
+                $.each(festivalDivs, function () {
 
-                    var festivalName = festivalDiv.querySelector(".festivalName").innerHTML;
-                    var genres = festivalDiv.querySelector(".genres").innerHTML;
-                    var markerData = {
-                        lat: festivalDiv.querySelector(".location .latitude").innerHTML,
-                        lon: festivalDiv.querySelector(".location .longitude").innerHTML,
-                        name: festivalName,
-                        content: '<div id="content">' +
-                                '<div id="siteNotice">' +
-                                '</div>' +
-                                '<h3 id="firstHeading" class="firstHeading">' + festivalName + '</h3>' +
-                                '<div id="bodyContent">' +
-                                '<p>' + genres + '</p>' +
-                                '</div>' +
-                                '</div>'
-                    };
+                    var festivalName = this.querySelector(".festivalName").innerHTML,
+                            genres = this.querySelector(".genres").innerHTML,
+                            markerData = {
+                                lat: this.querySelector(".location .latitude").innerHTML,
+                                lon: this.querySelector(".location .longitude").innerHTML,
+                                name: festivalName,
+                                content: '<div id="content">' +
+                                        '<div id="siteNotice">' +
+                                        '</div>' +
+                                        '<h3 id="firstHeading" class="firstHeading">' + festivalName + '</h3>' +
+                                        '<div id="bodyContent">' +
+                                        '<p>' + genres + '</p>' +
+                                        '</div>' +
+                                        '</div>'
+                            };
 
                     _addMarker(markerData);
                 });
@@ -109,31 +65,30 @@ var GoogleMapsComponent = (function () {
 
     _addMarker = function (markerData) {
         if (map) {
-            var markerLatlng = new google.maps.LatLng(markerData.lat, markerData.lon);
-
-            var marker = new google.maps.Marker({
-                position: markerLatlng,
-                map: map,
-                title: markerData.name
-            });
+            var markerLatlng = new google.maps.LatLng(markerData.lat, markerData.lon),
+                    marker = new google.maps.Marker({
+                        position: markerLatlng,
+                        map: map,
+                        title: markerData.name
+                    });
 
             google.maps.event.addListener(marker, 'click', function () {
                 infoWindow.setContent(markerData.content);
                 infoWindow.open(map, marker);
 
-                var festivalDatas = document.querySelectorAll(".festivalData");
+                var festivalDatas = document.querySelectorAll(".festivalData"),
+                        position = {
+                            coords: {
+                                latitude: markerData.lat,
+                                longitude: markerData.lon
+                            }
+                        };
+
                 $.each(festivalDatas, function () {
                     if (this.querySelector(".name").innerHTML === markerData.name && $(this).css("display") === "none") {
                         $(this).fadeIn("slow");
                     }
                 });
-                
-                var position = {
-                    coords: {
-                        latitude: markerData.lat,
-                        longitude: markerData.lon
-                    }
-                };
 
                 GeoLocation.refreshWeatherWithNewPosition(position);
             });
@@ -143,7 +98,6 @@ var GoogleMapsComponent = (function () {
     return {
         loadJsGMapsScript: loadJsGMapsScript,
         setupFields: setupFields,
-        setSrcUrl: setSrcUrl,
         initializeJsComponent: initializeJsComponent
     };
 }());

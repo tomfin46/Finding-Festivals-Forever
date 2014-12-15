@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package festivals.controller;
 
 import festivals.service.utils.ConfigFileProperties;
@@ -65,6 +60,13 @@ public class WeatherController {
         return null;
     }
 
+    /**
+     * Fetch forecast for specified city
+     * 
+     * @param owm OpenWeatherMap object containing project's valid API key
+     * @param city City to query
+     * @return Forecast data for provided city
+     */
     private ForecastWeatherData getForecastByCity(OpenWeatherMap owm, String city) {
         ForecastWeatherData fwd = null;
 
@@ -79,6 +81,14 @@ public class WeatherController {
         return fwd;
     }
 
+    /**
+     * Fetch forecast for specified latitude/longitude location
+     * 
+     * @param owm OpenWeatherMap object containing project's valid API key
+     * @param lat Latitude of location
+     * @param lon Longitude of location
+     * @return Forecast data for provided location
+     */
     private ForecastWeatherData getForecastByLocation(OpenWeatherMap owm, float lat, float lon) {
         ForecastWeatherData fwd = null;
 

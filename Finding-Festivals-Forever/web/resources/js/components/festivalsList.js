@@ -1,16 +1,10 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
-/*global document, $, Utils */
+/*global document, $, Utils, GeoLocation, WeatherComponent */
 var FestivalsList = (function () {
 
     "use strict";
 
     var addFestival, _createFestivalDiv, _addFavToggleIfAuthorized, _addDeleteButton;
+
 
     addFestival = function (festival, addDelete) {
         var festivalList = document.querySelector(".festivalsList"),
@@ -59,7 +53,7 @@ var FestivalsList = (function () {
         festivalDiv.appendChild(nameDiv);
 
         $.each(festivalData, function (key, value) {
-            var festivalImage, festivalItemDiv, festivalLocationDiv, websiteDiv, k;
+            var festivalImage, festivalItemDiv, festivalLocationDiv, websiteDiv;
 
             if (key === "festivalImage") {
                 festivalImage = document.createElement("img");
@@ -69,7 +63,7 @@ var FestivalsList = (function () {
             else if (key === "location") {
                 festivalLocationDiv = document.createElement("div");
                 festivalLocationDiv.classList.add(key);
-                k = key;
+                
                 $.each(value, function (key, val) {
                     var locationDiv = document.createElement("div");
                     locationDiv.classList.add(key);
@@ -112,11 +106,12 @@ var FestivalsList = (function () {
             type: 'Get',
             url: Utils.getPageContext() + '/isFavourite?festival=' + festivalId,
             success: function (isFavourite) {
-                var authorizedToggle = document.querySelector('.authorizeUser .toggleFavourite');
+                var authorizedToggle = document.querySelector('.authorizeUser .toggleFavourite'),
+                        toggleFav;
 
                 if (Utils.isValidVariable(authorizedToggle)) {
 
-                    var toggleFav = authorizedToggle.cloneNode(true); //deep clone
+                    toggleFav = authorizedToggle.cloneNode(true); //deep clone
 
                     toggleFav.innerHTML = isFavourite ? removeFromFavourites : addToFavourites;
                     toggleFav.classList.add("btn");
@@ -127,9 +122,7 @@ var FestivalsList = (function () {
                         if (this.innerHTML === addToFavourites) {
                             $.ajax({
                                 type: 'Get',
-                                url: Utils.getPageContext() + '/addToFavourites?festival=' + festivalId,
-                                success: function () {
-                                }
+                                url: Utils.getPageContext() + '/addToFavourites?festival=' + festivalId
                             });
 
                             this.innerHTML = removeFromFavourites;
@@ -141,9 +134,9 @@ var FestivalsList = (function () {
                                 success: function () {
                                     if (document.URL.indexOf("favourites") !== -1) {
                                         var festivals = document.querySelectorAll(".festival");
-                                        $.each(festivals, function (idx, festival) {
-                                            if (festival.classList.contains(festivalId)) {
-                                                festival.parentElement.removeChild(festival);
+                                        $.each(festivals, function () {
+                                            if (this.classList.contains(festivalId)) {
+                                                this.parentElement.removeChild(this);
                                             }
                                         });
                                     }
@@ -192,11 +185,9 @@ var FestivalsList = (function () {
         contentDiv.appendChild(deleteFestival);
     };
 
-
     return {
         addFestival: addFestival
     };
-
 }());
 
     

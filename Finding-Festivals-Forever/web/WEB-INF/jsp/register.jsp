@@ -5,24 +5,20 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <link rel="icon" href="../../favicon.ico">
-
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Register</title>
 
+        <c:url value='/resources' var="resourcesUrl" />
         <!-- CSS Files -->
         <!-- External-->
-        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
 
         <!--Internal -->
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/forms.css" />
+        <link rel="stylesheet" type="text/css" href="${resourcesUrl}/css/forms.css" />
 
         <!-- JavaScript Files -->
         <!--External-->
@@ -31,36 +27,35 @@
     </head>
 
     <body>
+        <c:url value='/register' var="registerUrl"></c:url>
+        <form class="form" id="registrationForm" action="${registerUrl}" method="POST">
+            <h2 class="form-heading">Register New User</h2>
 
-    <c:url value='/register' var="registerUrl"></c:url>
-    <form class="form" id="registrationForm" action="${registerUrl}" method="POST">
-        <h2 class="form-heading">Register New User</h2>
+            <input class="form-control" type="text" name="username" placeholder="Username"
+                   data-validation="length alphanumeric" 
+                   data-validation-length="4-12"
+                   data-validation-error-msg="The username has to contain at least 4 characters " />
+            <input class="form-control" type="password" name="pass_confirmation" placeholder="Password (Min 8 Characters)"
+                   data-validation="length"
+                   data-validation-length="min8"
+                   data-validation-error-msg="password need to contain at least 8 characters " />
+            <input class="form-control" type="password" name="pass" placeholder="Confirm Password"
+                   data-validation="confirmation"/>
+            <input class="form-control" type="text" name="name" placeholder="Name" />
+            <input class="form-control" type="email" name="email" placeholder="Email"
+                   data-validation="email" />
+            <input class="form-control" type="text" name="postcode" placeholder="Postcode" />
+            <input class="form-control last-input" name="country" id="country" placeholder="Country"
+                   data-validation="country" />
 
-        <input class="form-control" type="text" name="username" placeholder="Username"
-               data-validation="length alphanumeric" 
-               data-validation-length="4-12"
-               data-validation-error-msg="The username has to contain at least 4 characters " />
-        <input class="form-control" type="password" name="pass_confirmation" placeholder="Password (Min 8 Characters)"
-               data-validation="length"
-               data-validation-length="min8"
-               data-validation-error-msg="password need to contain at least 8 characters " />
-        <input class="form-control" type="password" name="pass" placeholder="Confirm Password"
-               data-validation="confirmation"/>
-        <input class="form-control" type="text" name="name" placeholder="Name" />
-        <input class="form-control" type="email" name="email" placeholder="Email"
-               data-validation="email" />
-        <input class="form-control" type="text" name="postcode" placeholder="Postcode" />
-        <input class="form-control last-input" name="country" id="country" placeholder="Country"
-               data-validation="country" />
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Register" />
+            <input class="form-control" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
-        <input class="btn btn-lg btn-primary btn-block" type="submit" value="Register" />
-        <input class="form-control" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <a class="btn btn-primary" href="/Finding-Festivals-Forever/index">Back to home</a>
+            <a class="btn btn-primary" href="/Finding-Festivals-Forever/login">Login</a>
+        </form>
 
-        <a class="btn btn-primary" href="/Finding-Festivals-Forever/index">Back to home</a>
-        <a class="btn btn-primary" href="/Finding-Festivals-Forever/login">Login</a>
-    </form>
+        <script src="${resourcesUrl}/js/register.js"></script>
 
-    <script src="${pageContext.request.contextPath}/resources/js/register.js"></script>
-
-</body>
+    </body>
 </html>

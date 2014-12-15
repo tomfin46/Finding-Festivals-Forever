@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package festivals.controller;
 
 import festivals.model.user.RegisterResult;
@@ -82,13 +77,7 @@ public class LoginController {
     public String register(@ModelAttribute User user, ModelMap model) {
         dbConnection = DatabaseConnection.getInstance();
 
-        RegisterResult registerResult = RegisterResult.GENERAL_ERROR;
-
-        try {
-            registerResult = tryRegister(user);
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        RegisterResult registerResult = tryRegister(user);
 
         String result;
         switch (registerResult) {
@@ -110,7 +99,13 @@ public class LoginController {
         return "result";
     }
 
-    private RegisterResult tryRegister(User user) throws SQLException {
+    /**
+     * Try to register a new user in the database
+     * 
+     * @param user User to try and register
+     * @return Result of register attempt
+     */
+    private RegisterResult tryRegister(User user) {
         RegisterResult registerResult = RegisterResult.FATAL_ERROR;
 
         if (userAlreadyExists(user)) {
@@ -137,6 +132,12 @@ public class LoginController {
         return registerResult;
     }
 
+    /**
+     * Query database for a specific user to check if it exists already
+     * 
+     * @param user User to query
+     * @return User already exists
+     */
     private boolean userAlreadyExists(User user) {
         String queryUser = "SELECT username, password, enabled FROM users WHERE username = ? ";
         try {

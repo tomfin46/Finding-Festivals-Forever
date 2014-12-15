@@ -1,16 +1,11 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /*global window, console, $, navigator, localStorage, alert, Utils, GoogleMapsComponent, WeatherComponent, moment */
 
 var GeoLocation = (function () {
 
     "use strict";
 
-    var geolocationSuccess, geolocationError, initWeatherComponent, refreshWeatherWithNewPosition, initMapsComponent, refreshMapsWithNewPosition, shouldUseWindIcon, showError, useDefault;
+    var geolocationSuccess, geolocationError, initWeatherComponent, refreshWeatherWithNewPosition,
+            initMapsComponent, refreshMapsWithNewPosition, shouldUseWindIcon, showError, useDefault;
 
     geolocationSuccess = function (position) {
         try {
@@ -47,7 +42,6 @@ var GeoLocation = (function () {
     };
 
     initWeatherComponent = function (position) {
-        // Retrive the cache
         var cache = localStorage.weatherCache && JSON.parse(localStorage.weatherCache),
                 date = new Date(),
                 thirtyMin = 30 * 60 * 1000,
@@ -67,7 +61,6 @@ var GeoLocation = (function () {
             WINDSPEED = Utils.getSpeedFormat(); // mph or kph
 
             $.each(cache.data.forecast_List, function () {
-                // "this" holds a forecast object
 
                 // Get the local time of this forecast (the api returns it in utc)
                 var localTime = new Date(this.dateTime - offset),
@@ -108,22 +101,17 @@ var GeoLocation = (function () {
 
             });
         }
-        else {
-
-            // If the cache is old or nonexistent, issue a new AJAX request to the controller
-
+        else { // If the cache is old or nonexistent, request new data from weather controller then recall success handler
             $.ajax({
                 type: 'Get',
                 url: Utils.getPageContext() + '/weather/forecast?lat=' + position.coords.latitude + '&lon=' + position.coords.longitude,
                 success: function (response) {
 
-                    // Store the cache
                     localStorage.weatherCache = JSON.stringify({
-                        timestamp: (new Date()).getTime(), // getTime() returns milliseconds
+                        timestamp: (new Date()).getTime(),
                         data: response
                     });
 
-                    // Call the function again
                     GeoLocation.geolocationSuccess(position);
                 }
             });
@@ -154,6 +142,7 @@ var GeoLocation = (function () {
     };
 
     shouldUseWindIcon = function (data) {
+        // If wind speed is high enough then change weather icon to incorporate wind
         if (data.windSpeed >= 25) {
             if (data.weatherIconName.equalsIgnoreCase("01d") || data.weatherIconName.equalsIgnoreCase("02d")) {
                 data.weatherIconName = "Cloud-Wind-Sun";

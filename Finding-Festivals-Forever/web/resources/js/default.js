@@ -1,14 +1,5 @@
+/*global document, navigator, $, GoogleMapsComponent, GeoLocation, WeatherComponent, FestivalsList, Utils */
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/*global document, $, GoogleMapsComponent, WeatherComponent, FestivalsList */
-
-/*
- * Execute when DOM is loaded
- */
 $(function () {
 
     "use strict";
@@ -30,8 +21,8 @@ $(function () {
         type: 'Get',
         url: Utils.getPageContext() + '/festivals',
         success: function (festivals) {
-            $.each(festivals, function (idx, festival) {
-                FestivalsList.addFestival(festival);
+            $.each(festivals, function () {
+                FestivalsList.addFestival(this);
             });
         }
     });

@@ -10,15 +10,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Add Festival</title>
+        <title>Festivals Admin</title>
 
+        <c:url value='/resources' var="resourcesUrl" />
         <!-- CSS Files -->
         <!-- External-->
-        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
 
         <!--Internal -->
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/forms.css" />
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/festivalsList.css" />
+        <link rel="stylesheet" type="text/css" href="${resourcesUrl}/css/forms.css" />
+        <link rel="stylesheet" type="text/css" href="${resourcesUrl}/css/components/festivalsList.css" />
 
         <!-- JavaScript Files -->
         <!--External-->
@@ -26,8 +27,10 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script>
 
         <!--Internal-->
-        <script src="${pageContext.request.contextPath}/resources/js/utils.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/components/festivalsList.js"></script>
+        <script src="${resourcesUrl}/js/utils.js"></script>
+        <script src="${resourcesUrl}/js/components/festivalsList.js"></script>
+        <script src="${resourcesUrl}/js/festivalsadmin.js"></script>
+
 
         <style>
             .jumbotron {
@@ -36,10 +39,9 @@
         </style>
     </head>
     <body>
-
         <div id="pageContextPath" data-page-context="${pageContext.request.contextPath}"></div>
         <div id="csrfToken" name="${_csrf.parameterName}" data-csrf-token="${_csrf.token}"></div>
-        
+
         <div role="tabpanel">
 
             <!-- Nav tabs -->
@@ -92,25 +94,7 @@
 
         </div>
 
-
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
-        <script>
-            $('#tabs a').click(function (e) {
-                e.preventDefault();
-                $(this).tab('show');
-            });
-
-            $.ajax({
-                type: 'Get',
-                url: Utils.getPageContext() + '/festivals',
-                success: function (festivals) {
-                    $.each(festivals, function (idx, festival) {
-                        FestivalsList.addFestival(festival, true);
-                    });
-                }
-            });
-        </script>
 
     </body>
 </html>

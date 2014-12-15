@@ -2,28 +2,23 @@
     Document   : login
     Created on : Oct 31, 2014, 11:14:38 PM
     Author     : CharaKatiri
-    source: view-source:http://getbootstrap.com/examples/signin/
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <link rel="icon" href="../../favicon.ico">
-
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Log in</title>
 
+        <c:url value='/resources' var="resourcesUrl" />
         <!-- CSS Files -->
         <!-- External-->
-        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
 
         <!--Internal -->
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/forms.css" />
+        <link rel="stylesheet" type="text/css" href="${resourcesUrl}/css/forms.css" />
     </head>
 
     <body>

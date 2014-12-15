@@ -1,12 +1,13 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/*global $ */
+$(function () {
 
-$.validate({
-    modules: 'location, security',
-    onModulesLoaded: function () {
-        $('#country').suggestCountry();
-    }
+    "use strict";
+
+    // Ensure register form is validated using jQuery Validator plugin
+    $.validate({
+        modules: 'location, security',
+        onModulesLoaded: function () {
+            $('#country').suggestCountry(); // use country suggestions for easy country entry
+        }
+    });
 });

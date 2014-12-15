@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package festivals.model.user;
 
 /**
- * Enum for results from trying to register new user
+ * Enumeration for results from trying to register new user
  *
  * @author Tom Finlayson
  */

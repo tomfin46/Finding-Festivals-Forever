@@ -5,16 +5,20 @@
 
 <html>
     <head>
-        <meta charset=UTF-8>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Festival Finder Forever!</title>
+
+        <c:url value='/resources' var="resourcesUrl" />
         <!-- CSS Files -->
         <!-- External-->
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
         <link href="http://getbootstrap.com/examples/carousel/carousel.css" rel="stylesheet"> <!-- Bootstrap Carousel -->
 
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/default.css" />
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/mapsComponent.css" />
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/weatherComponent.css" />
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/festivalsList.css" />
+        <!--Internal-->
+        <link rel="stylesheet" type="text/css" href="${resourcesUrl}/css/default.css" />
+        <link rel="stylesheet" type="text/css" href="${resourcesUrl}/css/components/mapsComponent.css" />
+        <link rel="stylesheet" type="text/css" href="${resourcesUrl}/css/components/weatherComponent.css" />
+        <link rel="stylesheet" type="text/css" href="${resourcesUrl}/css/components/festivalsList.css" />
 
         <!-- JavaScript Files -->
         <!--External-->
@@ -24,23 +28,16 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.1.47/jquery.form-validator.min.js"></script> <!-- JQuery Form Validator -->
 
         <!--Internal-->
-        <script src="${pageContext.request.contextPath}/resources/js/utils.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/dataBinder.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/share.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/geolocation.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/components/genericComponent.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/components/googleMapsComponent.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/components/weatherComponent.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/components/festivalsList.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/default.js"></script>
-
-        <title>Festival Finder Forever!</title>
-
+        <script src="${resourcesUrl}/js/utils.js"></script>
+        <script src="${resourcesUrl}/js/share.js"></script>
+        <script src="${resourcesUrl}/js/geolocation.js"></script>
+        <script src="${resourcesUrl}/js/components/googleMapsComponent.js"></script>
+        <script src="${resourcesUrl}/js/components/weatherComponent.js"></script>
+        <script src="${resourcesUrl}/js/components/festivalsList.js"></script>
+        <script src="${resourcesUrl}/js/default.js"></script>
     </head>
 
     <body>
-        <!--    declaring top of the page -->
-        <a id="top"></a>
         <div id="pageContextPath" data-page-context="${pageContext.request.contextPath}"></div>
         <div class="authorizeUser">
             <sec:authorize access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')">
@@ -53,6 +50,10 @@
                 document.getElementById("logoutForm").submit();
             }
         </script>
+
+
+        <!-- Nav Bar
+        ================================================== -->
 
         <nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
             <div class="container">
@@ -69,7 +70,8 @@
 
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="/Finding-Festivals-Forever/favourites">Favourites</a></li>
+                        <c:url value='/favourites' var="favouritesUrl" />
+                        <li><a href="${favouritesUrl}">Favourites</a></li>
 
                         <c:choose>
                             <c:when test="${pageContext.request.userPrincipal.name != null}">
@@ -77,8 +79,9 @@
                                 <li><a href="javascript:formSubmit()">Logout</a></li>
 
                                 <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                    <c:url value='/festivals/manage' var="manageFestivalsUrl" />
                                     <li>
-                                        <a href="/Finding-Festivals-Forever/festivals/manage">Manage Festivals</a>
+                                        <a href="${manageFestivalsUrl}">Manage Festivals</a>
                                     </li>
                                 </sec:authorize>
                             </c:when>
@@ -136,14 +139,17 @@
                                        value="${_csrf.token}" />
                             </form>
                         </sec:authorize>
-                    </ul>
+                    </ul><!-- /.navbar-nav -->
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container -->
         </nav><!-- /.navbar -->
 
+        <!-- /.Nav Bar
+        ================================================== -->
 
         <!-- Carousel
         ================================================== -->
+
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
             <!-- Indicators -->
@@ -155,35 +161,35 @@
 
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                    <img src="${pageContext.request.contextPath}/resources/images/festivals2.jpg" alt="">
+                    <img src="${resourcesUrl}/images/festivals2.jpg" alt="">
                     <div class="container">
                         <div class="carousel-caption">
                             <h1>Finding Festivals Forever!</h1>
                             <p>Looking for festivals around you? Looking for specific dates? Looking for performers? You are in the right place! </p>
                         </div>
-                    </div> <!-- ./container -->
-                </div> <!-- ./item active -->
+                    </div> <!-- /.container -->
+                </div> <!-- /.item active -->
 
                 <div class="item">
-                    <img src="${pageContext.request.contextPath}/resources/images/festivals1.jpg" alt="">
+                    <img src="${resourcesUrl}/images/festivals1.jpg" alt="">
                     <div class="container">
                         <div class="carousel-caption">
                             <h1>Finding Festivals Forever!</h1>
                             <p>Find the biggest festivals here!</p>
                         </div>
-                    </div> <!-- ./container -->
-                </div> <!-- ./item -->
+                    </div> <!-- /.container -->
+                </div> <!-- /.item -->
 
                 <div class="item">
-                    <img src="${pageContext.request.contextPath}/resources/images/festivals.jpg" alt="">
+                    <img src="${resourcesUrl}/images/festivals.jpg" alt="">
                     <div class="container">
                         <div class="carousel-caption">
                             <h1>Finding Festivals Forever!</h1>
                             <p>The biggest music festivals in the UK can be found here!</p>
                         </div>
-                    </div> <!-- ./container -->
-                </div> <!-- ./item -->
-            </div> <!-- ./carousel-inner -->
+                    </div> <!-- /.container -->
+                </div> <!-- /.item -->
+            </div> <!-- /.carousel-inner -->
 
 
             <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
@@ -196,8 +202,11 @@
             </a>
         </div><!-- /.carousel -->
 
+        <!-- /.Carousel
+        ================================================== -->
 
-        <!-- START THE FEATURETTES -->
+        <!-- START THE FEATURETTES
+        ==================================================-->
 
         <div class="row featurette festivals">
             <div class="col-md-7">
@@ -211,7 +220,7 @@
                 <div class="map-canvas"></div>
             </div>
 
-        </div> <!-- ./festivals featurette -->
+        </div> <!-- /.festivals.featurette -->
 
         <hr class="featurette-divider">
 
@@ -244,7 +253,7 @@
                 <div class="weatherComponent"></div>
             </div>
 
-        </div> <!-- ./ weather featurette -->
+        </div> <!-- /.weather.featurette -->
 
         <hr class="featurette-divider">
 
@@ -259,20 +268,14 @@
                 <a class="twitter-share-button share-button" href="https://twitter.com/share">Tweet</a><br/>
                 <div class="fb-share-button share-button" data-href="${pageContext.request.contextPath}"></div>
             </div>
-        </div> <!-- ./featurette -->
+        </div> <!-- /.share.featurette -->
 
         <hr class="featurette-divider">
 
-        <div class="row featurette">
-            <div class="col-md-2">
-
-                <!--    bottom of the page. by clicking here the user will go back to top -->
-                <a href="#" class="back-to-top btn btn-default">Back to Top </a> 
-            </div>
-        </div> <!-- ./featurette -->
+        <!-- dynamically appearing and smooth scrolling back to top of page button -->
+        <a href="#" class="back-to-top btn btn-default">Back to Top </a> 
 
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/register.js"></script>
+        <script src="${resourcesUrl}/js/register.js"></script>
     </body>
-
 </html>

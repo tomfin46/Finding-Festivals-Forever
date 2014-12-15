@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package festivals.controller;
 
 import festivals.model.festival.BaseFestival;
@@ -22,8 +17,6 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -81,6 +74,7 @@ public class FestivalsController {
 
     /**
      * Navigate to the manage festivals page
+     * Restricted to only users with administrator access
      *
      * @return Manage Festivals page file name
      */
@@ -92,6 +86,7 @@ public class FestivalsController {
 
     /**
      * Add new festival to the database
+     * Restricted to only users with administrator access
      *
      * @param festival Festival to add
      * @return Manage Festivals page file name
@@ -111,6 +106,7 @@ public class FestivalsController {
 
     /**
      * Remove festival from the database
+     * Restricted to only users with administrator access
      *
      * @param festivalId Festival to remove
      * @return Manage Festivals page file name
@@ -126,6 +122,13 @@ public class FestivalsController {
         return "festivalsadmin";
     }
 
+    /**
+     * Construct a list of festivals to be returned to the client
+     * 
+     * @param sqlQuery query for which festivals to return
+     * @param params parameters for SQL query
+     * @return List of festivals for client
+     */
     private List<IFestival> constructFestivalsList(String sqlQuery, Object... params) {
         List<IFestival> festivals = new ArrayList<>();
 

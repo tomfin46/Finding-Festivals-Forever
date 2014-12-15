@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package festivals.controller;
 
 import festivals.service.utils.DatabaseConnection;
@@ -53,6 +48,7 @@ public class FavouritesController {
     public boolean addToFavourites(Principal principal, @RequestParam(value = "festival") int festivalId) {
         dbConnection = DatabaseConnection.getInstance();
 
+        // If the user is logged in then principal is valid
         if (principal != null) {
             String addFavourite = "INSERT INTO user_favourites (Username, Favourite) VALUES (?, ?);";
             String username = principal.getName();
@@ -77,6 +73,7 @@ public class FavouritesController {
     public boolean removeFromFavourites(Principal principal, @RequestParam(value = "festival") int festivalId) {
         dbConnection = DatabaseConnection.getInstance();
 
+        // If the user is logged in then principal is valid
         if (principal != null) {
             String addFavourite = "DELETE FROM user_favourites WHERE Username=? AND Favourite=?;";
             String username = principal.getName();
@@ -101,6 +98,7 @@ public class FavouritesController {
     public boolean isFavourite(Principal principal, @RequestParam(value = "festival") int festivalId) {
         dbConnection = DatabaseConnection.getInstance();
 
+        // If the user is logged in then principal is valid
         if (principal != null) {
             String addFavourite = "SELECT Username, Favourite FROM user_favourites WHERE Username = ? AND Favourite = ?";
             String username = principal.getName();

@@ -4,32 +4,33 @@
     Author     : CharaKatiri
 --%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Favourites</title>
 
+        <c:url value='/resources' var="resourcesUrl" />
         <!-- CSS Files -->
         <!-- External-->
-        <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"> <!-- Bootstrap -->
 
         <!--Internal-->        
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components/festivalsList.css" />
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/favourites.css" />
+        <link rel="stylesheet" type="text/css" href="${resourcesUrl}/css/components/festivalsList.css" />
+        <link rel="stylesheet" type="text/css" href="${resourcesUrl}/css/favourites.css" />
 
         <!-- JavaScript Files -->
         <!--External-->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> <!-- JQuery -->
 
         <!--Internal-->
-        <script src="${pageContext.request.contextPath}/resources/js/utils.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/components/festivalsList.js"></script>
-        <script src="${pageContext.request.contextPath}/resources/js/favourites.js"></script>
+        <script src="${resourcesUrl}/js/utils.js"></script>
+        <script src="${resourcesUrl}/js/components/festivalsList.js"></script>
+        <script src="${resourcesUrl}/js/favourites.js"></script>
 
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Favourites</title>
     </head>
     <body>
         <div id="pageContextPath" data-page-context="${pageContext.request.contextPath}"></div>
