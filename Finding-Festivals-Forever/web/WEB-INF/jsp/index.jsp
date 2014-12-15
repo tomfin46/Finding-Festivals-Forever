@@ -262,7 +262,7 @@
                 <div class="col-md-2">
 
                     <!--    bottom of the page. by clicking here the user will go back to top -->
-                    <a href="#top">Back to top </a> 
+                    <a href="#" class="back-to-top btn btn-default">Back to Top </a> 
                 </div>
             </div> <!-- ./featurette -->
 

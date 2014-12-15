@@ -10,7 +10,8 @@ var Utils = (function () {
     "use strict";
 
     var isValidVariable, isValidNonEmptyString, isValidFn,
-            getPageContext, getTemperatureFormat, getSpeedFormat;
+            getPageContext, getTemperatureFormat, getSpeedFormat,
+            setUpDynamicBackToTop;
 
     isValidVariable = function (variable) {
         return variable !== null && typeof variable !== 'undefined';
@@ -31,13 +32,32 @@ var Utils = (function () {
         }
         return "";
     };
-    
-    getTemperatureFormat = function() {
+
+    getTemperatureFormat = function () {
         return $('input[name="temp"]:checked').val();
     };
-    
-    getSpeedFormat = function() {
+
+    getSpeedFormat = function () {
         return $('input[name="speed"]:checked').val();
+    };
+
+    setUpDynamicBackToTop = function () {
+        var offset = 220,
+                duration = 500;
+        
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > offset) {
+                $('.back-to-top').fadeIn(duration);
+            } else {
+                $('.back-to-top').fadeOut(duration);
+            }
+        });
+
+        $('.back-to-top').click(function (event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, duration);
+            return false;
+        });
     };
 
     return {
@@ -46,6 +66,7 @@ var Utils = (function () {
         isValidFn: isValidFn,
         getPageContext: getPageContext,
         getTemperatureFormat: getTemperatureFormat,
-        getSpeedFormat: getSpeedFormat
+        getSpeedFormat: getSpeedFormat,
+        setUpDynamicBackToTop: setUpDynamicBackToTop
     };
 }());
